@@ -1,15 +1,11 @@
 "use client";
 
-import { Visibility, VisibilityOff } from "@mui/icons-material";
-import {
-  Typography,
-  TextField,
-  Button,
-  Checkbox,
-  IconButton,
-  InputAdornment,
-} from "@mui/material";
-import Link from "next/link";
+import Header from "@/components/LoginComponents/Header";
+import LoginLogo from "@/components/LoginComponents/LoginLogo";
+import RegisterRedirect from "@/components/LoginComponents/RegisterRedirect";
+import RememberMe from "@/components/LoginComponents/RememberMe";
+import SubmitButton from "@/components/LoginComponents/SubmitButton";
+import TextInput from "@/components/LoginComponents/TextInput";
 import { useState } from "react";
 
 export default function Login() {
@@ -23,134 +19,48 @@ export default function Login() {
   const isButtonDisabled = !email || !password;
 
   return (
-    <form className="flex flex-col justify-center items-center w-full h-screen max-w-md mx-auto ">
+    <form className="flex flex-col justify-center items-center w-full h-screen max-w-md mx-auto">
       <div className="flex flex-col justify-center items-center gap-3">
         {/* LogoMark */}
-        <div className="bg-miniGrid size-12 rounded-xl shadow-icon-shadow">
-          <div className="size-12 border-[0.3px] border-[#D0D5DD] rounded-xl flex justify-center items-center mb-3 shadow-icon-shadow relative">
-            <div className="size-6 rounded-full bg-violet-gradient shadow-icon-shadow" />
-            {/* Adjusted absolute div to cover bottom half */}
-            <div className="absolute bottom-0 left-0 w-full h-1/2 rounded-b-xl bg-[#FFFFFF33] backdrop-blur-[7.5px] shadow-icon-shadow" />
-          </div>
-        </div>
+        <LoginLogo />
 
-        {/* Header */}
-        <Typography
-          variant="h4"
-          component="h1"
-          align="center"
-          className="text-[#171718] text-2xl md:text-[32px]"
-          fontWeight={700}
-        >
-          تسجيل الدخول
-        </Typography>
-
-        {/* Subheader */}
-        <Typography
-          variant="body1"
-          component="p"
-          align="center"
-          className="text-[#434549] font-normal"
-        >
-          مرحبًا بك مرة أخرى! الرجاء إدخال تفاصيلك.
-        </Typography>
+        <Header
+          title="تسجيل الدخول"
+          subtitle="مرحبًا بك مرة أخرى! الرجاء إدخال تفاصيلك."
+        />
       </div>
 
       {/* Inputs for email and password */}
       <div className="flex flex-col w-full gap-4 mt-8">
         {/* Email Input */}
-        <TextField
+        <TextInput
           label="البريد الالكتروني"
           type="email"
-          variant="outlined"
-          fullWidth
+          value={email}
           onChange={(e) => setEmail(e.target.value)} // Update state on change
-          sx={{
-            "& label": {
-              left: "unset",
-              right: "1.75rem",
-              transformOrigin: "right",
-            },
-            "& legend": {
-              textAlign: "right",
-            },
-            "& .MuiInputBase-input": {
-              textAlign: "left", // Align the input text to the right for RTL
-            },
-          }}
         />
 
         {/* Password Input */}
-        <TextField
+        <TextInput
           label="كلمة السر"
-          fullWidth
           type={showPassword ? "text" : "password"}
-          variant="outlined"
+          value={password}
           onChange={(e) => setPassword(e.target.value)} // Update state on change
-          sx={{
-            "& label": {
-              left: "unset",
-              right: "1.75rem",
-              transformOrigin: "right",
-            },
-            "& legend": {
-              textAlign: "right",
-            },
-          }}
-          slotProps={{
-            input: {
-              endAdornment: (
-                <InputAdornment position="end">
-                  <IconButton
-                    aria-label="toggle password visibility"
-                    onClick={handleClickShowPassword}
-                    edge="end"
-                  >
-                    {showPassword ? <VisibilityOff /> : <Visibility />}
-                  </IconButton>
-                </InputAdornment>
-              ),
-            },
-          }}
+          showPassword={showPassword}
+          onTogglePassword={handleClickShowPassword}
         />
 
         {/* Remember Me and Forgot Password */}
-        <div className="mt-2 flex justify-between items-center text-sm">
-          <div className="flex items-center">
-            <Checkbox />
-            <Typography
-              variant="body2"
-              component="p"
-              className="text-[#434549]"
-            >
-              تذكر لمدة 30 يوما
-            </Typography>
-          </div>
-          <Link href="/forgotpassword" className="text-primary">
-            نسيت كلمة السر
-          </Link>
-        </div>
+        <RememberMe />
       </div>
 
       {/* Submit Button */}
-      <Button
-        variant="contained"
-        color="primary"
-        fullWidth
-        disabled={isButtonDisabled} // Disable the button if inputs are empty
-        className={`rounded-[100px] text-lg md:text-xl font-medium h-12 mt-6 bg-primary`}
-      >
-        تسجيل الدخول
-      </Button>
+      <SubmitButton
+        disabled={isButtonDisabled}
+        onClick={() => console.log("Login clicked")}
+      />
 
-      <div className="mt-8 flex justify-center items-center text-sm">
-        <p>
-          ليس لديك حساب؟{" "}
-          <Link href={"/register"} className="text-primary">
-            تسجيل حساب جديد
-          </Link>
-        </p>
-      </div>
+      <RegisterRedirect />
     </form>
   );
 }

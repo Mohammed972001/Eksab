@@ -7,6 +7,7 @@ export default function AuthLayout({
   children: React.ReactNode;
 }) {
   return (
+    // Auth pages layout across multiple pages
     <html lang="en" dir="rtl">
       <body className="antialiased bg-gray-100 flex items-center justify-center h-screen">
         <ThemeWrapper>

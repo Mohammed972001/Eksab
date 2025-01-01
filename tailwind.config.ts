@@ -8,8 +8,12 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors:{
-        primary: "#3454B4"
+      colors: {
+        primary: "#3454B4",
+        shadeBlack: "#171718",
+        shadeGray: "#434549",
+        borderColor: "#D0D5DD",
+        blurColor: "#FFFFFF33",
       },
       backgroundImage: {
         "violet-gradient":
@@ -29,7 +33,7 @@ const config: Config = {
         "7.5": "7.5px",
       },
       fontFamily: {
-        notoSans: ['NotoSans', 'sans-serif'],
+        notoSans: ["NotoSans", "sans-serif"],
       },
     },
   },

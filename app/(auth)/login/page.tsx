@@ -39,7 +39,7 @@ export default function Login() {
           variant="h4"
           component="h1"
           align="center"
-          className="text-[#171718]"
+          className="text-[#171718] text-2xl md:text-[32px]"
           fontWeight={700}
         >
           تسجيل الدخول
@@ -115,7 +115,7 @@ export default function Login() {
         />
 
         {/* Remember Me and Forgot Password */}
-        <div className="mt-2 flex justify-between items-center">
+        <div className="mt-2 flex justify-between items-center text-sm">
           <div className="flex items-center">
             <Checkbox />
             <Typography
@@ -138,12 +138,12 @@ export default function Login() {
         color="primary"
         fullWidth
         disabled={isButtonDisabled} // Disable the button if inputs are empty
-        className={`rounded-[100px] text-xl font-medium h-12 mt-6 bg-primary`}
+        className={`rounded-[100px] text-lg md:text-xl font-medium h-12 mt-6 bg-primary`}
       >
         تسجيل الدخول
       </Button>
 
-      <div className="mt-8 flex justify-center items-center">
+      <div className="mt-8 flex justify-center items-center text-sm">
         <p>
           ليس لديك حساب؟{" "}
           <Link href={"/register"} className="text-primary">

@@ -8,9 +8,28 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+      colors:{
+        primary: "#3454B4"
+      },
+      backgroundImage: {
+        "violet-gradient":
+          "linear-gradient(26.57deg, #53389E 8.33%, #6941C6 91.67%)",
+        miniGrid: "url(/auth/miniGridBg.svg)",
+        iconGradient: `
+        linear-gradient(180deg, #FFFFFF 0%, #D0D5DD 100%)
+      `,
+        gridMdBackground: "url(/auth/gridMdBackground.svg)",
+      },
+      boxShadow: {
+        "icon-shadow":
+          "0px 1.5px 3px 0px #1018280F, 0px 1.5px 4.5px 0px #1018281A",
+      },
+      backdropBlur: {
+        // Custom blur level
+        "7.5": "7.5px",
+      },
+      fontFamily: {
+        notoSans: ['NotoSans', 'sans-serif'],
       },
     },
   },

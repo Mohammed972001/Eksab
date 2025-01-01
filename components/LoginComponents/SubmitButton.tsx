@@ -4,9 +4,10 @@ import { Button } from "@mui/material";
 interface SubmitButtonProps {
   disabled: boolean;
   onClick: () => void;
+  buttonText: string; 
 }
 
-const SubmitButton: React.FC<SubmitButtonProps> = ({ disabled, onClick }) => (
+const SubmitButton: React.FC<SubmitButtonProps> = ({ disabled, onClick, buttonText }) => (
   <Button
     variant="contained"
     color="primary"
@@ -15,7 +16,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ disabled, onClick }) => (
     onClick={onClick}
     className="rounded-[100px] text-lg md:text-xl font-medium h-12 mt-6 bg-primary"
   >
-    تسجيل الدخول
+    {buttonText}
   </Button>
 );
 

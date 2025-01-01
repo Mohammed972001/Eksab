@@ -58,6 +58,7 @@ export default function Login() {
       <SubmitButton
         disabled={isButtonDisabled}
         onClick={() => console.log("Login clicked")}
+        buttonText="تسجيل الدخول"
       />
 
       <RegisterRedirect />

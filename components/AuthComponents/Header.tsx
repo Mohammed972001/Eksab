@@ -4,7 +4,7 @@ import { Typography } from "@mui/material";
 // Define the type for the component's props
 interface HeaderProps {
   title: string;  // Title of the header
-  subtitle: string;  // Subtitle of the header
+  subtitle?: string;  // Subtitle of the header
 }
 
 // Functional component that displays a header with title and subtitle

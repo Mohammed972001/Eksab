@@ -7,6 +7,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { GoArrowRight } from "react-icons/go";
 import { useRouter } from "next/navigation";
+import LoginRedirect from "@/components/AuthComponents/LoginRedirect";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState(""); // State for email input
@@ -45,12 +46,7 @@ const ForgotPassword = () => {
         buttonText="إعادة تعيين كلمة المرور"
       />
 
-      <div className="flex items-center justify-center gap-2 mt-8">
-        <GoArrowRight className="size-5" />
-        <Link href={"/login"} className="text-shadeGray text-sm font-medium">
-          العودة لصفحة تسجيل الدخول
-        </Link>
-      </div>
+      <LoginRedirect />
     </form>
   );
 };

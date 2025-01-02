@@ -1,11 +1,11 @@
 "use client";
 
 import Header from "@/components/AuthComponents/Header";
-import LoginLogo from "@/components/LoginComponents/LoginLogo";
-import RegisterRedirect from "@/components/LoginComponents/RegisterRedirect";
-import RememberMe from "@/components/LoginComponents/RememberMe";
-import SubmitButton from "@/components/AuthComponents/SubmitButton";
-import TextInput from "@/components/AuthComponents/TextInput";
+import LoginLogo from "@/components/AuthComponents/LoginComponents/LoginLogo";
+import RegisterRedirect from "@/components/AuthComponents/LoginComponents/RegisterRedirect";
+import RememberMe from "@/components/AuthComponents/LoginComponents/RememberMe";
+import SubmitButton from "@/components/SharedComponents/SubmitButton";
+import TextInput from "@/components/SharedComponents/TextInput";
 import { useState } from "react";
 
 export default function Login() {

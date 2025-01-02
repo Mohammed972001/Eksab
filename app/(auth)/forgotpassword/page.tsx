@@ -1,11 +1,9 @@
 "use client";
 import HeaderIcon from "@/components/AuthComponents/HeaderIcon";
 import Header from "@/components/AuthComponents/Header";
-import SubmitButton from "@/components/AuthComponents/SubmitButton";
-import TextInput from "@/components/AuthComponents/TextInput";
-import Link from "next/link";
+import SubmitButton from "@/components/SharedComponents/SubmitButton";
+import TextInput from "@/components/SharedComponents/TextInput";
 import React, { useState } from "react";
-import { GoArrowRight } from "react-icons/go";
 import { useRouter } from "next/navigation";
 import LoginRedirect from "@/components/AuthComponents/LoginRedirect";
 

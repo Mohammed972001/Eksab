@@ -1,7 +1,7 @@
 "use client"
 import Header from "@/components/AuthComponents/Header";
 import HeaderIcon from "@/components/AuthComponents/HeaderIcon";
-import SubmitButton from "@/components/AuthComponents/SubmitButton";
+import SubmitButton from "@/components/SharedComponents/SubmitButton";
 import { useRouter } from "next/navigation";
 import React from "react";
 

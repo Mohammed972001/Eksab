@@ -2,7 +2,7 @@
 import Header from "@/components/AuthComponents/Header";
 import HeaderIcon from "@/components/AuthComponents/HeaderIcon";
 import LoginRedirect from "@/components/AuthComponents/LoginRedirect";
-import SubmitButton from "@/components/AuthComponents/SubmitButton";
+import SubmitButton from "@/components/SharedComponents/SubmitButton";
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
@@ -57,7 +57,7 @@ const VerifyCode = () => {
               value={digit}
               onChange={(e) => handleInputChange(e.target.value, index)}
               onKeyDown={(e) => handleKeyDown(e, index)}
-              className="w-20 h-20 text-center border border-[#70737A] rounded-[4px] focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-[45px] font-medium"
+              className="w-16 h-16 text-center border border-[#70737A] rounded-[4px] focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-[45px] font-medium md:w-20 md:h-20"
             />
           ))}
         </div>

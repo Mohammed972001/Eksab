@@ -1,7 +1,7 @@
 "use client";
 
 import Header from "@/components/AuthComponents/Header";
-import LoginLogo from "@/components/AuthComponents/LoginComponents/LoginLogo";
+import EksabLogo from "@/components/SharedComponents/EksabLogo";
 import RegisterRedirect from "@/components/AuthComponents/LoginComponents/RegisterRedirect";
 import RememberMe from "@/components/AuthComponents/LoginComponents/RememberMe";
 import SubmitButton from "@/components/SharedComponents/SubmitButton";
@@ -19,10 +19,10 @@ export default function Login() {
   const isButtonDisabled = !email || !password;
 
   return (
-    <form className="flex flex-col justify-center items-center w-full h-screen max-w-md mx-auto">
+    <form className="flex flex-col justify-center items-center w-full  max-w-md mx-auto">
       <div className="flex flex-col justify-center items-center gap-3">
         {/* LogoMark */}
-        <LoginLogo />
+        <EksabLogo />
 
         <Header
           title="تسجيل الدخول"

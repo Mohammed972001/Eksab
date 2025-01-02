@@ -12,7 +12,7 @@ const OTP = () => {
     router.push("/login");
   };
   return (
-    <div className="flex flex-col justify-center items-center w-full h-screen max-w-md mx-auto">
+    <div className="flex flex-col justify-center items-center w-full max-w-md mx-auto">
       <div className="flex flex-col justify-center items-center gap-6">
         <HeaderIcon imgSrc="/auth/mail.svg" alt="mail" />
         <div className="flex flex-col justify-center items-center gap-3">

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Home() {
   return (
-    <div className="p-4 flex flex-col items-center justify-center h-screen">
+    <div className="p-4 flex flex-col items-center justify-center min-h-[90vh]">
       <Typography variant="h2" gutterBottom>
         Welcome to Eksab
       </Typography>

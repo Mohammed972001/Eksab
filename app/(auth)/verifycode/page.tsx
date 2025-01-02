@@ -36,7 +36,7 @@ const VerifyCode = () => {
   }, [code]);
 
   return (
-    <form className="flex flex-col justify-center items-center w-full h-screen max-w-md mx-auto">
+    <form className="flex flex-col justify-center items-center w-full max-w-md mx-auto">
       <div className="flex flex-col justify-center items-center gap-3">
         <HeaderIcon imgSrc="/auth/key.svg" alt="key" />
         <Header

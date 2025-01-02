@@ -1,7 +1,7 @@
 import { FC } from "react";
 
-// Main logo icon component for the login screen
-const LoginLogo: FC = () => (
+// Main eksab logo icon component
+const EksabLogo: FC = () => (
   <div className="bg-miniGrid size-12 rounded-xl shadow-icon-shadow">  {/* Outer container with background, size, and shadow */}
     <div className="size-12 border-[0.3px] border-borderColor rounded-xl flex justify-center items-center mb-3 shadow-icon-shadow relative"> 
       {/* Inner container with border, flex for centering, shadow, and positioning */}
@@ -12,4 +12,4 @@ const LoginLogo: FC = () => (
   </div>
 );
 
-export default LoginLogo;
+export default EksabLogo;

@@ -17,7 +17,7 @@ const VerifyCode = () => {
         />
       </div>
 
-      <div className="flex flex-col justify-center items-center mt-8">
+      <div className="flex flex-col justify-center items-center mt-8 w-full">
         <div>placeholder</div>
         <SubmitButton
           buttonText="تحقق"

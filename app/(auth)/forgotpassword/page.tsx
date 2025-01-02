@@ -1,9 +1,58 @@
-import React from 'react'
+"use client";
+import HeaderIcon from "@/components/AuthComponents/HeaderIcon";
+import Header from "@/components/AuthComponents/Header";
+import SubmitButton from "@/components/AuthComponents/SubmitButton";
+import TextInput from "@/components/AuthComponents/TextInput";
+import Link from "next/link";
+import React, { useState } from "react";
+import { GoArrowRight } from "react-icons/go";
+import { useRouter } from "next/navigation";
 
 const ForgotPassword = () => {
-  return (
-    <div>ForgotPassword</div>
-  )
-}
+  const [email, setEmail] = useState(""); // State for email input
+  const router = useRouter();
 
-export default ForgotPassword
+  const isButtonDisabled = !email;
+
+  const handleSubmitButtonClick = () => {
+    router.push("/otp");
+  };
+
+  return (
+    <form className="flex flex-col justify-center items-center w-full h-screen max-w-md mx-auto">
+      <div className="flex flex-col justify-center items-center gap-3">
+        <HeaderIcon imgSrc="/auth/key.svg" alt="key" />
+        <Header
+          title="نسيت كلمة السر؟"
+          subtitle="لا تقلق، سنرسل لك تعليمات إعادة الضبط."
+        />
+      </div>
+
+      <div className="w-full mt-8">
+        {/* Email Input */}
+        <TextInput
+          label="البريد الالكتروني"
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)} // Update state on change
+        />
+      </div>
+
+      {/* Submit Button */}
+      <SubmitButton
+        disabled={isButtonDisabled}
+        onClick={handleSubmitButtonClick}
+        buttonText="إعادة تعيين كلمة المرور"
+      />
+
+      <div className="flex items-center justify-center gap-2 mt-8">
+        <GoArrowRight className="size-5" />
+        <Link href={"/login"} className="text-shadeGray text-sm font-medium">
+          العودة لصفحة تسجيل الدخول
+        </Link>
+      </div>
+    </form>
+  );
+};
+
+export default ForgotPassword;

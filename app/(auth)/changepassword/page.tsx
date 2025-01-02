@@ -21,9 +21,8 @@ const ChangePassword = () => {
 
   const isButtonDisabled = !password || !confirmPassword;
 
-  const handleSubmitButtonClick = (e: React.FormEvent) => {
-    e.preventDefault(); // Prevents form's default reload behavior
-    router.push("/otp");
+  const handleSubmitButtonClick = () => {
+    router.push("/resetsuccess");
   };
 
   return (
@@ -63,9 +62,7 @@ const ChangePassword = () => {
       {/* Submit Button */}
       <SubmitButton
         buttonText="إعادة تعيين كلمة المرور"
-        onClick={() => {
-          console.log("change password");
-        }}
+        onClick={handleSubmitButtonClick}
         disabled={isButtonDisabled}
       />
     </form>

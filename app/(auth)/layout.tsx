@@ -10,7 +10,7 @@ export default function AuthLayout({
   return (
     <ThemeWrapper>
       {/* Auth-specific layout components*/}
-      <main className="w-full min-h-[90vh] flex justify-center items-center bg-gridMdBackground bg-center bg-cover bg-no-repeat px-4 md:px-0">
+      <main className="w-full min-h-screen flex flex-col justify-center items-center bg-gridMdBackground bg-center bg-cover bg-no-repeat px-4 md:px-0">
         {children}
       </main>
     </ThemeWrapper>

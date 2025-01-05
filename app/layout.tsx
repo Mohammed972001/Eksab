@@ -19,7 +19,7 @@ export default function RootLayout({
       <body className="antialiased">
         <ThemeWrapper>
           <Navbar />
-          {children}
+          <div className="mt-20">{children}</div>
           <Footer />
         </ThemeWrapper>
       </body>

@@ -9,6 +9,7 @@ interface TextInputProps {
   onChange: React.ChangeEventHandler<HTMLInputElement | HTMLTextAreaElement>;
   showPassword?: boolean;
   onTogglePassword?: () => void;
+  required?: boolean; // Optional required prop
 }
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -18,10 +19,17 @@ const TextInput: React.FC<TextInputProps> = ({
   onChange,
   showPassword,
   onTogglePassword,
+  required,
 }) => {
   return (
     <TextField
-      label={label}
+      label={
+        // Conditionally append asterisk if required is true
+        <>
+          {label}
+          {required && <span className="text-red-500">*</span>}
+        </>
+      }
       type={type}
       value={value}
       onChange={onChange}
@@ -37,7 +45,7 @@ const TextInput: React.FC<TextInputProps> = ({
           textAlign: "right",
         },
         "& .MuiInputBase-input": {
-          textAlign: type === "password" || showPassword ? "right" : "left", // Keep text right-aligned for password fields
+          textAlign: type === "email" ? "left" : "right", // Keep text left-aligned for email fields
         },
       }}
       slotProps={{
@@ -50,9 +58,9 @@ const TextInput: React.FC<TextInputProps> = ({
                 edge="end"
               >
                 {showPassword ? (
-                  <Visibility sx={{ color: "primary.main" }} /> // Apply primary color to Visibility
+                  <Visibility sx={{ color: "primary.main" }} />
                 ) : (
-                  <VisibilityOff /> // Default color for VisibilityOff
+                  <VisibilityOff />
                 )}
               </IconButton>
             </InputAdornment>

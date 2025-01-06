@@ -2,6 +2,7 @@
 
 import Footer from "@/components/Footer/Footer";
 import ThemeWrapper from "../ThemeWrapper";
+import Sidebar from "@/components/NavigationComponents/Sidebar";
 
 export default function AuthLayout({
   children,
@@ -10,11 +11,12 @@ export default function AuthLayout({
 }) {
   return (
     <ThemeWrapper>
-      {/* Auth-specific layout components*/}
-      <main className="w-full min-h-screen flex flex-col justify-center items-center bg-gridMdBackground bg-center bg-cover bg-no-repeat px-4 md:px-0">
+      {/* Dashboard-specific layout components*/}
+      <main className="w-full min-h-screen flex bg-[#F9F9FA]">
+        <Sidebar/>
         {children}
+        <div className="self-end w-full"><Footer /></div>
       </main>
-      <Footer />
     </ThemeWrapper>
   );
 }

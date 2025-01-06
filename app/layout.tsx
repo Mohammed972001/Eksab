@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import ThemeWrapper from "./ThemeWrapper";
 import "./globals.css";
 import Navbar from "@/components/NavigationComponents/Navbar";
-import Footer from "@/components/Footer/Footer";
 
 export const metadata: Metadata = {
   title: "Eksab",
@@ -20,7 +19,6 @@ export default function RootLayout({
         <ThemeWrapper>
           <Navbar />
           <div className="mt-20">{children}</div>
-          <Footer />
         </ThemeWrapper>
       </body>
     </html>

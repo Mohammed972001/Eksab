@@ -29,6 +29,7 @@ const config: Config = {
           "0px 1.5px 3px 0px #1018280F, 0px 1.5px 4.5px 0px #1018281A",
         "navbar-shadow":
           "0px 1px 2px 0px #1018280D, 0px -2px 0px 0px #1018280D inset, 0px 0px 0px 1px #1018280D inset",
+        "card-shadow": "0px 1px 2px 0px #1018280D",
       },
       backdropBlur: {
         // Custom blur level

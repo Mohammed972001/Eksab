@@ -7,7 +7,7 @@ interface FilterButtonProps {
 
 const FilterButton = ({ buttonText }: FilterButtonProps) => {
   return (
-    <div className="border border-black rounded-[99px] bg-white flex items-center justify-center gap-2 px-6 py-[10px]">
+    <div className="border border-black rounded-[99px] bg-white flex items-center justify-center gap-2 px-6 py-[10px] cursor-pointer">
       <p className="text-shadeGray font-medium text-base text-nowrap">
         {buttonText}
       </p>

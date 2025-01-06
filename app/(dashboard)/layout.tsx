@@ -12,14 +12,16 @@ export default function AuthLayout({
   return (
     <ThemeWrapper>
       {/* Dashboard-specific layout components*/}
-      <main className="w-full min-h-screen flex bg-[#F9F9FA]">
+      <main className="w-full min-h-screen flex bg-[#F9F9FA] overflow-hidden">
         <div className="flex-1">
           <Sidebar />
         </div>
         <div className="w-full">
-          <div className="px-8 pt-6 w-full">{children}</div>
-          <div className="self-end w-full">
-            <Footer />
+          <div className="px-8 pt-6 w-full h-full relative">
+            {children}
+            <div className="w-full absolute bottom-0 left-0">
+              <Footer />
+            </div>
           </div>
         </div>
       </main>

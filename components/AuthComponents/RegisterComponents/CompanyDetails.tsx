@@ -68,7 +68,10 @@ const CompanyDetails = ({
       />
 
       {/* Upload Commercial Registration File */}
-      <FileUpload label={tabSpecificLabels[activeTab].commercialFileUpload} />
+      <FileUpload
+        label={tabSpecificLabels[activeTab].commercialFileUpload}
+        onFileUpload={(file) => console.log("Uploaded file:", file)}
+      />
 
       {/* VAT Certificate */}
       <TextInput
@@ -79,7 +82,10 @@ const CompanyDetails = ({
       />
 
       {/* Upload VAT Certificate File */}
-      <FileUpload label={tabSpecificLabels[activeTab].vatFileUpload} />
+      <FileUpload
+        label={tabSpecificLabels[activeTab].vatFileUpload}
+        onFileUpload={(file) => console.log("Uploaded VAT file:", file)}
+      />
 
       {/* Register Account Button */}
       <SubmitButton

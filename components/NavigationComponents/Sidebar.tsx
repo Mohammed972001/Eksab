@@ -1,8 +1,9 @@
 "use client";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React from "react";
 
+// main nav links
 const links = [
   {
     href: "/",
@@ -110,6 +111,7 @@ const links = [
   },
 ];
 
+// support and about us links
 const options = [
   {
     href: "/support",
@@ -159,9 +161,10 @@ const options = [
 const Sidebar = () => {
   const pathname = usePathname();
 
-  const isActive = (href: string) => pathname === href;
+  const isActive = (href: string) => pathname === href; // determine currently active pathname and link
   return (
     <div className="w-[272px] shadow-navbar-shadow bg-white h-[944px] flex justify-center items-start">
+      {/* display main navigation links */}
       <div className="pt-6 pb-8 w-full flex flex-col justify-start items-center">
         {links.map(({ href, text, icon }) => (
           <div
@@ -190,6 +193,8 @@ const Sidebar = () => {
         <p className="mt-4 mb-2 px-6 text-shadeGray w-full">
           المزيد من الخيارات
         </p>
+
+        {/* display option links about us and support */}
         {options.map(({ href, text, icon }) => (
           <div
             key={href}

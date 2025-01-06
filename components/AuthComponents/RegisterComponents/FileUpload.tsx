@@ -55,9 +55,9 @@ export const FileUpload = ({ label, onFileUpload }: FileUploadProps) => {
       <div className="flex flex-col justify-center items-start text-start">
         <p className="text-[12px] font-bold text-start">{label}</p>
         <div className="flex justify-center items-center gap-1">
-          <button className="text-[#6941C6] font-semibold text-[12px]">
+          <p className="text-[#6941C6] font-semibold text-[12px]">
             انقر للتحميل
-          </button>
+          </p>
           <p className="font-normal text-[#475467] text-[12px]">
             أو اسحب وأفلِت
           </p>

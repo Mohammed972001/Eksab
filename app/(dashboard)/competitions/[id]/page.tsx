@@ -1,5 +1,6 @@
 "use client";
 
+import { FileUpload } from "@/components/AuthComponents/RegisterComponents/FileUpload";
 import { ChevronLeftRounded } from "@mui/icons-material";
 import { FormControlLabel, Radio, RadioGroup, Typography } from "@mui/material";
 import Image from "next/image";
@@ -102,6 +103,7 @@ const CompetitionDetailPage = () => {
           <hr className="w-full" />
         </div>
 
+        {/* Form radio group */}
         <div className="flex flex-col items-start justify-center w-full">
           <p className="text-base font-semibold text-shadeBlack mb-3">
             قم بتحديد مكان انشاء المسابقة:
@@ -220,6 +222,18 @@ const CompetitionDetailPage = () => {
               </Typography>
             </div>
           </RadioGroup>
+        </div>
+
+        <div className="flex items-center gap-6 w-full">
+          <div className="flex flex-col justify-center items-center gap-4 py-10 px-12 bg-white rounded-xl border border-[#E9E9EA]">
+            <p className="text-[22px] font-medium text-black">شعار المسابقة</p>
+            <div className="flex flex-col justify-center items-center">
+              <FileUpload label={""} classContainer="flex-col border-none p-0" textClass="text-center items-center" />
+              <p className="text-[#70737A] text-[12px]">
+                SVG, PNG, JPG or GIF (max. 800x400px)
+              </p>
+            </div>
+          </div>
         </div>
       </form>
     </div>

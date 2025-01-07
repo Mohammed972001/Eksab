@@ -4,9 +4,16 @@ import Image from "next/image";
 interface FileUploadProps {
   label: string;
   onFileUpload?: (file: File) => void; // Callback when a file is uploaded
+  classContainer?: string;
+  textClass?: string;
 }
 
-export const FileUpload = ({ label, onFileUpload }: FileUploadProps) => {
+export const FileUpload = ({
+  label,
+  onFileUpload,
+  classContainer,
+  textClass,
+}: FileUploadProps) => {
   const [fileName, setFileName] = useState<string | null>(null); // State to track uploaded file name
   const fileInputRef = useRef<HTMLInputElement | null>(null); // Ref for the hidden file input
 
@@ -38,7 +45,7 @@ export const FileUpload = ({ label, onFileUpload }: FileUploadProps) => {
 
   return (
     <div
-      className="flex items-center gap-4 rounded-xl border border-[#E4E7EC] bg-white p-4 cursor-pointer"
+      className={`flex items-center gap-4 rounded-xl border border-[#E4E7EC] bg-white p-4 cursor-pointer ${classContainer}`}
       onDragOver={handleDragOver}
       onDrop={handleDrop}
       onClick={handleClick}
@@ -52,7 +59,9 @@ export const FileUpload = ({ label, onFileUpload }: FileUploadProps) => {
         />
       </div>
 
-      <div className="flex flex-col justify-center items-start text-start">
+      <div
+        className={`flex flex-col justify-center items-start text-start ${textClass}`}
+      >
         <p className="text-[12px] font-bold text-start">{label}</p>
         <div className="flex justify-center items-center gap-1">
           <p className="text-[#6941C6] font-semibold text-[12px]">
@@ -63,7 +72,9 @@ export const FileUpload = ({ label, onFileUpload }: FileUploadProps) => {
           </p>
         </div>
         {fileName && (
-          <p className="text-[10px] text-green-500 mt-2">Uploaded: {fileName}</p>
+          <p className="text-[10px] text-green-500 mt-2">
+            Uploaded: {fileName}
+          </p>
         )}
       </div>
 

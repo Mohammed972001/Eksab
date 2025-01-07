@@ -1,6 +1,7 @@
 "use client";
 
 import { FileUpload } from "@/components/AuthComponents/RegisterComponents/FileUpload";
+import TextInput from "@/components/SharedComponents/TextInput";
 import { ChevronLeftRounded } from "@mui/icons-material";
 import { FormControlLabel, Radio, RadioGroup, Typography } from "@mui/material";
 import Image from "next/image";
@@ -12,6 +13,37 @@ const CompetitionDetailPage = () => {
   const competitionId = params.id; // Extract competition ID
 
   const [selectedOption, setSelectedOption] = useState("platform");
+
+  const [room, setRoom] = useState(""); // For room selection
+  const [city, setCity] = useState(""); // For city selection
+  const [competitionNameEn, setCompetitionNameEn] = useState(""); // For competition name in English
+  const [competitionNameAr, setCompetitionNameAr] = useState(""); // For competition name in Arabic
+
+  // Options for dropdowns
+  const roomOptions = ["Room 1", "Room 2", "Room 3"];
+  const cityOptions = ["City 1", "City 2", "City 3"];
+
+  // Handle change events for the dropdowns
+  const handleRoomChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setRoom(event.target.value as string);
+  };
+
+  const handleCityChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+    setCity(event.target.value as string);
+  };
+
+  // Handle text field changes
+  const handleCompetitionNameEnChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setCompetitionNameEn(event.target.value);
+  };
+
+  const handleCompetitionNameArChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setCompetitionNameAr(event.target.value);
+  };
 
   const handleChange = (e: any) => {
     setSelectedOption(e.target.value);
@@ -225,13 +257,57 @@ const CompetitionDetailPage = () => {
         </div>
 
         <div className="flex items-center gap-6 w-full">
-          <div className="flex flex-col justify-center items-center gap-4 py-10 px-12 bg-white rounded-xl border border-[#E9E9EA]">
+          {/* Form file uploader */}
+          <div className="flex flex-col justify-center items-center gap-4 py-10 px-12 bg-white rounded-xl border border-[#E9E9EA] min-w-[350px]">
             <p className="text-[22px] font-medium text-black">شعار المسابقة</p>
             <div className="flex flex-col justify-center items-center">
-              <FileUpload label={""} classContainer="flex-col border-none p-0" textClass="text-center items-center" />
+              <FileUpload
+                label={""}
+                classContainer="flex-col border-none p-0"
+                textClass="text-center items-center"
+              />
               <p className="text-[#70737A] text-[12px]">
                 SVG, PNG, JPG or GIF (max. 800x400px)
               </p>
+            </div>
+          </div>
+
+          {/* form information fields */}
+
+          <div className="flex flex-col gap-4 justify-start items-start w-full">
+            <div className="flex items-center gap-6 w-full">
+              <TextInput
+                label="اختر الغرفة التجارية"
+                type="text"
+                value={room}
+                onChange={handleRoomChange}
+                options={roomOptions} // Pass options for room selection
+                required
+              />
+              <TextInput
+                label="اختر المدينة"
+                type="text"
+                value={city}
+                onChange={handleCityChange}
+                options={cityOptions} // Pass options for city selection
+                required
+              />
+            </div>
+            <div className="flex flex-col justify-center items-center gap-4 w-full">
+              <TextInput
+                label="أسم المسابقة (إنجليزي)"
+                type="text"
+                value={competitionNameEn}
+                onChange={handleCompetitionNameEnChange}
+                required
+              />
+              <TextInput
+                label="أسم المسابقة (عربي)"
+                type="text"
+                value={competitionNameAr}
+                onChange={handleCompetitionNameArChange}
+                required
+              />
             </div>
           </div>
         </div>

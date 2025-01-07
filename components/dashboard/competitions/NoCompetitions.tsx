@@ -1,17 +1,43 @@
 import SubmitButton from "@/components/SharedComponents/SubmitButton";
 import Image from "next/image";
-import React from "react";
-
-interface NoCompetitionsProps {
-  message: string;
-}
+import React, { useState } from "react";
+import CompetitionPrompt from "./CompetitionPrompt";
+import CompetitionServicesModal from "./CompetitionServicesModal";
 
 const NoCompetitions = () => {
+  const [isFirstModalOpen, setIsFirstModalOpen] = useState(false);
+  const [isSecondModalOpen, setIsSecondModalOpen] = useState(false);
+
+  const handleOpenFirstModal = () => {
+    setIsFirstModalOpen(true);
+  };
+
+  const handleCloseFirstModal = () => {
+    setIsFirstModalOpen(false);
+  };
+
+  const handleOpenSecondModal = () => {
+    handleCloseFirstModal(); // Close the first modal when opening the second
+    setIsSecondModalOpen(true);
+  };
+
+  const handleCloseSecondModal = () => {
+    setIsSecondModalOpen(false);
+  };
   return (
-    <div className="flex flex-col items-center justify-center gap-6">
-      <div>
-        <Image src={"/navIcons/award.svg"} alt="award" width={60} height={60} />
+    <div className="flex flex-col items-center justify-center gap-6 w-full">
+      {/* Icon Section */}
+      <div className="w-16 h-16">
+        <Image
+          src={"/navIcons/award.svg"}
+          alt="award"
+          width={60}
+          height={60}
+          priority={true}
+        />
       </div>
+
+      {/* Text Section */}
       <div className="flex flex-col items-center justify-center gap-4 text-center">
         <h3 className="text-[32px] font-semibold text-shadeBlack">
           ليس لديك اي مسابقات بعد!
@@ -21,12 +47,27 @@ const NoCompetitions = () => {
           و بسيطة
         </p>
       </div>
+
+      {/* Add Competition Button */}
       <SubmitButton
         rightIcon="/dashboard/competitions/add.svg"
         buttonText="إضافة مسابقة جديدة"
-        classContainer="w-fit"
-        onClick={() => {}}
+        fullWidth={false}
+        onClick={handleOpenFirstModal}
       />
+
+      {/* First Modal */}
+      {isFirstModalOpen && (
+        <CompetitionPrompt
+          handleCloseModal={handleCloseFirstModal}
+          handleContinue={handleOpenSecondModal} // Pass handler for second modal
+        />
+      )}
+
+      {/* Second Modal */}
+      {isSecondModalOpen && (
+        <CompetitionServicesModal handleCloseModal={handleCloseSecondModal} />
+      )}
     </div>
   );
 };

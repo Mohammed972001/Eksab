@@ -9,7 +9,7 @@ import NewCompetitionProgress from "@/components/dashboard/competitions/newCompe
 import NewCompetitionSelectedServices from "@/components/dashboard/competitions/newCompetition/NewCompetitionSelectedServices";
 import CancelButton from "@/components/SharedComponents/CancelButton";
 import SubmitButton from "@/components/SharedComponents/SubmitButton";
-import NewCompetitionMethods from "./../../../../components/dashboard/competitions/newCompetition/NewCompetitionMethods";
+import NewCompetitionParticipationMethods from "@/components/dashboard/competitions/newCompetition/NewCompetitionParticipationMethods";
 
 interface SelectedServices {
   dataUpload: boolean;
@@ -135,14 +135,14 @@ const CompetitionDetailPage = () => {
         {activeStep === 1 && (
           <>
             {/* Arabic Section */}
-            <NewCompetitionMethods
+            <NewCompetitionParticipationMethods
               label="خطوات او طريقة المشاركة في المسابقة (باللغة العربية)"
               placeholder="قم بكتابة خطوات المشاركة.."
               dir="rtl"
             />
 
             {/* English Section */}
-            <NewCompetitionMethods
+            <NewCompetitionParticipationMethods
               label="خطوات او طريقة المشاركة في المسابقة (باللغة الإنجليزية)"
               placeholder="Write the participation steps.."
               dir="ltr"

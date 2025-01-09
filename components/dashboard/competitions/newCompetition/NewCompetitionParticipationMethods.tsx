@@ -1,16 +1,16 @@
 import React from "react";
 
-interface NewCompetitionMethodsProps {
+interface NewCompetitionParticipationMethodsProps {
   label: string;
   placeholder: string;
   dir: string;
 }
 
-const NewCompetitionMethods = ({
+const NewCompetitionParticipationMethods = ({
   label,
   placeholder,
   dir = "rtl",
-}: NewCompetitionMethodsProps) => {
+}: NewCompetitionParticipationMethodsProps) => {
   return (
     <div className="flex flex-col items-start gap-6 w-full">
       <div className="flex flex-col items-start gap-4 w-full">
@@ -31,4 +31,4 @@ const NewCompetitionMethods = ({
   );
 };
 
-export default NewCompetitionMethods;
+export default NewCompetitionParticipationMethods;

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 interface NewCompetitionParticipationMethodsProps {
   label: string;
@@ -11,6 +11,14 @@ const NewCompetitionParticipationMethods = ({
   placeholder,
   dir = "rtl",
 }: NewCompetitionParticipationMethodsProps) => {
+  // Declare a state to hold the textarea value
+  const [value, setValue] = useState<string>("");
+
+  // Handle change in textarea
+  const handleChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setValue(event.target.value); // Update state when input changes
+  };
+
   return (
     <div className="flex flex-col items-start gap-6 w-full">
       <div className="flex flex-col items-start gap-4 w-full">
@@ -21,6 +29,8 @@ const NewCompetitionParticipationMethods = ({
         <textarea
           dir={dir}
           placeholder={placeholder}
+          value={value}
+          onChange={handleChange}
           className={`w-full border border-gray-300 rounded px-4 py-2 ${
             dir === "ltr" ? "text-left" : "text-right"
           } text-shadeGray`}

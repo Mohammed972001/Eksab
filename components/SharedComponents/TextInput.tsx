@@ -21,6 +21,8 @@ interface TextInputProps {
   required?: boolean;
   options?: string[]; // For dropdown options
   disabled?: boolean; // Add disabled to the interface
+  multiline?: boolean; // Whether the input supports multiline
+  minRows?: number; // Minimum number of rows for multiline input
 }
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -33,6 +35,8 @@ const TextInput: React.FC<TextInputProps> = ({
   required,
   options,
   disabled = false, // Default to false if no value is passed
+  multiline = false, // Default to non-multiline
+  minRows, // Minimum rows for multiline
 }) => {
   // Check if it's a dropdown component and handle it differently
   if (options) {
@@ -97,6 +101,8 @@ const TextInput: React.FC<TextInputProps> = ({
       variant="outlined"
       fullWidth
       disabled={disabled} // Apply disabled prop here
+      multiline={multiline} // Enable multiline if true
+      minRows={multiline ? minRows : undefined} // Set minRows if multiline is true
       sx={{
         "& label": {
           right: "1.75rem", // Moves the label inside in RTL context

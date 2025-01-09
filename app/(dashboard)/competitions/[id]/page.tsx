@@ -151,6 +151,29 @@ const CompetitionDetailPage = () => {
         )}
       </form>
 
+      {/* COMPETITION PRIZES TABLE */}
+      <div className="mt-4 flex flex-col justify-center items-start gap-8">
+        {activeStep === 2 && (
+          <>
+            <div className="flex flex-col gap-4 w-full">
+              <div className="flex items-center justify-between w-full">
+                <p className="text-[22px] text-shadeBlack font-semibold">
+                  قائمة جوائز المسابقة
+                </p>
+                <SubmitButton
+                  buttonText="اضافة جائزة جديدة"
+                  onClick={() => {}}
+                  rightIcon="/dashboard/competitions/add.svg"
+                  fullWidth={false}
+                  classContainer="mt-0"
+                />
+              </div>
+              <hr />
+            </div>
+          </>
+        )}
+      </div>
+
       {/* Action buttons */}
       <div className="mt-8 flex flex-col gap-6 w-full">
         <hr />

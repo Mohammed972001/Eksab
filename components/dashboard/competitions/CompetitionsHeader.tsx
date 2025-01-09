@@ -51,6 +51,7 @@ const CompetitionsHeader = () => {
           buttonText="إضافة مسابقة جديدة"
           fullWidth={false}
           onClick={handleOpenFirstModal}
+          classContainer="mt-0"
         />
       </div>
       <hr />

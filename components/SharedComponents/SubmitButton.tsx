@@ -28,6 +28,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
     onClick={onClick}
     sx={{
       paddingInline: "40px",
+      paddingBlock: "26px",
       borderRadius: "100px",
       fontSize: "1.125rem",
       fontWeight: "medium",

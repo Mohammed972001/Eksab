@@ -15,12 +15,12 @@ const NewCompetitionProgress: React.FC<NewCompetitionProgressProps> = ({
         <div key={index} className="flex flex-col items-start justify-center gap-3">
           <div
             className={`border-t-[4px] w-full ${
-              index === activeStep ? "border-primary" : "border-[#C6C7CA]"
+              index <= activeStep ? "border-primary" : "border-[#C6C7CA]"
             }`}
           />
           <div
             className={`text-sm font-semibold ${
-              index === activeStep ? "text-primary" : "text-shadeGray"
+              index <= activeStep ? "text-primary" : "text-shadeGray"
             }`}
           >
             {step}

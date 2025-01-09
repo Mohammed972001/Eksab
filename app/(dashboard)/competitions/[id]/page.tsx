@@ -1,6 +1,6 @@
 "use client";
 import React, { useState } from "react";
-import { useParams } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import NewCompetitionHeader from "@/components/dashboard/competitions/newCompetition/NewCompetitionHeader";
 import NewCompetitionMainInfo from "@/components/dashboard/competitions/newCompetition/NewCompetitionMainInfo";
 import NewCompetitionOpportunities from "@/components/dashboard/competitions/newCompetition/NewCompetitionOpportunities";
@@ -9,6 +9,7 @@ import NewCompetitionProgress from "@/components/dashboard/competitions/newCompe
 import NewCompetitionSelectedServices from "@/components/dashboard/competitions/newCompetition/NewCompetitionSelectedServices";
 import CancelButton from "@/components/SharedComponents/CancelButton";
 import SubmitButton from "@/components/SharedComponents/SubmitButton";
+import NewCompetitionMethods from "./../../../../components/dashboard/competitions/newCompetition/NewCompetitionMethods";
 
 interface SelectedServices {
   dataUpload: boolean;
@@ -18,6 +19,7 @@ interface SelectedServices {
 
 const CompetitionDetailPage = () => {
   const params = useParams();
+  const router = useRouter();
   const competitionId = params.id; // Extract competition ID
 
   const steps = [
@@ -69,6 +71,18 @@ const CompetitionDetailPage = () => {
     }
   };
 
+  // Handle Previous Step Click
+  const handlePreviousStep = () => {
+    if (activeStep > 0) {
+      setActiveStep(activeStep - 1);
+    }
+  };
+
+  // Handle Cancel Button Click
+  const handleCancelClick = () => {
+    router.push("/competitions");
+  };
+
   return (
     <div className="h-full w-full pb-20">
       {/* Page header */}
@@ -116,22 +130,57 @@ const CompetitionDetailPage = () => {
         )}
       </form>
 
+      {/* COMPETITION METHOD FORM */}
+      <form className="mt-4 flex flex-col justify-center items-start gap-8">
+        {activeStep === 1 && (
+          <>
+            {/* Arabic Section */}
+            <NewCompetitionMethods
+              label="خطوات او طريقة المشاركة في المسابقة (باللغة العربية)"
+              placeholder="قم بكتابة خطوات المشاركة.."
+              dir="rtl"
+            />
+
+            {/* English Section */}
+            <NewCompetitionMethods
+              label="خطوات او طريقة المشاركة في المسابقة (باللغة الإنجليزية)"
+              placeholder="Write the participation steps.."
+              dir="ltr"
+            />
+          </>
+        )}
+      </form>
+
       {/* Action buttons */}
       <div className="mt-8 flex flex-col gap-6 w-full">
         <hr />
-        <div className="flex w-full items-center gap-4 justify-end">
-          <CancelButton
-            buttonText="الغاء"
-            onClick={() => {}}
-            fullWidth={false}
-          />
-          <SubmitButton
-            buttonText={
-              activeStep === steps.length - 1 ? "ادفع" : "الخطوة التالية"
-            }
-            onClick={handleNextStep} // Navigate to the next step
-            fullWidth={false}
-          />
+        <div className="flex justify-between items-center w-full">
+          <div className="w-full">
+            {activeStep > 0 && (
+              <SubmitButton
+                buttonText="الخطوة السابقة"
+                onClick={handlePreviousStep}
+                fullWidth={false}
+                classContainer="bg-white text-shadeBlack border"
+              />
+            )}
+          </div>
+          <div className="flex w-full items-center gap-4 justify-end">
+            <CancelButton
+              buttonText={activeStep === 0 ? "الغاء" : "حفظ كمسودة"} // Change text based on step
+              onClick={
+                activeStep === 0 ? handleCancelClick : handlePreviousStep
+              } // Change functionality based on step
+              fullWidth={false}
+            />
+            <SubmitButton
+              buttonText={
+                activeStep === steps.length - 1 ? "ادفع" : "الخطوة التالية"
+              }
+              onClick={handleNextStep} // Navigate to the next step
+              fullWidth={false}
+            />
+          </div>
         </div>
       </div>
     </div>

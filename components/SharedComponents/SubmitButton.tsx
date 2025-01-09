@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "@mui/material";
 import Image from "next/image";
+import clsx from "clsx"; // Utility for conditional class merging
 
 interface SubmitButtonProps {
   disabled?: boolean;
@@ -8,7 +9,7 @@ interface SubmitButtonProps {
   buttonText: string;
   classContainer?: string;
   rightIcon?: string;
-  fullWidth? : boolean;
+  fullWidth?: boolean;
 }
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({
@@ -20,24 +21,22 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   fullWidth = true, // default to true for full-width
 }) => (
   <Button
+    className={clsx("bg-primary", classContainer)} // Merge the default and provided classes
     variant="contained"
-    color="primary"
     fullWidth
     disabled={disabled}
     onClick={onClick}
     sx={{
-      paddingInline:"40px",
+      paddingInline: "40px",
       borderRadius: "100px",
       fontSize: "1.125rem",
       fontWeight: "medium",
       height: "48px",
       mt: "1.5rem",
-      bgcolor: "#3454b4",
       display: "flex",
       alignItems: "center",
       gap: "8px",
       width: fullWidth ? "100%" : "fit-content", // conditional width based on fullWidth prop
-      ...(classContainer && { className: classContainer }),
     }}
   >
     {rightIcon && <Image src={rightIcon} alt="icon" width={24} height={24} />}

@@ -88,7 +88,7 @@ const CompetitionsPage = () => {
   };
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full pb-20">
       {/* Page header */}
       <CompetitionsHeader />
 

@@ -66,7 +66,6 @@ const TextInput: React.FC<TextInputProps> = ({
           label={label}
           sx={{
             textAlign: "right", // Ensures text aligns right in the dropdown
-            paddingRight: "1.75rem", // Adds space for the dropdown icon
             "& .MuiOutlinedInput-notchedOutline": {
               textAlign: "right", // Ensures the outline text aligns to the right
             },

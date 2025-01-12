@@ -14,7 +14,7 @@ const NewCompetitionPayment = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [name, setName] = useState(""); // Name on card
   const [cardNumber, setCardNumber] = useState(""); // Card number
-  const [expirationDate, setExpirationDate] = useState<Date | null>(null); // Initialize with type `Date | null`
+  const [expirationDate, setExpirationDate] = useState<Date | null>(null); // Date input state
   const [cvv, setCvv] = useState(""); // CVV state
 
   // Toggle visibility for the password field

@@ -5,8 +5,17 @@ import React from "react";
 
 const SuccessfulCreation = () => {
   const router = useRouter();
+
+  const handleFileDownload = () => {
+    const fileUrl = "Placeholder-PDF.pdf";
+    const link = document.createElement("a");
+    link.href = fileUrl;
+    link.download = "Tech design requirements.pdf"; // This sets the default name of the downloaded file
+    link.click();
+  };
+
   return (
-    <div className="w-full h-full mt-[98px] flex flex-col max-w-[480px] mx-auto ">
+    <div className="w-full h-full mt-[98px] flex flex-col max-w-[480px] mx-auto">
       <div className="flex flex-col justify-center items-center gap-8 w-full">
         <div className="flex flex-col justify-center items-center w-full gap-6">
           <Image
@@ -27,7 +36,34 @@ const SuccessfulCreation = () => {
               الإلكتروني و أيضاً تستطيع تحميله من الاسفل.
             </p>
           </div>
-          {/* <div>placholder</div> */}
+          {/* Downloadable File Section */}
+          <div className="flex items-center justify-between bg-white p-4 rounded-xl w-full">
+            <button
+              className="text-primary hover:text-primary-dark self-start"
+              onClick={handleFileDownload}
+            >
+              <Image
+                src="/dashboard/competitions/download-cloud.svg"
+                alt="Download"
+                width={24}
+                height={24}
+              />
+            </button>
+            <div className="flex items-center gap-3">
+              <div>
+                <p className="text-[#344054] font-medium text-sm">
+                  Tech design requirements.pdf
+                </p>
+                <p className="text-[#344054] text-sm text-left">200KB - 100% uploaded</p>
+              </div>
+              <Image
+                src="/dashboard/competitions/PDF.svg"
+                alt="PDF Icon"
+                width={36}
+                height={36}
+              />
+            </div>
+          </div>
         </div>
       </div>
       <SubmitButton

@@ -63,7 +63,7 @@ const NewCompetitionPeriod = () => {
               selected={endDate}
               onChange={(date: Date | null) => setEndDate(date)}
               dateFormat="yyyy/MM/dd"
-              className="w-full border  rounded p-4 pl-10 text-right"
+              className="w-full border rounded p-4 pl-10 text-right"
               placeholderText="الي تاريخ (ميلادي)"
             />
           </div>

@@ -120,12 +120,7 @@ const NewCompetitionMainInfo: React.FC<NewCompetitionMainInfoProps> = ({
         {/* Form file uploader */}
         <div className="flex flex-col justify-center items-center gap-4 py-10 px-12 bg-white rounded-xl border border-[#E9E9EA] min-w-[350px] max-h-[200px]">
           <p className="text-[22px] font-medium text-black">شعار المسابقة</p>
-          <div className="flex flex-col justify-center items-center">
             <FileUpload label={""} classContainer="flex-col border-none p-0" textClass="text-center items-center" />
-            <p className="text-[#70737A] text-[12px]">
-              SVG, PNG, JPG or GIF (max. 800x400px)
-            </p>
-          </div>
         </div>
 
         {/* Form main information fields */}

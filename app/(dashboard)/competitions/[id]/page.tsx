@@ -11,6 +11,10 @@ import CancelButton from "@/components/SharedComponents/CancelButton";
 import SubmitButton from "@/components/SharedComponents/SubmitButton";
 import NewCompetitionParticipationMethods from "@/components/dashboard/competitions/newCompetition/NewCompetitionParticipationMethods";
 import NewCompetitionPrizes from "@/components/dashboard/competitions/newCompetition/NewCompetitionPrizes";
+import NewCompetitionWithdrawal from "@/components/dashboard/competitions/newCompetition/NewCompetitionWithdrawal";
+import NewCompetitionTerms from "@/components/dashboard/competitions/newCompetition/NewCompetitionTerms";
+import NewCompetitionPayment from "@/components/dashboard/competitions/newCompetition/NewCompetitionPayment";
+import SuccessfulCreation from "@/components/dashboard/competitions/newCompetition/SuccessfulCreation";
 
 interface SelectedServices {
   dataUpload: boolean;
@@ -21,7 +25,6 @@ interface SelectedServices {
 const CompetitionDetailPage = () => {
   const params = useParams();
   const router = useRouter();
-  const competitionId = params.id; // Extract competition ID
 
   const steps = [
     "البيانات الأساسية",
@@ -32,169 +35,211 @@ const CompetitionDetailPage = () => {
     "الدفع",
   ];
 
-  // State for active step
   const [activeStep, setActiveStep] = useState(0);
-
-  // State for form inputs
+  const [progressVisible, setProgressVisible] = useState(true); // Manage progress visibility
+  const [showPaymentSuccess, setShowPaymentSuccess] = useState(false); // Manage payment success component visibility
   const [selectedOption, setSelectedOption] = useState("platform");
-  const [room, setRoom] = useState(""); // For room selection
-  const [city, setCity] = useState(""); // For city selection
-  const [competitionNameEn, setCompetitionNameEn] = useState(""); // For competition name in English
-  const [competitionNameAr, setCompetitionNameAr] = useState(""); // For competition name in Arabic
-
-  // Options for dropdowns
+  const [room, setRoom] = useState("");
+  const [city, setCity] = useState("");
+  const [competitionNameEn, setCompetitionNameEn] = useState("");
+  const [competitionNameAr, setCompetitionNameAr] = useState("");
   const roomOptions = ["Room 1", "Room 2", "Room 3"];
   const cityOptions = ["City 1", "City 2", "City 3"];
-
-  // State for selected services
   const [selectedServices, setSelectedServices] = useState<SelectedServices>({
     dataUpload: false,
     invoiceVerification: false,
     unlimitedChances: false,
   });
+  const [opportunities, setOpportunities] = useState("");
 
-  // Handle checkbox changes to toggle selected services
   const handleCheckboxChange = (service: keyof SelectedServices) => {
     setSelectedServices((prev) => ({ ...prev, [service]: !prev[service] }));
   };
 
-  const [opportunities, setOpportunities] = useState("");
-
-  // Check if any service is selected
   const isInputDisabled = Object.values(selectedServices).some(
     (value) => value === true
   );
 
-  // Handle Next Step Click
   const handleNextStep = () => {
     if (activeStep < steps.length - 1) {
       setActiveStep(activeStep + 1);
     }
   };
 
-  // Handle Previous Step Click
   const handlePreviousStep = () => {
     if (activeStep > 0) {
       setActiveStep(activeStep - 1);
     }
   };
 
-  // Handle Cancel Button Click
   const handleCancelClick = () => {
     router.push("/competitions");
   };
 
+  const handlePaymentSubmit = () => {
+    setProgressVisible(false); // Hide the progress steps
+    setShowPaymentSuccess(true); // Show the payment success component
+  };
+
   return (
     <div className="h-full w-full pb-20">
-      {/* Page header */}
       <NewCompetitionHeader />
 
-      {/* Competition form progress steps */}
-      <NewCompetitionProgress steps={steps} activeStep={activeStep} />
+      {progressVisible && (
+        <NewCompetitionProgress steps={steps} activeStep={activeStep} />
+      )}
 
-      {/* NEW COMPETITION FORM */}
-      <form className="mt-4 flex flex-col justify-center items-start gap-6">
-        {activeStep === 0 && (
-          <>
-            {/* Form main info */}
-            <NewCompetitionMainInfo
-              roomOptions={roomOptions}
-              cityOptions={cityOptions}
-              selectedOption={selectedOption}
-              room={room}
-              city={city}
-              competitionNameEn={competitionNameEn}
-              competitionNameAr={competitionNameAr}
-              onSelectedOptionChange={setSelectedOption}
-              onRoomChange={setRoom}
-              onCityChange={setCity}
-              onCompetitionNameEnChange={setCompetitionNameEn}
-              onCompetitionNameArChange={setCompetitionNameAr}
-            />
-
-            {/* Form contest services */}
-            <NewCompetitionSelectedServices
-              selectedServices={selectedServices}
-              onCheckboxChange={handleCheckboxChange}
-            />
-
-            {/* Competition opportunities section */}
-            <NewCompetitionOpportunities
-              opportunities={opportunities}
-              setOpportunities={setOpportunities}
-              isInputDisabled={isInputDisabled}
-            />
-
-            {/* Competition period section */}
-            <NewCompetitionPeriod />
-          </>
-        )}
-      </form>
-
-      {/* COMPETITION METHOD FORM */}
-      <form className="mt-4 flex flex-col justify-center items-start gap-8">
-        {activeStep === 1 && (
-          <>
-            {/* Arabic Section */}
-            <NewCompetitionParticipationMethods
-              label="خطوات او طريقة المشاركة في المسابقة (باللغة العربية)"
-              placeholder="قم بكتابة خطوات المشاركة.."
-              dir="rtl"
-            />
-
-            {/* English Section */}
-            <NewCompetitionParticipationMethods
-              label="خطوات او طريقة المشاركة في المسابقة (باللغة الإنجليزية)"
-              placeholder="Write the participation steps.."
-              dir="ltr"
-            />
-          </>
-        )}
-      </form>
-
-      {/* COMPETITION PRIZES TABLE */}
-      <div className="mt-4 flex flex-col justify-center items-start gap-8">
-        {activeStep === 2 && (
-          <>
-            <div className="w-full">
-              <NewCompetitionPrizes />
-            </div>
-          </>
-        )}
-      </div>
-
-      {/* Action buttons */}
-      <div className="mt-8 flex flex-col gap-6 w-full">
-        <hr />
-        <div className="flex justify-between items-center w-full">
-          <div className="w-full">
-            {activeStep > 0 && (
-              <SubmitButton
-                buttonText="الخطوة السابقة"
-                onClick={handlePreviousStep}
-                fullWidth={false}
-                classContainer="bg-white text-shadeBlack border"
-              />
+      {!showPaymentSuccess ? (
+        <>
+          <form
+            className={`${
+              activeStep === 0 && "mt-4"
+            } flex flex-col justify-center items-start gap-6`}
+          >
+            {activeStep === 0 && (
+              <>
+                <NewCompetitionMainInfo
+                  roomOptions={roomOptions}
+                  cityOptions={cityOptions}
+                  selectedOption={selectedOption}
+                  room={room}
+                  city={city}
+                  competitionNameEn={competitionNameEn}
+                  competitionNameAr={competitionNameAr}
+                  onSelectedOptionChange={setSelectedOption}
+                  onRoomChange={setRoom}
+                  onCityChange={setCity}
+                  onCompetitionNameEnChange={setCompetitionNameEn}
+                  onCompetitionNameArChange={setCompetitionNameAr}
+                />
+                <NewCompetitionSelectedServices
+                  selectedServices={selectedServices}
+                  onCheckboxChange={handleCheckboxChange}
+                />
+                <NewCompetitionOpportunities
+                  opportunities={opportunities}
+                  setOpportunities={setOpportunities}
+                  isInputDisabled={isInputDisabled}
+                />
+                <NewCompetitionPeriod />
+              </>
+            )}
+          </form>
+          <form
+            className={`${
+              activeStep == 1 && "mt-4"
+            } flex flex-col justify-center items-start gap-8`}
+          >
+            {activeStep === 1 && (
+              <>
+                <NewCompetitionParticipationMethods
+                  label="خطوات او طريقة المشاركة في المسابقة (باللغة العربية)"
+                  placeholder="قم بكتابة خطوات المشاركة.."
+                  dir="rtl"
+                />
+                <NewCompetitionParticipationMethods
+                  label="خطوات او طريقة المشاركة في المسابقة (باللغة الإنجليزية)"
+                  placeholder="Write the participation steps.."
+                  dir="ltr"
+                />
+              </>
+            )}
+          </form>
+          <div
+            className={`${
+              activeStep == 2 && "mt-4"
+            } flex flex-col justify-center items-start gap-8`}
+          >
+            {activeStep === 2 && (
+              <div className="w-full">
+                <NewCompetitionPrizes />
+              </div>
             )}
           </div>
-          <div className="flex w-full items-center gap-4 justify-end">
-            <CancelButton
-              buttonText={activeStep === 0 ? "الغاء" : "حفظ كمسودة"} // Change text based on step
-              onClick={
-                activeStep === 0 ? handleCancelClick : handlePreviousStep
-              } // Change functionality based on step
-              fullWidth={false}
-            />
-            <SubmitButton
-              buttonText={
-                activeStep === steps.length - 1 ? "ادفع" : "الخطوة التالية"
-              }
-              onClick={handleNextStep} // Navigate to the next step
-              fullWidth={false}
-            />
+          <div
+            className={`${
+              activeStep == 3 && "mt-4"
+            } flex flex-col justify-center items-start gap-8`}
+          >
+            {activeStep === 3 && (
+              <div className="w-full">
+                <NewCompetitionWithdrawal />
+              </div>
+            )}
           </div>
-        </div>
-      </div>
+          <div
+            className={`${
+              activeStep == 4 && "mt-4"
+            } flex flex-col justify-center items-start gap-8`}
+          >
+            {activeStep === 4 && (
+              <div className="w-full">
+                <NewCompetitionTerms />
+              </div>
+            )}
+          </div>
+          <div
+            className={`${
+              activeStep == 5 && "mt-4"
+            } flex flex-col justify-center items-start gap-8`}
+          >
+            {activeStep === 5 && (
+              <div className="w-full">
+                <NewCompetitionPayment />
+              </div>
+            )}
+          </div>
+          <div className="mt-8 flex flex-col gap-6 w-full">
+            <hr />
+            <div className="flex justify-between items-center w-full">
+              <div className="w-full">
+                {activeStep > 0 && activeStep !== 5 && (
+                  <SubmitButton
+                    buttonText="الخطوة السابقة"
+                    onClick={handlePreviousStep}
+                    fullWidth={false}
+                    classContainer="bg-white text-shadeBlack border"
+                  />
+                )}
+                {activeStep === 5 && (
+                  <SubmitButton
+                    buttonText="التعديل علي المسابقة"
+                    onClick={() => {
+                      setActiveStep(0);
+                    }}
+                    fullWidth={false}
+                    classContainer="bg-white text-shadeBlack border"
+                  />
+                )}
+              </div>
+              <div className="flex w-full items-center gap-4 justify-end">
+                {activeStep !== 5 && (
+                  <CancelButton
+                    buttonText={activeStep === 0 ? "الغاء" : "حفظ كمسودة"}
+                    onClick={
+                      activeStep === 0 ? handleCancelClick : handlePreviousStep
+                    }
+                    fullWidth={false}
+                  />
+                )}
+                <SubmitButton
+                  buttonText={
+                    activeStep === steps.length - 1 ? "ادفع" : "الخطوة التالية"
+                  }
+                  onClick={
+                    activeStep === steps.length - 1
+                      ? handlePaymentSubmit
+                      : handleNextStep
+                  }
+                  fullWidth={false}
+                />
+              </div>
+            </div>
+          </div>
+        </>
+      ) : (
+        <SuccessfulCreation />
+      )}
     </div>
   );
 };

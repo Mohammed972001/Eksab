@@ -1,6 +1,6 @@
 import React from "react";
 
-interface Bill {
+interface WalletBill {
   date: string;
   description: string;
   amount: string;
@@ -8,7 +8,7 @@ interface Bill {
 }
 
 interface BillsListProps {
-  bills: Bill[];
+  bills: WalletBill[];
 }
 
 const BillsList: React.FC<BillsListProps> = ({ bills }) => {

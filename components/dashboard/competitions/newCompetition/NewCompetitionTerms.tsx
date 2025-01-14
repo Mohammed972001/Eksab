@@ -13,7 +13,16 @@ const NewCompetitionTerms = () => {
     "يجب ان يكون الاسم مطابق للهوية النظامية المعمول بها في المملكة العربية السعودية.",
     "في حال تبين أكثر من حساب لشخص واحد فسوف يتم الغاء جميع الحسابات بلا استثناء بما فيها الحساب الرئيسي وذلك لبيان تحايله علي الأنظمة وسيحرم من جميع الجوائز التي ربحها تحت هذه الحسابات",
     "للمقيمين في المملكة العربية السعودية كتابة الاسم بالكامل باللغة العربية كما هو موجود في الهوية النظامية (الهوية الوطنية, الهويةالخليجية, هوية مقيم, هوية زائر, جواز السفر).",
-    "للمقيمين في المملكة العربية السعودية كتابة الاسم بالكامل باللغة العربية كما هو موجود في الهوية النظامية (الهوية الوطنية, الهويةالخليجية, هوية مقيم, هوية زائر, جواز السفر).",
+    "يجب علي جميع الفائزين ان تكون الهوية سارية المفعول عند استلام الجائزة.",
+    "تغيير بيانات حساب قام بالمشاركة في مسابقة لم يتم السحب عليها بعد, يحرم صاحبه من الفوز فيها حتي وان فاز.",
+    "في حال لم يتطابق اسم الفائز مع الاسم الموجود بالهوية النظامية المعتمدة في المملكة العربية السعودية يتم استبعاده واعادة السحب مرة اخري.",
+    "تعبئة الاقرار ببيانات صحيحة حسب الهوية النظامية (الهوية الوطنية, الهوية الخليجية, هوية زائر, جواز السفر) والمرسل من قبل نظام (eCopon) الي جوال الفائز علي شكل رابط.",
+    "قراءة (بطاقة استلام جائزة) المنشأة من نظام (eCopon) من قبل الشركة المنظمة للمسابقة يعد اقرارا من قبل الفائز باستلام الجائزة.",
+    "يحق لشركة الارتباط الذكي لتقنية المعلومات المحدودة (eCopon) رفع دعوي تحايل علي الأشخاص الذين قاموا بتعبئة نموذج الاقرار ببيانات غير صحيحة ولا تطابق الهوية النظامية (الهوية الوطنية, الهوية الخليجية, هوية زائر, جوازالسفر).",
+    "الدخول في المسابقة يعد موافقة ضمنية لشروطها وأحكامها.",
+    "شركة الارتباط الذكي لتقنية المعلومات المحدودة (eCopon) هي شركة مشغلة لنظام المسابقات فقط, ليس لهاأي صلاحية علي نوع أو كمية الجوائز أو تسليمها أو استبدالها وانما يتم ذلك عن طريق الشركة أوالجهةراعية المسابقة أو المنظمة لها.",
+    "شركة الارتباط الذكي لتقنية المعلومات المحدودة (eCopon) هي شركة مشغلة لنظام المسابقات فقط, ليس لها أي علاقة في حال أخل احد الطرفين باي بند من بنود استلام (الفائز) أو تسليم (المنشأة) الجائزة",
+    "أبل ليست مسئولة عن أي مسابقة من هذه المسابقات والمتواجة في نظام وتطبيق eCopon, وانه ليس لها اي علاقة باي شكل من الاشكال بهذه المسابقات.",
   ];
 
   const englishTerms = [
@@ -27,7 +36,16 @@ const NewCompetitionTerms = () => {
     "The name must match the official identity document used in the Kingdom of Saudi Arabia.",
     "If more than one account is found for an individual, all accounts will be canceled without exception, including the primary account, due to an attempt to bypass the system, and they will be disqualified from all prizes won through these accounts.",
     "Residents of Saudi Arabia must write their full name in Arabic as shown in the official identity document (National ID, Gulf ID, Resident ID, Visitor ID, or Passport).",
-    "Residents of Saudi Arabia must write their full name in Arabic as shown in the official identity document (National ID, Gulf ID, Resident ID, Visitor ID, or Passport).",
+    "All winners must have a valid identity document at the time of receiving the prize.",
+    "Changing account details for an account that has entered a competition that has not yet been drawn will disqualify the owner of the account from winning, even if they are selected.",
+    "If the winner's name does not match the name on the approved official identity document in the Kingdom of Saudi Arabia, they will be disqualified, and a new draw will be conducted.",
+    "Filling out the declaration with correct data as per the official identity document (National ID, Gulf ID, Visitor ID, or Passport) sent by the (eCopon) system to the winner's mobile phone as a link.",
+    "Reading the (Prize Receipt Card) issued by the (eCopon) system by the company organizing the competition is considered acknowledgment by the winner of receiving the prize.",
+    "Smart Link IT Ltd. (eCopon) reserves the right to file fraud claims against individuals who filled out the declaration with false information that does not match the official identity document (National ID, Gulf ID, Visitor ID, or Passport).",
+    "Entering the competition constitutes implicit agreement to its terms and conditions.",
+    "Smart Link IT Ltd. (eCopon) is solely an operator of the competition system and has no authority over the type, quantity, delivery, or replacement of prizes. These matters are handled solely by the sponsoring or organizing entity of the competition.",
+    "Smart Link IT Ltd. (eCopon) has no involvement if either party breaches any terms regarding the winner receiving the prize or the organizer delivering it.",
+    "Apple is not responsible for any competition displayed on the eCopon system or application, and it has no connection whatsoever with these competitions.",
   ];
 
   const tabs = ["العربية", "English"];

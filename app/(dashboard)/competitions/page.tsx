@@ -12,10 +12,11 @@ const CompetitionsPage = () => {
     setActiveTab(tab);
   };
 
-  // Competition data for each tab
+  // Competition data for each tab, now includes `id` for routing
   const competitionsData: Record<string, any[]> = {
     active: [
       {
+        id: "1", // Add unique ID
         status: "بانتظار عملية الدفع",
         statusColor: "bg-[#FFE8D9]",
         title:
@@ -27,6 +28,7 @@ const CompetitionsPage = () => {
         imageSrc: "/dashboard/competitions/placeholderImg.svg",
       },
       {
+        id: "2", // Add unique ID
         status: "مسابقة سارية",
         statusColor: "bg-[#D6F5D6]",
         title:
@@ -38,6 +40,7 @@ const CompetitionsPage = () => {
         imageSrc: "/dashboard/competitions/placeholderImg.svg",
       },
       {
+        id: "3", // Add unique ID
         status: "بانتظار خطاب التفعيل",
         statusColor: "bg-[#FFE8D9]",
         title:
@@ -51,6 +54,7 @@ const CompetitionsPage = () => {
     ],
     draft: [
       {
+        id: "4", // Add unique ID
         status: "مسودة",
         statusColor: "bg-[#E3E3E4]",
         title:
@@ -62,6 +66,7 @@ const CompetitionsPage = () => {
         imageSrc: "/dashboard/competitions/placeholderImg.svg",
       },
       {
+        id: "5", // Add unique ID
         status: "مسودة",
         statusColor: "bg-[#E3E3E4]",
         title:
@@ -73,6 +78,7 @@ const CompetitionsPage = () => {
         imageSrc: "/dashboard/competitions/placeholderImg.svg",
       },
       {
+        id: "6", // Add unique ID
         status: "مسودة",
         statusColor: "bg-[#E3E3E4]",
         title:
@@ -99,8 +105,8 @@ const CompetitionsPage = () => {
       <div className="mt-10 w-full h-full">
         {competitionsData[activeTab]?.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {competitionsData[activeTab].map((competition, index) => (
-              <CompetitionCard key={index} {...competition} />
+            {competitionsData[activeTab].map((competition) => (
+              <CompetitionCard key={competition.id} {...competition} />
             ))}
           </div>
         ) : (

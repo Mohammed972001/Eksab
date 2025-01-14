@@ -76,7 +76,7 @@ export const FileUpload = ({
             Uploaded: {fileName}
           </p>
         )}
-        <p className="text-[#70737A] text-[12px]">
+        <p className="text-[#70737A] text-[12px] text-center">
           SVG, PNG, JPG or GIF (max. 800x400px)
         </p>
       </div>

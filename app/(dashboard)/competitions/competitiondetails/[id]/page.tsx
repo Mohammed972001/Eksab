@@ -3,6 +3,8 @@ import CompetitionDetailsCardContent from "@/components/dashboard/competitions/c
 import CompetitionDetailsHeader from "@/components/dashboard/competitions/competitionDetails/CompetitionDetailsHeader";
 import CompetitionDetailsPrizesTable from "@/components/dashboard/competitions/competitionDetails/CompetitionDetailsPrizesTable";
 import CompetitionDetailsWithdrawalTable from "@/components/dashboard/competitions/competitionDetails/CompetitionDetailsWithdrawalTable";
+import DetailsFileUploader from "@/components/dashboard/competitions/competitionDetails/DetailsFileUploader";
+import DetailsPaymentInfo from "@/components/dashboard/competitions/competitionDetails/DetailsPaymentInfo";
 import DetailsTermsAndConditions from "@/components/dashboard/competitions/competitionDetails/DetailsTermsAndConditions";
 import ParticipationWay from "@/components/dashboard/competitions/competitionDetails/ParticipationWay";
 import TabSwitch from "@/components/SharedComponents/TabSwitch";
@@ -12,6 +14,14 @@ import React, { useState } from "react";
 const CompetitionDetailsPage = () => {
   const [showMoreDetails, setShowMoreDetails] = useState(false);
   const toggleMoreDetails = () => setShowMoreDetails((prev) => !prev);
+  const [showFileUploader, setShowFileUploader] = useState(false);
+  const [showButton, setShowButton] = useState(true);
+
+  // This function is passed down to DetailsPaymentInfo to trigger showing the file uploader
+  const handlePaymentClick = () => {
+    setShowFileUploader(true);
+    setShowButton(false);
+  };
 
   const tabs = ["الجوائز", "السحوبات", "طريقة المشاركة", "الشروط و الأحكام"];
   const mockPrizes = [
@@ -53,6 +63,7 @@ const CompetitionDetailsPage = () => {
     <div className="w-full h-full pb-20">
       <CompetitionDetailsHeader />
       <div className="mt-8 flex gap-6">
+        {/* MAIN RIGHT SECTION WITH CARD AND TABS */}
         <div className="flex flex-col gap-4">
           {/* TOP CARD */}
           <div className="flex gap-6 p-6 bg-white border border-[#C6C7CA] rounded-lg shadow-card-shadow">
@@ -106,6 +117,16 @@ const CompetitionDetailsPage = () => {
               <DetailsTermsAndConditions />
             </div>
           )}
+        </div>
+        {/* LEFT SECTION WITH BILL AND FILE UPLOADER */}
+        <div className="flex flex-col gap-8">
+          {/* Payment Bill */}
+          <DetailsPaymentInfo
+            showButton={showButton}
+            handlePaymentClick={handlePaymentClick}
+          />
+          {/* File Uploader Section */}
+          {showFileUploader && <DetailsFileUploader />}
         </div>
       </div>
     </div>

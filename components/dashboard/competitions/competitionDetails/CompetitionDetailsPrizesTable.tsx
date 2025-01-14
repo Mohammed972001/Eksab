@@ -22,7 +22,9 @@ const CompetitionDetailsPrizesTable = ({ prizes }: DetailsPrizesTableProps) => {
                   key={idx}
                   className={`px-6 py-3 text-[12px] text-shadeGray ${
                     idx === 1 || idx === 2 ? "text-right" : "text-center"
-                  } border-b border-[#C6C7CA]`}
+                  } border-b border-[#C6C7CA] ${
+                    idx === 2 ? "w-[45%]" : "w-[20%]"
+                  }`} // Adjust column width here
                 >
                   {header}
                 </th>

@@ -21,26 +21,32 @@ interface TabSpecificLabels {
 
 const Register = () => {
   const router = useRouter();
-  const [phone, setPhone] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
   const [countryCode, setCountryCode] = useState("+966");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [companyNameArabic, setCompanyNameArabic] = useState("");
   const [companyNameEnglish, setCompanyNameEnglish] = useState("");
   const [commercialRegistration, setCommercialRegistration] = useState("");
   const [vatCertificate, setVatCertificate] = useState("");
-  const [activeTab, setActiveTab] = useState(0); // Manage active tab state
-  const [isFirstSectionCompleted, setIsFirstSectionCompleted] = useState(false); // To track if the first section is completed
-  const [currentStep, setCurrentStep] = useState(1); // Track the current step
+  const [activeTab, setActiveTab] = useState(0);
+  const [isFirstSectionCompleted, setIsFirstSectionCompleted] = useState(false);
+  const [currentStep, setCurrentStep] = useState(1);
 
-  const handleSubmitButton = () => {
-    router.push("/");
+  const handleSubmitButton = async () => {
+    console.log("submit");
   };
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
+  const handleClickShowConfirmPassword = () =>
+    setShowConfirmPassword(!showConfirmPassword);
 
-  const isNextButtonDisabled = !phone || !email || !password;
+  const isNextButtonDisabled =
+    !phoneNumber || !email || !password || !confirmPassword || !name;
 
   const isSubmitButtonDisabled =
     !companyNameArabic ||
@@ -82,6 +88,7 @@ const Register = () => {
       <ProgressStepper
         currentStep={currentStep}
         setCurrentStep={setCurrentStep}
+        isFirstSectionCompleted={isFirstSectionCompleted} // Pass completion state
       />
 
       {/* Tabs */}
@@ -90,38 +97,42 @@ const Register = () => {
       {/* Conditional rendering of the form based on active step */}
       {/* Personal Information Form */}
       {currentStep === 1 ? (
-        // Personal Information Section
         <PersonalInformation
-          phone={phone}
-          setPhone={setPhone}
+          phoneNumber={phoneNumber}
+          setPhoneNumber={setPhoneNumber}
           countryCode={countryCode}
           setCountryCode={setCountryCode}
           email={email}
           setEmail={setEmail}
-          showPassword={showPassword}
+          name={name}
+          setName={setName}
           password={password}
           setPassword={setPassword}
+          confirmPassword={confirmPassword}
+          setConfirmPassword={setConfirmPassword}
+          showPassword={showPassword}
           handleClickShowPassword={handleClickShowPassword}
+          showConfirmPassword={showConfirmPassword}
+          handleClickShowConfirmPassword={handleClickShowConfirmPassword}
           isNextButtonDisabled={isNextButtonDisabled}
           setIsFirstSectionCompleted={setIsFirstSectionCompleted}
           setCurrentStep={setCurrentStep}
         />
       ) : (
-        // Company/Agency Details Section (Visible after Next button is clicked)
         <CompanyDetails
-        tabSpecificLabels={tabSpecificLabels}
-        activeTab={activeTab}
-        companyNameArabic={companyNameArabic}
-        setCompanyNameArabic={setCompanyNameArabic}
-        companyNameEnglish={companyNameEnglish}
-        setCompanyNameEnglish={setCompanyNameEnglish}
-        commercialRegistration={commercialRegistration}
-        setCommercialRegistration={setCommercialRegistration}
-        vatCertificate={vatCertificate}
-        setVatCertificate={setVatCertificate}
-        isSubmitButtonDisabled={isSubmitButtonDisabled}
-        handleSubmitButton={handleSubmitButton}
-      />
+          tabSpecificLabels={tabSpecificLabels}
+          activeTab={activeTab}
+          companyNameArabic={companyNameArabic}
+          setCompanyNameArabic={setCompanyNameArabic}
+          companyNameEnglish={companyNameEnglish}
+          setCompanyNameEnglish={setCompanyNameEnglish}
+          commercialRegistration={commercialRegistration}
+          setCommercialRegistration={setCommercialRegistration}
+          vatCertificate={vatCertificate}
+          setVatCertificate={setVatCertificate}
+          isSubmitButtonDisabled={isSubmitButtonDisabled}
+          handleSubmitButton={handleSubmitButton}
+        />
       )}
 
       {/* Already Registered Row */}

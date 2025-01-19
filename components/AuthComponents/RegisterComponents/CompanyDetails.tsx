@@ -1,5 +1,5 @@
+import React, { useState } from "react";
 import TextInput from "@/components/SharedComponents/TextInput";
-import React from "react";
 import { FileUpload } from "./FileUpload";
 import SubmitButton from "@/components/SharedComponents/SubmitButton";
 
@@ -41,22 +41,75 @@ const CompanyDetails = ({
   isSubmitButtonDisabled,
   handleSubmitButton,
 }: CompanyDetailsProps) => {
+  const [errors, setErrors] = useState({
+    companyNameArabic: "",
+    companyNameEnglish: "",
+    commercialRegistration: "",
+    vatCertificate: "",
+  });
+
+  const validateFields = () => {
+    const newErrors = { ...errors };
+    let valid = true;
+
+    if (!companyNameArabic.trim()) {
+      newErrors.companyNameArabic = "الاسم بالعربية مطلوب.";
+      valid = false;
+    } else {
+      newErrors.companyNameArabic = "";
+    }
+
+    if (!companyNameEnglish.trim()) {
+      newErrors.companyNameEnglish = "الاسم بالإنجليزية مطلوب.";
+      valid = false;
+    } else {
+      newErrors.companyNameEnglish = "";
+    }
+
+    if (!commercialRegistration.trim()) {
+      newErrors.commercialRegistration = "رقم السجل التجاري مطلوب.";
+      valid = false;
+    } else {
+      newErrors.commercialRegistration = "";
+    }
+
+    if (!vatCertificate.trim()) {
+      newErrors.vatCertificate = "شهادة ضريبة القيمة المضافة مطلوبة.";
+      valid = false;
+    } else {
+      newErrors.vatCertificate = "";
+    }
+
+    setErrors(newErrors);
+    return valid;
+  };
+
+  const handleSubmit = () => {
+    if (validateFields()) {
+      handleSubmitButton();  // Proceed to submit the form
+    }
+  };
+
   return (
     <div className="flex flex-col w-full gap-4 mt-8">
-      {/* Company/Agency Name in Arabic */}
+      {/* Company Name in Arabic */}
       <TextInput
         label={tabSpecificLabels[activeTab].companyNameArabic}
         type="text"
         value={companyNameArabic}
         onChange={(e) => setCompanyNameArabic(e.target.value)}
+        errorMessage={errors.companyNameArabic}
+        required
       />
 
-      {/* Company/Agency Name in English */}
+      {/* Company Name in English */}
       <TextInput
         label={tabSpecificLabels[activeTab].companyNameEnglish}
         type="text"
         value={companyNameEnglish}
         onChange={(e) => setCompanyNameEnglish(e.target.value)}
+        errorMessage={errors.companyNameEnglish}
+        required
       />
 
       {/* Commercial Registration */}
@@ -65,6 +118,8 @@ const CompanyDetails = ({
         type="text"
         value={commercialRegistration}
         onChange={(e) => setCommercialRegistration(e.target.value)}
+        errorMessage={errors.commercialRegistration}
+        required
       />
 
       {/* Upload Commercial Registration File */}
@@ -79,6 +134,8 @@ const CompanyDetails = ({
         type="text"
         value={vatCertificate}
         onChange={(e) => setVatCertificate(e.target.value)}
+        errorMessage={errors.vatCertificate}
+        required
       />
 
       {/* Upload VAT Certificate File */}
@@ -87,10 +144,10 @@ const CompanyDetails = ({
         onFileUpload={(file) => console.log("Uploaded VAT file:", file)}
       />
 
-      {/* Register Account Button */}
+      {/* Submit Button */}
       <SubmitButton
         disabled={isSubmitButtonDisabled}
-        onClick={handleSubmitButton}
+        onClick={handleSubmit}
         buttonText="تسجيل حساب جديد"
       />
     </div>

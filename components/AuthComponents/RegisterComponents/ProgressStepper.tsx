@@ -4,11 +4,13 @@ import React from "react";
 interface ProgressStepperProps {
   currentStep: number;
   setCurrentStep: (step: number) => void;
+  isFirstSectionCompleted: boolean; // To track the completion of the first section
 }
 
 const ProgressStepper = ({
   currentStep,
   setCurrentStep,
+  isFirstSectionCompleted, // Receiving completion state from parent
 }: ProgressStepperProps) => {
   return (
     <div className="flex justify-between items-center mt-8 w-[70%] relative">
@@ -25,7 +27,12 @@ const ProgressStepper = ({
         <div
           key={step}
           className="flex flex-col items-center gap-2 cursor-pointer relative z-10"
-          onClick={() => setCurrentStep(step)} // Add click to change the active step
+          onClick={() => {
+            if (step === 2 && !isFirstSectionCompleted) {
+              return; // Prevent going to step 2 until step 1 is complete
+            }
+            setCurrentStep(step);
+          }} // Add click to change the active step
         >
           <div
             className={`w-6 h-6 flex items-center justify-center rounded-full border ${

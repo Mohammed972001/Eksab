@@ -1,4 +1,3 @@
-import React from "react";
 import {
   TextField,
   InputAdornment,
@@ -8,6 +7,7 @@ import {
   FormControl,
   InputLabel,
   SelectChangeEvent,
+  FormHelperText,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
 
@@ -23,6 +23,7 @@ interface TextInputProps {
   disabled?: boolean; // Add disabled to the interface
   multiline?: boolean; // Whether the input supports multiline
   minRows?: number; // Minimum number of rows for multiline input
+  errorMessage?: string; // Error message for validation
 }
 
 const TextInput: React.FC<TextInputProps> = ({
@@ -37,6 +38,7 @@ const TextInput: React.FC<TextInputProps> = ({
   disabled = false, // Default to false if no value is passed
   multiline = false, // Default to non-multiline
   minRows, // Minimum rows for multiline
+  errorMessage, // Add errorMessage here
 }) => {
   // Check if it's a dropdown component and handle it differently
   if (options) {
@@ -45,6 +47,7 @@ const TextInput: React.FC<TextInputProps> = ({
         fullWidth
         required={required}
         variant="outlined"
+        error={Boolean(errorMessage)} // Handle errors for dropdown
         sx={{ direction: "rtl" }} // Ensures overall RTL direction
       >
         <InputLabel
@@ -82,6 +85,7 @@ const TextInput: React.FC<TextInputProps> = ({
             </MenuItem>
           ))}
         </Select>
+        {errorMessage && <FormHelperText>{errorMessage}</FormHelperText>}
       </FormControl>
     );
   }
@@ -102,6 +106,8 @@ const TextInput: React.FC<TextInputProps> = ({
       disabled={disabled} // Apply disabled prop here
       multiline={multiline} // Enable multiline if true
       minRows={multiline ? minRows : undefined} // Set minRows if multiline is true
+      error={Boolean(errorMessage)} // Show error state when there's an error
+      helperText={errorMessage} // Show error message below the input
       sx={{
         "& label": {
           right: "1.75rem", // Moves the label inside in RTL context

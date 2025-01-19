@@ -4,9 +4,10 @@ import { TextField, InputAdornment, MenuItem, Select } from "@mui/material";
 interface PhoneInputProps {
   label: string;
   value: string;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   countryCode: string;
   onCountryCodeChange: (value: string) => void;
+  errorMessage?: string;
 }
 
 const PhoneInput: React.FC<PhoneInputProps> = ({
@@ -15,6 +16,7 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
   onChange,
   countryCode,
   onCountryCodeChange,
+  errorMessage,
 }) => {
   return (
     <TextField
@@ -23,11 +25,13 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
       onChange={onChange}
       variant="outlined"
       fullWidth
-      required // Mark the field as required
+      required
+      error={Boolean(errorMessage)}
+      helperText={errorMessage}
       InputLabelProps={{
         sx: {
           "& .MuiInputLabel-asterisk": {
-            color: "red", // Apply red color to the asterisk
+            color: "red",
           },
         },
       }}
@@ -57,15 +61,14 @@ const PhoneInput: React.FC<PhoneInputProps> = ({
               MenuProps={{
                 PaperProps: {
                   sx: {
-                    direction: "rtl", // Right-to-left for country codes
+                    direction: "rtl",
                   },
                 },
               }}
             >
-              {/* Country codes */}
-              <MenuItem value="+966">+966</MenuItem>
-              <MenuItem value="+1">+1</MenuItem>
-              <MenuItem value="+91">+91</MenuItem>
+              <MenuItem value="+966">966+</MenuItem>
+              <MenuItem value="+91">91+</MenuItem>
+              <MenuItem value="+20">20+</MenuItem>
             </Select>
           </InputAdornment>
         ),

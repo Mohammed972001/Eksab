@@ -48,12 +48,39 @@ const Register = () => {
     try {
       setIsLoading(true);
       const combinedPhone = `${countryCode}${phoneNumber}`; // Combine phone number and country code
-      // Prepare file IDs (set to 0 if no file exists)
-      const commercialRegistrationFileId = commercialRegistrationFile
-        ? 1234
-        : 0; // Replace `1234` with actual file ID if you have it
-      const vatCertificateFileId = vatCertificateFile ? 5678 : 0; // Replace `5678` with actual file ID if you have it
-      // Create the payload for submission
+
+      // Function to upload the file and get the file ID
+      const uploadFile = async (file: File | null) => {
+        if (!file) return 0; // Return 0 if no file is selected
+
+        const formData = new FormData();
+        formData.append("Image", file); // Append the file to the form data
+
+        try {
+          const response = await axios.post(
+            "https://mohasel.net/api/Client/Files/UploadFile", // File upload URL
+            formData,
+            {
+              headers: {
+                "Content-Type": "multipart/form-data",
+              },
+            }
+          );
+          // Return the file ID from the API response
+          return response.data.id;
+        } catch (error: any) {
+          console.error("Error uploading file", error);
+          return 0; // Return 0 if upload failed
+        }
+      };
+
+      // Upload both the commercial registration file and the VAT certificate file
+      const commercialRegistrationFileId = await uploadFile(
+        commercialRegistrationFile
+      );
+      const vatCertificateFileId = await uploadFile(vatCertificateFile);
+
+      // Create the payload for registration
       const payload = {
         user: {
           phoneNumber: combinedPhone,
@@ -74,7 +101,8 @@ const Register = () => {
       };
 
       console.log(payload);
-      // Call API url which will handle calling the external API
+
+      // Call registration API
       const response = await axios.post(
         "https://mohasel.net/api/Client/Auth/Register",
         payload
@@ -83,15 +111,14 @@ const Register = () => {
       if (response.status === 200) {
         setIsLoading(false);
         const { id, message } = response.data;
-        console.log(id, message); // Handle the result as per your needs (e.g., redirect)
-        router.push("/login"); // Redirect to another page (login)
+        console.log(id, message);
+        router.push("/login"); // Redirect to login
       }
     } catch (error: any) {
-      // Handle error response from your API route
-      console.log("error", error);
+      console.log("Error", error);
       const errorMessage =
         error.response?.data?.message || "Something went wrong.";
-      alert(errorMessage); // We can adjust error handling as needed
+      alert(errorMessage);
     }
   };
 

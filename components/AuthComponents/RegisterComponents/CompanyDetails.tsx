@@ -22,10 +22,16 @@ interface CompanyDetailsProps {
   setCompanyNameEnglish: React.Dispatch<React.SetStateAction<string>>;
   commercialRegistration: string;
   setCommercialRegistration: React.Dispatch<React.SetStateAction<string>>;
+  commercialRegistrationFile: File | null;
+  setCommercialRegistrationFile: React.Dispatch<
+    React.SetStateAction<File | null>
+  >;
   vatCertificate: string;
   setVatCertificate: React.Dispatch<React.SetStateAction<string>>;
+  vatCertificateFile: File | null;
+  setVatCertificateFile: React.Dispatch<React.SetStateAction<File | null>>;
   isSubmitButtonDisabled: boolean;
-  handleSubmitButton: () => void; // Updated prop
+  handleSubmitButton: () => void;
   isLoading: boolean;
 }
 
@@ -38,8 +44,12 @@ const CompanyDetails = ({
   setCompanyNameEnglish,
   commercialRegistration,
   setCommercialRegistration,
+  commercialRegistrationFile,
+  setCommercialRegistrationFile,
   vatCertificate,
   setVatCertificate,
+  vatCertificateFile,
+  setVatCertificateFile,
   isSubmitButtonDisabled,
   handleSubmitButton,
   isLoading,
@@ -54,11 +64,32 @@ const CompanyDetails = ({
       companyNameArabic: companyNameArabic || "",
       companyNameEnglish: companyNameEnglish || "",
       commercialRegistration: commercialRegistration || "",
+      commercialRegistrationFile: commercialRegistrationFile || null,
       vatCertificate: vatCertificate || "",
+      vatCertificateFile: vatCertificateFile || null,
     },
   });
 
+  const onFileUpload = (file: File | null, type: "commercialRegistration" | "vatCertificate") => {
+    if (type === "commercialRegistration") {
+      setCommercialRegistrationFile(file);
+    } else if (type === "vatCertificate") {
+      setVatCertificateFile(file);
+    }
+  };
+
   const onSubmit = (data: any) => {
+    const formData = new FormData();
+    formData.append("companyNameArabic", data.companyNameArabic);
+    formData.append("companyNameEnglish", data.companyNameEnglish);
+    formData.append("commercialRegistration", data.commercialRegistration);
+    formData.append("vatCertificate", data.vatCertificate);
+    if (commercialRegistrationFile) {
+      formData.append("commercialRegistrationFile", commercialRegistrationFile);
+    }
+    if (vatCertificateFile) {
+      formData.append("vatCertificateFile", vatCertificateFile);
+    }
     handleSubmitButton();
   };
 
@@ -148,7 +179,7 @@ const CompanyDetails = ({
       {/* Upload Commercial Registration File */}
       <FileUpload
         label={tabSpecificLabels[activeTab].commercialFileUpload}
-        onFileUpload={(file) => console.log("Uploaded file:", file)}
+        onFileUpload={(file) => onFileUpload(file, "commercialRegistration")}
       />
 
       {/* VAT Certificate Number */}
@@ -175,7 +206,7 @@ const CompanyDetails = ({
       {/* Upload VAT Certificate File */}
       <FileUpload
         label={tabSpecificLabels[activeTab].vatFileUpload}
-        onFileUpload={(file) => console.log("Uploaded VAT file:", file)}
+        onFileUpload={(file) => onFileUpload(file, "vatCertificate")}
       />
 
       {/* Register Account Button */}

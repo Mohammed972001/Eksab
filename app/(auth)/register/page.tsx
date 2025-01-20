@@ -33,7 +33,12 @@ const Register = () => {
   const [companyNameArabic, setCompanyNameArabic] = useState("");
   const [companyNameEnglish, setCompanyNameEnglish] = useState("");
   const [commercialRegistration, setCommercialRegistration] = useState("");
+  const [commercialRegistrationFile, setCommercialRegistrationFile] =
+    useState<File | null>(null);
   const [vatCertificate, setVatCertificate] = useState("");
+  const [vatCertificateFile, setVatCertificateFile] = useState<File | null>(
+    null
+  );
   const [activeTab, setActiveTab] = useState(0);
   const [isFirstSectionCompleted, setIsFirstSectionCompleted] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
@@ -43,6 +48,11 @@ const Register = () => {
     try {
       setIsLoading(true);
       const combinedPhone = `${countryCode}${phoneNumber}`; // Combine phone number and country code
+      // Prepare file IDs (set to 0 if no file exists)
+      const commercialRegistrationFileId = commercialRegistrationFile
+        ? 1234
+        : 0; // Replace `1234` with actual file ID if you have it
+      const vatCertificateFileId = vatCertificateFile ? 5678 : 0; // Replace `5678` with actual file ID if you have it
       // Create the payload for submission
       const payload = {
         user: {
@@ -57,18 +67,18 @@ const Register = () => {
           organizationName: companyNameArabic,
           organizationNameEn: companyNameEnglish,
           organizationCRNumber: commercialRegistration,
-          organizationCRDocumentFileId: 0,
+          organizationCRDocumentFileId: commercialRegistrationFileId,
           organizationVATNumber: vatCertificate,
-          organizationVATCertificateFileId: 0,
+          organizationVATCertificateFileId: vatCertificateFileId,
         },
       };
 
       console.log(payload);
-      // Call your custom API route which will handle calling the external API
+      // Call API url which will handle calling the external API
       const response = await axios.post(
         "https://mohasel.net/api/Client/Auth/Register",
         payload
-      ); // Modify this URL according to your actual route
+      );
 
       if (response.status === 200) {
         setIsLoading(false);
@@ -172,8 +182,12 @@ const Register = () => {
           setCompanyNameEnglish={setCompanyNameEnglish}
           commercialRegistration={commercialRegistration}
           setCommercialRegistration={setCommercialRegistration}
+          commercialRegistrationFile={commercialRegistrationFile}
+          setCommercialRegistrationFile={setCommercialRegistrationFile}
           vatCertificate={vatCertificate}
           setVatCertificate={setVatCertificate}
+          vatCertificateFile={vatCertificateFile}
+          setVatCertificateFile={setVatCertificateFile}
           isSubmitButtonDisabled={isSubmitButtonDisabled}
           handleSubmitButton={handleSubmitButton}
           isLoading={isLoading}

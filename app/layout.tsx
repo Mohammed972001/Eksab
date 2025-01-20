@@ -15,7 +15,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" dir="rtl">
-      <body className="antialiased">
+      <body className="antialiased" suppressHydrationWarning={true}>
         <ThemeWrapper>
           <Navbar />
           <div className="mt-20">{children}</div>

@@ -1,3 +1,4 @@
+"use client";
 import PhoneInput from "@/components/SharedComponents/PhoneInput";
 import SubmitButton from "@/components/SharedComponents/SubmitButton";
 import TextInput from "@/components/SharedComponents/TextInput";
@@ -5,7 +6,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 // Interface for form data
-interface FormData {
+interface RegisterFormData {
   phoneNumber: string;
   countryCode: string;
   name: string;
@@ -64,7 +65,7 @@ const PersonalInformation: React.FC<PersonalInformationProps> = ({
     getValues,
     setValue,
     formState: { errors },
-  } = useForm<FormData>({
+  } = useForm<RegisterFormData>({
     defaultValues: {
       phoneNumber: phoneNumber || "",
       countryCode: countryCode || "+966",
@@ -75,7 +76,7 @@ const PersonalInformation: React.FC<PersonalInformationProps> = ({
     },
   });
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: RegisterFormData) => {
     // Combine countryCode with phone
     const combinedPhone = `${data.countryCode}${data.phoneNumber}`;
 
@@ -85,14 +86,12 @@ const PersonalInformation: React.FC<PersonalInformationProps> = ({
       phone: combinedPhone,
     };
 
-    console.log("Updated Form Data: ", updatedData);
-
     setIsFirstSectionCompleted(true);
     setCurrentStep(2); // Move to the next step
   };
 
   return (
-    <form
+    <div
       onSubmit={handleSubmit(onSubmit)}
       className="flex-col w-full gap-4 mt-8 flex"
     >
@@ -216,7 +215,7 @@ const PersonalInformation: React.FC<PersonalInformationProps> = ({
         onClick={handleSubmit(onSubmit)} // Handle validation and submission on click
         buttonText="التالي"
       />
-    </form>
+    </div>
   );
 };
 

@@ -9,6 +9,7 @@ import AlreadyRegistered from "@/components/AuthComponents/RegisterComponents/Al
 import ProgressStepper from "@/components/AuthComponents/RegisterComponents/ProgressStepper";
 import PersonalInformation from "@/components/AuthComponents/RegisterComponents/PersonalInformation";
 import CompanyDetails from "@/components/AuthComponents/RegisterComponents/CompanyDetails";
+import axios from "axios";
 
 interface TabSpecificLabels {
   companyNameArabic: string;
@@ -36,9 +37,52 @@ const Register = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [isFirstSectionCompleted, setIsFirstSectionCompleted] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmitButton = async () => {
-    console.log("submit");
+    try {
+      setIsLoading(true);
+      const combinedPhone = `${countryCode}${phoneNumber}`; // Combine phone number and country code
+      // Create the payload for submission
+      const payload = {
+        user: {
+          phoneNumber: combinedPhone,
+          email: email,
+          name: name,
+          password: password,
+          confirmPassword: confirmPassword,
+        },
+        organization: {
+          organizationType: "Client",
+          organizationName: companyNameArabic,
+          organizationNameEn: companyNameEnglish,
+          organizationCRNumber: commercialRegistration,
+          organizationCRDocumentFileId: 0,
+          organizationVATNumber: vatCertificate,
+          organizationVATCertificateFileId: 0,
+        },
+      };
+
+      console.log(payload);
+      // Call your custom API route which will handle calling the external API
+      const response = await axios.post(
+        "https://mohasel.net/api/Client/Auth/Register",
+        payload
+      ); // Modify this URL according to your actual route
+
+      if (response.status === 200) {
+        setIsLoading(false);
+        const { id, message } = response.data;
+        console.log(id, message); // Handle the result as per your needs (e.g., redirect)
+        router.push("/login"); // Redirect to another page (login)
+      }
+    } catch (error: any) {
+      // Handle error response from your API route
+      console.log("error", error);
+      const errorMessage =
+        error.response?.data?.message || "Something went wrong.";
+      alert(errorMessage); // We can adjust error handling as needed
+    }
   };
 
   const handleClickShowPassword = () => setShowPassword(!showPassword);
@@ -132,6 +176,7 @@ const Register = () => {
           setVatCertificate={setVatCertificate}
           isSubmitButtonDisabled={isSubmitButtonDisabled}
           handleSubmitButton={handleSubmitButton}
+          isLoading={isLoading}
         />
       )}
 

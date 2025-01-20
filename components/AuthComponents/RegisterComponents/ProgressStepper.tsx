@@ -44,7 +44,13 @@ const ProgressStepper = ({
             }`}
           >
             {step < currentStep ? (
-              <Image src={"/auth/Tick.svg"} alt="tick" width={12} height={12} />
+              <Image
+                src={"/auth/Tick.svg"}
+                alt="tick"
+                width={12}
+                height={12}
+                style={{ width: "auto", height: "auto" }}
+              />
             ) : (
               <div
                 className={`w-2 h-2 rounded-full ${

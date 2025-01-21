@@ -14,7 +14,8 @@ import axios from "axios";
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState(""); // State for email input
-  const [password, setPassword] = useState(""); // State for password input
+  const [password, setPassword] = useState(""); // State for password
+  const [errorMessage, setErrorMessage] = useState<string | null>(null); // State for error message
   const router = useRouter();
 
   const {
@@ -72,12 +73,21 @@ export default function Login() {
     } catch (error: any) {
       console.log("Login Failed");
       console.log("Error:", error);
-      const errorMessage =
-        error.response?.data?.message || "Something went wrong.";
-      alert(errorMessage); // Show error message
+  
+      // Extract the error message from the server response
+      const serverErrors = error.response?.data?.errors;
+  
+      // If the error is an object, extract the first error message
+      let serverErrorMessage = "Something went wrong.";
+      if (serverErrors && typeof serverErrors === "object") {
+        const firstErrorKey = Object.keys(serverErrors)[0]; // Get the first key (e.g., "Password")
+        serverErrorMessage = serverErrors[firstErrorKey]; // Get the corresponding error message
+      }
+  
+      setErrorMessage(serverErrorMessage); // Update the error message state
+      console.log("Error Message:", serverErrorMessage);
     }
   };
-  
 
   return (
     <form
@@ -147,6 +157,11 @@ export default function Login() {
         {/* Remember Me and Forgot Password */}
         <RememberMe />
       </div>
+
+      {/* Display the error message */}
+      {errorMessage && (
+        <p className="text-red-500 mt-4 text-center">{errorMessage}</p>
+      )}
 
       {/* Submit Button */}
       <SubmitButton

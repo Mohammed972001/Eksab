@@ -1,16 +1,19 @@
-"use client"
+"use client";
 import Header from "@/components/AuthComponents/Header";
 import HeaderIcon from "@/components/AuthComponents/HeaderIcon";
 import SubmitButton from "@/components/SharedComponents/SubmitButton";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import React from "react";
 
 const OTP = () => {
   const router = useRouter();
+  const searchParams = useSearchParams(); // Hook to access query parameters
+  const email = searchParams.get("email"); // Get the email from query parameters
 
   const handleButtonClick = () => {
     router.push("/login");
   };
+
   return (
     <div className="flex flex-col justify-center items-center w-full max-w-md mx-auto">
       <div className="flex flex-col justify-center items-center gap-6">
@@ -19,7 +22,7 @@ const OTP = () => {
           <Header title="تحقق من بريدك الإلكتروني" />
           <p className="text-shadeGray text-center">
             لقد أرسلنا رابط التحقق إلى <br />{" "}
-            <span className="font-semibold">olivia@untitledui.com</span>
+            <span className="font-semibold">{email}</span>
           </p>
         </div>
       </div>

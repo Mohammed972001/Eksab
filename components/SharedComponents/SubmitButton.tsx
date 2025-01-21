@@ -5,12 +5,13 @@ import clsx from "clsx"; // Utility for conditional class merging
 
 interface SubmitButtonProps {
   disabled?: boolean;
-  onClick: () => void;
+  onClick?: (e?: React.FormEvent) => void; // Updated to accept optional event argument
   buttonText: string;
   classContainer?: string;
   rightIcon?: string;
   fullWidth?: boolean;
   loading?: boolean; // New prop for loading state
+  type?: "submit" | "button";
 }
 
 const SubmitButton: React.FC<SubmitButtonProps> = ({
@@ -21,11 +22,13 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
   rightIcon,
   fullWidth = true, // default to true for full-width
   loading = false, // default loading state to false
+  type,
 }) => (
   <Button
     className={clsx("bg-primary", classContainer)} // Merge the default and provided classes
     variant="contained"
     fullWidth
+    type={type}
     disabled={disabled || loading} // Disable button if loading
     onClick={onClick}
     sx={{

@@ -15,9 +15,11 @@ export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [email, setEmail] = useState(""); // State for email input
   const [password, setPassword] = useState(""); // State for password
+  const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState<string | null>(null); // State for error message
   const router = useRouter();
 
+  // React hook form initialization
   const {
     register,
     handleSubmit,
@@ -36,18 +38,20 @@ export default function Login() {
   const isButtonDisabled = !email || !password;
 
   const onSubmit = async (data: any) => {
+    setIsLoading(true);
+    setErrorMessage(null);
     try {
       const payload = {
         email: data.email,
         password: data.password,
       };
-  
+
       console.log(payload);
       const response = await axios.post(
         "https://mohasel.net/api/Client/Auth/Login",
         payload
       );
-  
+
       if (response.status === 200) {
         const {
           isEmailVerified,
@@ -58,7 +62,7 @@ export default function Login() {
           user,
           organization,
         } = response.data;
-  
+
         console.log("Login Successful!");
         console.log("Email Verified:", isEmailVerified);
         console.log("Token:", token);
@@ -67,25 +71,27 @@ export default function Login() {
         console.log("Refresh Token Expiry Time:", refreshTokenExpiryTime);
         console.log("User:", user);
         console.log("Organization:", organization);
-  
+
         router.push("/"); // Redirect to another page (dashboard)
       }
     } catch (error: any) {
       console.log("Login Failed");
       console.log("Error:", error);
-  
+
       // Extract the error message from the server response
       const serverErrors = error.response?.data?.errors;
-  
+
       // If the error is an object, extract the first error message
       let serverErrorMessage = "Something went wrong.";
       if (serverErrors && typeof serverErrors === "object") {
         const firstErrorKey = Object.keys(serverErrors)[0]; // Get the first key (e.g., "Password")
         serverErrorMessage = serverErrors[firstErrorKey]; // Get the corresponding error message
       }
-  
+
       setErrorMessage(serverErrorMessage); // Update the error message state
       console.log("Error Message:", serverErrorMessage);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -166,8 +172,9 @@ export default function Login() {
       {/* Submit Button */}
       <SubmitButton
         disabled={isButtonDisabled}
-        onClick={() => handleSubmit(onSubmit)()} // Explicitly invoking onSubmit with handleSubmit
+        type="submit"
         buttonText="تسجيل الدخول"
+        loading={isLoading}
       />
 
       <RegisterRedirect />

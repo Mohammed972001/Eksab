@@ -9,7 +9,7 @@ import TextInput from "@/components/SharedComponents/TextInput";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/navigation";
-import axios from "axios";
+import { signIn } from "next-auth/react";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -38,62 +38,34 @@ export default function Login() {
   const isButtonDisabled = !email || !password;
 
   const onSubmit = async (data: any) => {
-    setIsLoading(true);
-    setErrorMessage(null);
-    try {
-      const payload = {
-        email: data.email,
-        password: data.password,
-      };
+  setIsLoading(true);
+  setErrorMessage(null);
 
-      console.log(payload);
-      const response = await axios.post(
-        "https://mohasel.net/api/Client/Auth/Login",
-        payload
-      );
+  try {
+    // Use NextAuth.js to sign in
+    const result = await signIn("credentials", {
+      redirect: false,
+      email: data.email,
+      password: data.password,
+    });
 
-      if (response.status === 200) {
-        const {
-          isEmailVerified,
-          token,
-          tokenExpiryTime,
-          refreshToken,
-          refreshTokenExpiryTime,
-          user,
-          organization,
-        } = response.data;
+    console.log("SignIn Result:", result); // Log the result
 
-        console.log("Login Successful!");
-        console.log("Email Verified:", isEmailVerified);
-        console.log("Token:", token);
-        console.log("Token Expiry Time:", tokenExpiryTime);
-        console.log("Refresh Token:", refreshToken);
-        console.log("Refresh Token Expiry Time:", refreshTokenExpiryTime);
-        console.log("User:", user);
-        console.log("Organization:", organization);
-
-        router.push("/"); // Redirect to another page (dashboard)
-      }
-    } catch (error: any) {
-      console.log("Login Failed");
-      console.log("Error:", error);
-
-      // Extract the error message from the server response
-      const serverErrors = error.response?.data?.errors;
-
-      // If the error is an object, extract the first error message
-      let serverErrorMessage = "Something went wrong.";
-      if (serverErrors && typeof serverErrors === "object") {
-        const firstErrorKey = Object.keys(serverErrors)[0]; // Get the first key (e.g., "Password")
-        serverErrorMessage = serverErrors[firstErrorKey]; // Get the corresponding error message
-      }
-
-      setErrorMessage(serverErrorMessage); // Update the error message state
-      console.log("Error Message:", serverErrorMessage);
-    } finally {
-      setIsLoading(false);
+    if (result?.error) {
+      // Handle authentication errors
+      setErrorMessage(result.error);
+    } else {
+      // Force a hard refresh
+      router.push("/");
     }
-  };
+  } catch (error) {
+    console.log("Login Failed");
+    console.log("Error:", error);
+    setErrorMessage("Something went wrong. Please try again.");
+  } finally {
+    setIsLoading(false);
+  }
+};
 
   return (
     <form

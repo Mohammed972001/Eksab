@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
 import NewCompetitionHeader from "@/components/dashboard/competitions/newCompetition/NewCompetitionHeader";
 import NewCompetitionMainInfo from "@/components/dashboard/competitions/newCompetition/NewCompetitionMainInfo";
@@ -15,15 +15,9 @@ import NewCompetitionWithdrawal from "@/components/dashboard/competitions/newCom
 import NewCompetitionTerms from "@/components/dashboard/competitions/newCompetition/NewCompetitionTerms";
 import NewCompetitionPayment from "@/components/dashboard/competitions/newCompetition/NewCompetitionPayment";
 import SuccessfulCreation from "@/components/dashboard/competitions/newCompetition/SuccessfulCreation";
-
-interface SelectedServices {
-  dataUpload: boolean;
-  invoiceVerification: boolean;
-  unlimitedChances: boolean;
-}
+import axios from "axios";
 
 const CompetitionDetailPage = () => {
-  const params = useParams();
   const router = useRouter();
 
   const steps = [
@@ -43,8 +37,8 @@ const CompetitionDetailPage = () => {
   const [city, setCity] = useState("");
   const [competitionNameEn, setCompetitionNameEn] = useState("");
   const [competitionNameAr, setCompetitionNameAr] = useState("");
-  const roomOptions = ["Room 1", "Room 2", "Room 3"];
-  const cityOptions = ["City 1", "City 2", "City 3"];
+  const [chamberOptions, setChamberOptions] = useState<string[]>([]); // State to store chamber names
+  const [cityOptions, setCityOptions] = useState<string[]>([]); // State to store city names
   const [selectedServices, setSelectedServices] = useState<SelectedServices>({
     dataUpload: false,
     invoiceVerification: false,
@@ -81,6 +75,48 @@ const CompetitionDetailPage = () => {
     setShowPaymentSuccess(true); // Show the payment success component
   };
 
+  // Function to get all chambers names from api
+  const getAllChambers = async () => {
+    try {
+      const response = await axios.get(
+        "https://mohasel.net/api/Client/Lookups/GetAllChambers"
+      );
+
+      const chamberOptions = response.data;
+
+      // Extract the `name` property from each object
+      const chamberNames = chamberOptions.map(
+        (chamber: Chamber) => chamber.name
+      );
+      setChamberOptions(chamberNames); // Store the names in state
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // Function to get all cities names from the api
+  const getAllCities = async () => {
+    try {
+      const response = await axios.get(
+        "https://mohasel.net/api/Client/Lookups/GetAllCities"
+      );
+      const cityOptions = response.data;
+      // Extract the 'name property from each object
+      const cityNames = cityOptions.map((city: City) => city.name);
+      setCityOptions(cityNames);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllChambers();
+  }, []);
+
+  useEffect(() => {
+    getAllCities();
+  });
+
   return (
     <div className="h-full w-full pb-20">
       <NewCompetitionHeader />
@@ -99,7 +135,7 @@ const CompetitionDetailPage = () => {
             {activeStep === 0 && (
               <>
                 <NewCompetitionMainInfo
-                  roomOptions={roomOptions}
+                  chamberOptions={chamberOptions}
                   cityOptions={cityOptions}
                   selectedOption={selectedOption}
                   room={room}

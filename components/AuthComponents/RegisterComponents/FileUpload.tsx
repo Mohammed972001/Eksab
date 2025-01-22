@@ -99,7 +99,7 @@ export const FileUpload = ({
         {error && (
           <p className="text-[10px] text-red-500 mt-2">{error}</p>
         )}
-        <p className="text-[#70737A] text-[12px]">SVG, PNG, JPG, or GIF (max. 800x400px)</p>
+        <p className="text-[#70737A] text-[12px] text-center">SVG, PNG, JPG, or GIF (max. 800x400px)</p>
       </div>
 
       {/* Hidden File Input */}

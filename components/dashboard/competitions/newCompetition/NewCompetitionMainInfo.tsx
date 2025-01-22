@@ -3,7 +3,7 @@ import { FileUpload } from "@/components/AuthComponents/RegisterComponents/FileU
 import TextInput from "@/components/SharedComponents/TextInput";
 
 interface NewCompetitionMainInfoProps {
-  roomOptions: string[];
+  chamberOptions: string[];
   cityOptions: string[];
   selectedOption: string;
   room: string;
@@ -18,7 +18,7 @@ interface NewCompetitionMainInfoProps {
 }
 
 const NewCompetitionMainInfo: React.FC<NewCompetitionMainInfoProps> = ({
-  roomOptions,
+  chamberOptions,
   cityOptions,
   selectedOption,
   room,
@@ -35,7 +35,9 @@ const NewCompetitionMainInfo: React.FC<NewCompetitionMainInfoProps> = ({
     <div className="w-full flex flex-col gap-6">
       {/* Form title header */}
       <div className="flex flex-col items-start justify-center gap-4 w-full">
-        <h2 className="text-2xl font-semibold text-shadeBlack">البيانات الرئيسية</h2>
+        <h2 className="text-2xl font-semibold text-shadeBlack">
+          البيانات الرئيسية
+        </h2>
         <hr className="w-full" />
       </div>
 
@@ -58,12 +60,14 @@ const NewCompetitionMainInfo: React.FC<NewCompetitionMainInfoProps> = ({
             {
               value: "platform",
               title: "منصة أكسب",
-              description: "نص مؤقت يوضح أن المستخدم سيقوم باختيار الاشتراك عن طريق منصة أكسب.",
+              description:
+                "نص مؤقت يوضح أن المستخدم سيقوم باختيار الاشتراك عن طريق منصة أكسب.",
             },
             {
               value: "external",
               title: "منصة خارجية",
-              description: "نص مؤقت يوضح أن المستخدم سيقوم باختيار الاشتراك عن طريق منصة خارجية.",
+              description:
+                "نص مؤقت يوضح أن المستخدم سيقوم باختيار الاشتراك عن طريق منصة خارجية.",
             },
           ].map((option) => (
             <div
@@ -74,9 +78,13 @@ const NewCompetitionMainInfo: React.FC<NewCompetitionMainInfoProps> = ({
                 alignItems: "flex-start",
                 gap: "8px",
                 padding: "16px",
-                border: selectedOption === option.value ? "2px solid #3454B4" : "1px solid #C6C7CA",
+                border:
+                  selectedOption === option.value
+                    ? "2px solid #3454B4"
+                    : "1px solid #C6C7CA",
                 borderRadius: "8px",
-                backgroundColor: selectedOption === option.value ? "#D9E1F9" : "#ffffff",
+                backgroundColor:
+                  selectedOption === option.value ? "#D9E1F9" : "#ffffff",
                 boxShadow:
                   selectedOption === option.value
                     ? "0px 4px 6px -2px #10182808, 0px 12px 16px -4px #10182814"
@@ -92,7 +100,8 @@ const NewCompetitionMainInfo: React.FC<NewCompetitionMainInfoProps> = ({
                     style={{
                       fontSize: "22px",
                       fontWeight: "medium",
-                      color: selectedOption === option.value ? "#0D152D" : "#434549",
+                      color:
+                        selectedOption === option.value ? "#0D152D" : "#434549",
                     }}
                   >
                     {option.title}
@@ -120,7 +129,11 @@ const NewCompetitionMainInfo: React.FC<NewCompetitionMainInfoProps> = ({
         {/* Form file uploader */}
         <div className="flex flex-col justify-center items-center gap-4 py-10 px-12 bg-white rounded-xl border border-[#E9E9EA] min-w-[350px] max-h-[200px]">
           <p className="text-[22px] font-medium text-black">شعار المسابقة</p>
-            <FileUpload label={""} classContainer="flex-col border-none p-0" textClass="text-center items-center" />
+          <FileUpload
+            label={""}
+            classContainer="flex-col border-none p-0"
+            textClass="text-center items-center"
+          />
         </div>
 
         {/* Form main information fields */}
@@ -131,7 +144,7 @@ const NewCompetitionMainInfo: React.FC<NewCompetitionMainInfoProps> = ({
               type="text"
               value={room}
               onChange={(e) => onRoomChange(e.target.value)}
-              options={roomOptions}
+              options={chamberOptions}
               required
             />
             <TextInput

@@ -2,6 +2,7 @@ import { Metadata } from "next";
 import ThemeWrapper from "./ThemeWrapper";
 import "./globals.css";
 import Navbar from "@/components/NavigationComponents/Navbar";
+import Providers from "@/providers/Providers";
 
 export const metadata: Metadata = {
   title: "Eksab",
@@ -10,16 +11,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  session, // Add session prop
 }: Readonly<{
   children: React.ReactNode;
+  session: any; // Define the session prop type
 }>) {
   return (
     <html lang="en" dir="rtl">
       <body className="antialiased" suppressHydrationWarning={true}>
-        <ThemeWrapper>
-          <Navbar />
-          <div className="mt-20">{children}</div>
-        </ThemeWrapper>
+        {/* Wrap the ThemeWrapper with Providers */}
+        <Providers session={session}>
+          <ThemeWrapper>
+            <Navbar />
+            <div className="mt-20">{children}</div>
+          </ThemeWrapper>
+        </Providers>
       </body>
     </html>
   );

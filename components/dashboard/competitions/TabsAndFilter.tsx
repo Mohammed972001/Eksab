@@ -9,35 +9,40 @@ interface TabsAndFilterProps {
 }
 
 const TabsAndFilter: React.FC<TabsAndFilterProps> = ({ activeTab, switchTab }) => {
+  const tabs = [
+    { key: "active", label: "المسابقات السارية" },
+    { key: "draft", label: "المسودة" },
+    { key: "finished", label: "المسابقات المنتهية" },
+  ];
+
   return (
     <div className="mt-6 flex flex-col items-center justify-center gap-6">
-      {/* Tabs */}
       <div className="grid grid-cols-1 md:grid-cols-3 w-full">
-        {["active", "draft", "finished"].map((tab) => (
+        {tabs.map((tab) => (
           <div
-            key={tab}
+            key={tab.key}
             className="flex flex-col justify-center items-center gap-3 cursor-pointer"
-            onClick={() => switchTab(tab)}
+            onClick={() => switchTab(tab.key)}
+            role="button"
+            tabIndex={0}
+            aria-label={tab.label}
           >
             <p
               className={`${
-                activeTab === tab ? "text-primary font-semibold" : "text-shadeGray"
+                activeTab === tab.key ? "text-primary font-semibold" : "text-shadeGray"
               }`}
             >
-              {tab === "active" && "المسابقات السارية"}
-              {tab === "draft" && "المسودة"}
-              {tab === "finished" && "المسابقات المنتهية"}
+              {tab.label}
             </p>
             <div
               className={`w-full h-0.5 ${
-                activeTab === tab ? "bg-primary" : "bg-[#E3E3E4]"
+                activeTab === tab.key ? "bg-primary" : "bg-[#E3E3E4]"
               }`}
             />
           </div>
         ))}
       </div>
 
-      {/* Filter and Search */}
       <div className="flex items-center gap-4 w-full">
         <div className="w-full">
           <SearchBar />

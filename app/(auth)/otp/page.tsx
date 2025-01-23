@@ -3,9 +3,10 @@ import Header from "@/components/AuthComponents/Header";
 import HeaderIcon from "@/components/AuthComponents/HeaderIcon";
 import SubmitButton from "@/components/SharedComponents/SubmitButton";
 import { useRouter, useSearchParams } from "next/navigation";
-import React from "react";
+import React, { Suspense } from "react";
 
-const OTP = () => {
+// Wrap the OTP component in Suspense
+const OTPContent = () => {
   const router = useRouter();
   const searchParams = useSearchParams(); // Hook to access query parameters
   const email = searchParams.get("email"); // Get the email from query parameters
@@ -31,6 +32,14 @@ const OTP = () => {
         onClick={handleButtonClick}
       />
     </div>
+  );
+};
+
+const OTP = () => {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <OTPContent />
+    </Suspense>
   );
 };
 

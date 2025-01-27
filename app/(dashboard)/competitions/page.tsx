@@ -60,7 +60,7 @@ const CompetitionsPage = () => {
                   ? "Active"
                   : activeTab === "draft"
                   ? "Draft"
-                  : "Finished",
+                  : "Expired",
             },
           },
           {

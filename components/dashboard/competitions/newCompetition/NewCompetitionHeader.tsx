@@ -2,7 +2,11 @@ import { ChevronLeftRounded } from "@mui/icons-material";
 import Image from "next/image";
 import React from "react";
 
-const NewCompetitionHeader = () => {
+interface NewCompetitionHeaderProps {
+  title: string;
+}
+
+const NewCompetitionHeader = ({ title }: NewCompetitionHeaderProps) => {
   return (
     <div>
       <div className="flex flex-col gap-[20px] w-full">
@@ -22,15 +26,13 @@ const NewCompetitionHeader = () => {
           <ChevronLeftRounded className="text-[#E3E3E4]" />
           <div className="bg-[#EEEEEF] flex justify-center items-center px-2 py-1 rounded-md">
             <p className="text-shadeGray font-semibold text-sm">
-              إنشاء مسابقة جديدة
+              انشاء مسابقة جديدة
             </p>
           </div>
         </div>
 
         <div className="flex justify-between items-center w-full">
-          <h2 className="font-semibold text-[30px] text-shadeBlack">
-            إنشاء مسابقة جديدة (مسابقتك الخاصة)
-          </h2>
+          <h2 className="font-semibold text-[30px] text-shadeBlack">{title}</h2>
         </div>
       </div>
       <hr className="mt-5" />

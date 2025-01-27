@@ -6,6 +6,7 @@ import CompetitionCard from "@/components/dashboard/competitions/CompetitionCard
 import CompetitionsHeader from "@/components/dashboard/competitions/CompetitionsHeader";
 import NoCompetitions from "@/components/dashboard/competitions/NoCompetitions";
 import TabsAndFilter from "@/components/dashboard/competitions/TabsAndFilter";
+import LoadingSpinner from "@/components/SharedComponents/LoadingSpinner";
 
 type Competition = {
   id: number;
@@ -86,11 +87,11 @@ const CompetitionsPage = () => {
 
   // Handle session loading state
   if (status === "loading") {
-    return <div>Loading session</div>;
+    return <LoadingSpinner />;
   }
 
   if (loading) {
-    return <div>Loading competitions</div>;
+    return <LoadingSpinner />;
   }
 
   if (error) {

@@ -20,8 +20,8 @@ const CompetitionServiceCard = ({
   const router = useRouter();
 
   const handleCardClick = () => {
-    // Navigate to the competition page
-    router.push(`/competitions/${competitionId}`);
+    // Navigate to the competition page and pass the title as a query parameter
+    router.push(`/competitions/${competitionId}?title=${encodeURIComponent(title)}`);
   };
 
   return (

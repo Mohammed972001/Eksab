@@ -20,7 +20,7 @@ const cardData = [
     competitionId: "1",
   },
   {
-    imageSrc: "/dashboard/competitions/shapes.svg",
+    imageSrc: "/dashboard/competitions/shapes.svg", 
     bgColor: "bg-[#D9E1F9]",
     title: "مسابقتك الخاصة",
     description:

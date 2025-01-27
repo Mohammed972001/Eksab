@@ -17,6 +17,7 @@ import NewCompetitionPayment from "@/components/dashboard/competitions/newCompet
 import SuccessfulCreation from "@/components/dashboard/competitions/newCompetition/SuccessfulCreation";
 import axios from "axios";
 import LoadingSpinner from "@/components/SharedComponents/LoadingSpinner";
+import { validCompetitionIds } from "@/utils/validCompetitionIds";
 
 const CompetitionDetailPage = () => {
   const { id } = useParams(); // Get the competition ID from the URL
@@ -130,6 +131,19 @@ const CompetitionDetailPage = () => {
       setCompetitionTitle(decodeURIComponent(title));
     }
   }, [searchParams]);
+
+   // Check if the ID is valid
+   useEffect(() => {
+    if (!validCompetitionIds.includes(id as string)) {
+      // Redirect to a not found page if ID is invalid
+      router.push("/notfound");
+    }
+  }, [id, router]);
+
+  // If the ID is invalid, don't render the page
+  if (!validCompetitionIds.includes(id as string)) {
+    return null;
+  }
 
   return (
     <Suspense fallback={<LoadingSpinner />}>

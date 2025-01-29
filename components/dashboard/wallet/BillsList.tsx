@@ -13,14 +13,14 @@ interface BillsListProps {
 
 const BillsList: React.FC<BillsListProps> = ({ bills }) => {
   return (
-    <div className="mt-6 flex flex-col gap-4 items-start w-full">
+    <div className="mt-6 flex flex-col gap-4 items-start w-full overflow-x-auto">
       <div className="flex flex-col gap-4 w-full">
         <p className="text-[#101828] text-[22px] font-semibold">
           قائمة الفواتير
         </p>
         <hr />
       </div>
-      <table className="w-full border-collapse table-fixed">
+      <table className="border-collapse table-fixed w-full min-w-[1024px]">
         <thead>
           <tr className="bg-[#E9E9EA]">
             {[".No", "التاريخ", "الوصف", "قيمة الفاتورة", "المتبقي"].map(

@@ -82,7 +82,7 @@ const CompetitionCard = ({
                 width={16}
                 height={16}
               />
-              <p className="text-shadeGray text-sm font-medium">
+              <p className="text-shadeGray text-sm font-medium text-nowrap">
                 {competitors} مشترك
               </p>
             </div>
@@ -93,7 +93,7 @@ const CompetitionCard = ({
                 width={16}
                 height={16}
               />
-              <p className="text-shadeGray text-sm font-medium">
+              <p className="text-shadeGray text-sm font-medium text-nowrap">
                 {timeLeft} يوما
               </p>
             </div>

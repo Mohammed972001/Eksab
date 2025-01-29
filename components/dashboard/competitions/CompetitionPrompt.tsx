@@ -36,13 +36,13 @@ const CompetitionPrompt = ({
           {/* Action Buttons */}
           <div className="flex gap-2 mt-2">
             <button
-              className="px-4 py-2 bg-white text-shadeBlack rounded-[100px] border border-shadeGray font-medium hover:bg-gray-100"
+              className="px-2 py-1 bg-white text-shadeBlack rounded-[100px] border border-shadeGray font-medium hover:bg-gray-100 md:px-4 md:py-2"
               onClick={handleCloseModal}
             >
               الغاء
             </button>
             <button
-              className="px-4 py-2 bg-primary text-white rounded-[100px] font-medium"
+              className="px-2 py-1 bg-primary text-white rounded-[100px] font-medium md:px-4 md:py-2"
               onClick={handleContinue} // Open second modal
             >
               استكمال إنشاء المسابقة

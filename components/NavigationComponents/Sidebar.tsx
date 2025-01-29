@@ -163,7 +163,7 @@ const Sidebar = () => {
 
   const isActive = (href: string) => pathname === href; // determine currently active pathname and link
   return (
-    <div className="w-[272px] shadow-navbar-shadow bg-white h-full flex justify-center items-start">
+    <div className="w-[272px] shadow-navbar-shadow bg-white h-full justify-center items-start hidden lg:flex">
       {/* display main navigation links */}
       <div className="pt-6 pb-8 w-full flex flex-col justify-start items-center">
         {links.map(({ href, text, icon }) => (

@@ -17,7 +17,7 @@ const TabsAndFilter: React.FC<TabsAndFilterProps> = ({ activeTab, switchTab }) =
 
   return (
     <div className="mt-6 flex flex-col items-center justify-center gap-6">
-      <div className="grid grid-cols-1 md:grid-cols-3 w-full">
+      <div className="grid grid-cols-3 w-full">
         {tabs.map((tab) => (
           <div
             key={tab.key}
@@ -28,7 +28,7 @@ const TabsAndFilter: React.FC<TabsAndFilterProps> = ({ activeTab, switchTab }) =
             aria-label={tab.label}
           >
             <p
-              className={`${
+              className={`text-[12px] text-nowrap md:text-base ${
                 activeTab === tab.key ? "text-primary font-semibold" : "text-shadeGray"
               }`}
             >
@@ -43,14 +43,13 @@ const TabsAndFilter: React.FC<TabsAndFilterProps> = ({ activeTab, switchTab }) =
         ))}
       </div>
 
-      <div className="flex items-center gap-4 w-full">
+      <div className="flex flex-col sm:flex-row items-center gap-4 w-full">
         <div className="w-full">
           <SearchBar />
         </div>
         <div className="flex items-center gap-4">
           <FilterButton buttonText="ترتيب حسب" />
           <FilterButton buttonText="نوع المسابقة" />
-          <FilterButton buttonText="كل الشركات" />
         </div>
       </div>
     </div>

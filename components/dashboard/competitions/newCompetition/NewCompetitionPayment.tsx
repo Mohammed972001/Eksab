@@ -8,7 +8,7 @@ import DatePickerInput from "@/components/SharedComponents/DatePickerInput";
 import { FileUpload } from "@/components/AuthComponents/RegisterComponents/FileUpload";
 
 const NewCompetitionPayment = () => {
-  const tabs = ["دفع الكتروني", "دفع بنكي", "P.O"];
+  const tabs = ["دفع بنكي", "P.O"];
   const [activeTab, setActiveTab] = useState(0);
 
   const [showPassword, setShowPassword] = useState(false);
@@ -45,11 +45,10 @@ const NewCompetitionPayment = () => {
             setActiveTab={setActiveTab}
           />
         </div>
-        {/* Electronic Payment */}
-        {activeTab === 0 && (
+        {/* Electronic Payment DISABLED FOR NOW */}
+        {activeTab === 1000000 && (
           <>
             <div className="flex flex-col items-start justify-start gap-6 w-full">
-              {/* Payment cards images */}
               <div className="flex items-center gap-6">
                 <div className="flex justify-center items-center bg-white border border-[#C6C7CA] rounded-lg px-[10px] py-3 w-[168px] h-[68px]">
                   <Image
@@ -77,7 +76,6 @@ const NewCompetitionPayment = () => {
                 </div>
               </div>
 
-              {/* Payment Details */}
               <div className="flex flex-col gap-4 w-full">
                 {/* Payment Details Header */}
                 <div className="flex flex-col gap-2">
@@ -130,7 +128,7 @@ const NewCompetitionPayment = () => {
         )}
 
         {/* Bank Payment */}
-        {activeTab === 1 && (
+        {activeTab === 0 && (
           <>
             <div className="flex flex-col items-start justify-start gap-6 w-full">
               {/* Section Header */}
@@ -158,7 +156,7 @@ const NewCompetitionPayment = () => {
         )}
 
         {/* P.O Payment */}
-        {activeTab === 2 && (
+        {activeTab === 1 && (
           <>
             <div className="flex flex-col items-start justify-start gap-6 w-full">
               {/* Section Header */}

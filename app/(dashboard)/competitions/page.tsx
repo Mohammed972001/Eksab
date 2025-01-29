@@ -16,8 +16,12 @@ type Competition = {
   fromDate: string;
   toDate: string;
   status: string;
-  numberOfDaysLeft: number;
+  numberOfDays: number;
   numberOfParticipantions: number;
+};
+type City = {
+  id: number;
+  name: string;
 };
 
 const CompetitionsPage = () => {
@@ -25,28 +29,25 @@ const CompetitionsPage = () => {
   const [competitions, setCompetitions] = useState<Competition[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [cityOptions, setCityOptions] = useState<City[]>([]);
+  const [logoUrls, setLogoUrls] = useState<Record<number, string>>({}); // Store logo URLs
 
-  // Use the useSession hook to access the session
   const { data: session, status } = useSession();
 
   const switchTab = (tab: string) => {
     setActiveTab(tab);
   };
 
+  // Fetch competitions
   useEffect(() => {
     const fetchCompetitions = async () => {
       try {
-        // Check if the session is still loading
-        if (status === "loading") {
-          return; // Wait for the session to load
-        }
+        if (status === "loading") return;
 
-        // Check if the user is authenticated
         if (!session?.accessToken) {
           throw new Error("User is not authenticated");
         }
 
-        // Use axios to make the POST request with the token
         const response = await axios.post(
           "https://mohasel.net/api/Client/Competitions/GetAllCompetitions",
           {
@@ -66,31 +67,66 @@ const CompetitionsPage = () => {
           },
           {
             headers: {
-              Authorization: `Bearer ${session.accessToken}`, // Include the token in the headers
+              Authorization: `Bearer ${session.accessToken}`,
             },
           }
         );
-
-        // Set the competitions data from the response
         setCompetitions(response.data.data);
       } catch (err: any) {
-        // Handle errors
         setError(err.message || "Failed to fetch competitions");
       } finally {
-        // Set loading to false after the request is complete
         setLoading(false);
       }
     };
 
     fetchCompetitions();
-  }, [activeTab, session, status]); // Re-fetch data when the activeTab, session, or status changes
+  }, [activeTab, session, status]);
 
-  // Handle session loading state
-  if (status === "loading") {
-    return <LoadingSpinner />;
-  }
+  // Fetch cities
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        const response = await axios.get(
+          "https://mohasel.net/api/Client/Lookups/GetAllCities"
+        );
+        setCityOptions(response.data);
+      } catch (error) {
+        console.error("Failed to fetch cities:", error);
+      }
+    };
 
-  if (loading) {
+    fetchCities();
+  }, []);
+
+  // Fetch logo by ID
+  const fetchLogoUrl = async (logoId: number) => {
+    if (logoUrls[logoId]) return; // If logo URL already exists, skip fetching
+
+    try {
+      const response = await axios.get(
+        `https://mohasel.net/api/Client/Files/DownloadFile/${logoId}`,
+        {
+          responseType: "blob",
+          headers: {
+            Authorization: `Bearer ${session?.accessToken}`,
+          },
+        }
+      );
+
+      const imageUrl = URL.createObjectURL(response.data);
+      setLogoUrls((prev) => ({ ...prev, [logoId]: imageUrl }));
+    } catch (error) {
+      console.error(`Failed to fetch logo with ID ${logoId}:`, error);
+    }
+  };
+
+  // Map cityId to city name
+  const getCityNameById = (cityId: number) => {
+    const city = cityOptions.find((city) => city.id === cityId);
+    return city ? city.name : "Unknown City";
+  };
+
+  if (status === "loading" || loading) {
     return <LoadingSpinner />;
   }
 
@@ -105,30 +141,35 @@ const CompetitionsPage = () => {
       <div className="mt-10 w-full h-full">
         {competitions.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {competitions.map((competition) => (
-              <CompetitionCard
-                key={competition.id}
-                id={competition.id.toString()}
-                status={competition.status}
-                statusColor={
-                  competition.status === "Active"
-                    ? "bg-[#D6F5D6]"
-                    : competition.status === "Draft"
-                    ? "bg-[#E3E3E4]"
-                    : "bg-[#FFE8D9]"
-                }
-                title={competition.name}
-                location={`City ${competition.cityId}`}
-                competitors={competition.numberOfParticipantions}
-                timeLeft={competition.numberOfDaysLeft}
-                dateRange={`${new Date(
-                  competition.fromDate
-                ).toLocaleDateString()} - ${new Date(
-                  competition.toDate
-                ).toLocaleDateString()}`}
-                imageSrc={`https://example.com/logos/${competition.logoId}`}
-              />
-            ))}
+            {competitions.map((competition) => {
+              if (competition.logoId) {
+                fetchLogoUrl(competition.logoId); // Fetch logo if logoId exists
+              }
+              return (
+                <CompetitionCard
+                  key={competition.id}
+                  id={competition.id.toString()}
+                  status={competition.status}
+                  statusColor={
+                    competition.status === "Active"
+                      ? "bg-[#D6F5D6]"
+                      : competition.status === "Draft"
+                      ? "bg-[#E3E3E4]"
+                      : "bg-[#FFE8D9]"
+                  }
+                  title={competition.name}
+                  location={`فرع ${getCityNameById(competition.cityId)}`}
+                  competitors={competition.numberOfParticipantions}
+                  timeLeft={competition.numberOfDays}
+                  dateRange={`${new Date(
+                    competition.fromDate
+                  ).toLocaleDateString()} - ${new Date(
+                    competition.toDate
+                  ).toLocaleDateString()}`}
+                  imageSrc={logoUrls[competition.logoId] || null} // Use fetched logo URL
+                />
+              );
+            })}
           </div>
         ) : (
           <div className="flex flex-col justify-center items-center h-[50%]">

@@ -65,8 +65,8 @@ const CompetitionServicesModal = ({
   handleCloseModal,
 }: CompetitionServicesModalProps) => {
   return (
-    <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50 backdrop-blur-sm">
-      <div className="bg-white w-[90%] min-w-[760px] max-w-[760px] p-6 rounded-3xl">
+    <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50 backdrop-blur-sm overflow-y-scroll">
+      <div className="bg-white w-[90%] md:min-w-[760px] max-w-[760px] h-full overflow-y-auto scrollbar-hide p-6 rounded-3xl">
         <div className="flex flex-col justify-start items-start mb-4">
           <div className="flex justify-between items-center w-full mb-1">
             <p className="font-semibold text-lg text-shadeBlack text-center">

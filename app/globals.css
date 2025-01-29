@@ -25,6 +25,15 @@
   }
 }
 
+/* Control body margin with navbar */
+body {
+  transition: margin-top 0.3s ease-in-out;
+}
+
+.menu-open .mt-20 {
+  margin-top: 0 !important;
+}
+
 /* DATE PICKER WRAPPER */
 
 .react-datepicker-wrapper {

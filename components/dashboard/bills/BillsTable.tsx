@@ -25,8 +25,8 @@ const BillsTable = ({ bills }: BillsTableProps) => {
   };
 
   return (
-    <div className="flex flex-col gap-6">
-      <table className="w-full border-collapse table-fixed">
+    <div className="flex flex-col gap-6 overflow-x-auto">
+      <table className="w-full min-w-[1024px] border-collapse table-fixed">
         <thead>
           <tr className="bg-[#E9E9EA]">
             {[".No", "رقم الفاتورة", "التاريخ", "البيان", "نوع الدفع", "قيمة الفاتورة", "المدفوع", "المتبقى", ""].map(

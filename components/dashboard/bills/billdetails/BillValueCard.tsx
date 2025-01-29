@@ -36,21 +36,21 @@ const BillValueCard = ({ id }: BillValueCardProps) => {
       <div className="flex flex-col gap-6 w-full bg-[#F4F4F4] border border-[#C6C7CA] p-6 rounded-lg">
         {/* Header */}
         <div className="flex flex-col gap-[20px]">
-          <p className="text-shadeBlack text-[28px] font-semibold">قيمة شراء 20,000 فرصة</p>
+          <p className="text-shadeBlack text-lg md:text-[28px] font-semibold">قيمة شراء 20,000 فرصة</p>
           <hr />
         </div>
 
         {/* Details Section */}
         <div className="flex flex-col gap-4">
           {/* Statement and Date Container */}
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col gap-2 md:flex-row md:justify-between md:items-center">
             {billDetails.slice(0, 2).map((item, index) => (
               <InfoBox key={index} icon={item.icon} label={item.label} value={item.value} />
             ))}
           </div>
           
           {/* Additional Details Container */}
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col gap-2 md:flex-row md:justify-between md:items-center">
             {billDetails.slice(2).map((item, index) => (
               <InfoBox key={index} icon={item.icon} label={item.label} value={item.value} />
             ))}

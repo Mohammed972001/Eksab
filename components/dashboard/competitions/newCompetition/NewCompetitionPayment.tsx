@@ -29,9 +29,9 @@ const NewCompetitionPayment = () => {
   };
 
   return (
-    <div className="flex items-start gap-6 w-full">
+    <div className="flex flex-col md:flex-row items-start gap-6 w-full">
       {/* Payment Method Section */}
-      <div className="flex flex-col items-start gap-4 shadow-card-shadow bg-white border border-[#C6C7CA] p-6 rounded-lg flex-1">
+      <div className="flex flex-col items-start gap-4 shadow-card-shadow bg-white border border-[#C6C7CA] p-6 rounded-lg flex-1 w-full md:w-auto">
         {/* Section Header */}
         <div className="flex flex-col items-start justify-center gap-4 w-full">
           <h2 className="text-2xl font-semibold text-shadeBlack">
@@ -185,7 +185,7 @@ const NewCompetitionPayment = () => {
       </div>
 
       {/* Bill Amount Section*/}
-      <div className="flex flex-col gap-6 min-w-[352px] items-start shadow-card-shadow bg-white border border-[#C6C7CA] p-6 rounded-lg">
+      <div className="flex flex-col gap-6 min-w-[352px] items-start shadow-card-shadow bg-white border border-[#C6C7CA] p-6 rounded-lg w-full md:w-auto">
         {/* Section Header */}
         <div className="flex flex-col items-start gap-4 w-full">
           <p className="text-shadeBlack font-semibold text-[22px]">

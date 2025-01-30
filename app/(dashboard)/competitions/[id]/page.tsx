@@ -256,9 +256,10 @@ const CompetitionDetailPage = () => {
                 </div>
               )}
             </div>
+            {/* Buttons Section */}
             <div className="mt-8 flex flex-col gap-6 w-full">
               <hr />
-              <div className="flex justify-between items-center w-full">
+              <div className="flex justify-between gap-2 md:gap-4 items-center w-full">
                 <div className="w-full">
                   {activeStep > 0 && activeStep !== 5 && (
                     <SubmitButton
@@ -279,7 +280,7 @@ const CompetitionDetailPage = () => {
                     />
                   )}
                 </div>
-                <div className="flex w-full items-center gap-4 justify-end">
+                <div className="flex w-full items-center gap-2 md:gap-4 justify-end">
                   {activeStep !== 5 && (
                     <CancelButton
                       buttonText={activeStep === 0 ? "الغاء" : "حفظ كمسودة"}

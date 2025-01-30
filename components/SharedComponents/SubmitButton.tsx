@@ -32,11 +32,12 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
     disabled={disabled || loading} // Disable button if loading
     onClick={onClick}
     sx={{
-      paddingInline: "40px",
+      paddingInline: { xs: "10px", md: "40px" },
+      textWrap: "nowrap",
       paddingBlock: "26px",
       borderRadius: "100px",
-      fontSize: { xs: "1rem", md: "1.125rem" },
-      fontWeight: "medium",
+      fontSize: { xs: "0.7rem", sm: "1.125rem" },
+      fontWeight: { xs: "bold", sm: "medium" },
       height: "48px",
       mt: "1.5rem",
       display: "flex",

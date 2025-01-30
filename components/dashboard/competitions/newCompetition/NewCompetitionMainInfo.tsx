@@ -42,16 +42,17 @@ const NewCompetitionMainInfo: React.FC<NewCompetitionMainInfoProps> = ({
       </div>
 
       {/* Form radio group */}
-      <div className="flex flex-col items-start justify-center w-full">
+      <div className="flex flex-col items-start justify-center w-full lg:w-[95%] xl:w-full">
         <p className="text-base font-semibold text-shadeBlack mb-3">
           قم بتحديد مكان انشاء المسابقة:
         </p>
         <RadioGroup
           value={selectedOption}
           onChange={(e) => onSelectedOptionChange(e.target.value)}
-          style={{
+          sx={{
             display: "flex",
-            flexDirection: "row",
+            flexWrap: "wrap",
+            flexDirection: { xs: "column", lg: "row" },
             gap: "16px",
             width: "100%",
           }}
@@ -89,7 +90,7 @@ const NewCompetitionMainInfo: React.FC<NewCompetitionMainInfoProps> = ({
                   selectedOption === option.value
                     ? "0px 4px 6px -2px #10182808, 0px 12px 16px -4px #10182814"
                     : "0px 1px 2px 0px #1018280D",
-                width: "calc(50% - 8px)",
+                width: "100%",
               }}
             >
               <FormControlLabel
@@ -125,9 +126,9 @@ const NewCompetitionMainInfo: React.FC<NewCompetitionMainInfoProps> = ({
         </RadioGroup>
       </div>
 
-      <div className="flex items-center gap-6 w-full">
+      <div className="flex flex-col lg:flex-row items-center gap-6 w-full lg:w-[95%] xl:w-full">
         {/* Form file uploader */}
-        <div className="flex flex-col justify-center items-center gap-4 py-10 px-12 bg-white rounded-xl border border-[#E9E9EA] min-w-[350px] max-h-[200px]">
+        <div className="flex flex-col justify-center items-center gap-4 py-10 px-12 bg-white rounded-xl border border-[#E9E9EA] min-w-[350px] max-h-[200px] w-full lg:max-w-[350px]">
           <p className="text-[22px] font-medium text-black">شعار المسابقة</p>
           <FileUpload
             label={""}

@@ -32,7 +32,7 @@ const NewCompetitionHeader = ({ title }: NewCompetitionHeaderProps) => {
         </div>
 
         <div className="flex justify-between items-center w-full">
-          <h2 className="font-semibold text-[30px] text-shadeBlack">{title}</h2>
+          <h2 className="font-semibold text-lg md:text-[30px] text-shadeBlack">{title}</h2>
         </div>
       </div>
       <hr className="mt-5" />

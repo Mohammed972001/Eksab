@@ -54,7 +54,7 @@ const NewCompetitionSelectedServices: React.FC<NewCompetitionSelectedServicesPro
   onCheckboxChange,
 }) => {
   return (
-    <div className="pt-2 flex flex-col gap-6 w-full">
+    <div className="pt-2 flex flex-col gap-6 w-full lg:w-[95%] xl:w-full">
       {/* Title Subsection */}
       <div className="flex flex-col gap-4 w-full">
         <p className="text-shadeBlack font-semibold text-[22px]">خدمات المسابقة</p>
@@ -62,7 +62,7 @@ const NewCompetitionSelectedServices: React.FC<NewCompetitionSelectedServicesPro
       </div>
 
       {/* Services Subsection */}
-      <div className="flex flex-wrap gap-4">
+      <div className="flex flex-col md:flex-row gap-4">
         <ServiceItem
           id="dataUpload"
           title="فرص لا محدودة"

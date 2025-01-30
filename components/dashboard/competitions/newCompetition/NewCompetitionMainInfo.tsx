@@ -1,4 +1,4 @@
-import { RadioGroup, FormControlLabel, Radio, Typography } from "@mui/material";
+import { RadioGroup, FormControlLabel, Radio, Typography, Box } from "@mui/material";
 import { FileUpload } from "@/components/AuthComponents/RegisterComponents/FileUpload";
 import TextInput from "@/components/SharedComponents/TextInput";
 
@@ -52,7 +52,7 @@ const NewCompetitionMainInfo: React.FC<NewCompetitionMainInfoProps> = ({
           sx={{
             display: "flex",
             flexWrap: "wrap",
-            flexDirection: { xs: "column", lg: "row" },
+            flexDirection: { xs: "column", lg: "row" }, // Column on small screens, row on large screens
             gap: "16px",
             width: "100%",
           }}
@@ -71,9 +71,9 @@ const NewCompetitionMainInfo: React.FC<NewCompetitionMainInfoProps> = ({
                 "نص مؤقت يوضح أن المستخدم سيقوم باختيار الاشتراك عن طريق منصة خارجية.",
             },
           ].map((option) => (
-            <div
+            <Box
               key={option.value}
-              style={{
+              sx={{
                 display: "flex",
                 flexDirection: "column",
                 alignItems: "flex-start",
@@ -90,7 +90,7 @@ const NewCompetitionMainInfo: React.FC<NewCompetitionMainInfoProps> = ({
                   selectedOption === option.value
                     ? "0px 4px 6px -2px #10182808, 0px 12px 16px -4px #10182814"
                     : "0px 1px 2px 0px #1018280D",
-                width: "100%",
+                width: { xs: "100%", lg: "calc(50% - 8px)" }, // Responsive width
               }}
             >
               <FormControlLabel
@@ -98,7 +98,7 @@ const NewCompetitionMainInfo: React.FC<NewCompetitionMainInfoProps> = ({
                 control={<Radio />}
                 label={
                   <Typography
-                    style={{
+                    sx={{
                       fontSize: "22px",
                       fontWeight: "medium",
                       color:
@@ -108,11 +108,11 @@ const NewCompetitionMainInfo: React.FC<NewCompetitionMainInfoProps> = ({
                     {option.title}
                   </Typography>
                 }
-                style={{ margin: 0 }}
+                sx={{ margin: 0 }}
               />
               <Typography
                 variant="body2"
-                style={{
+                sx={{
                   color: "#434549",
                   paddingInline: "16px",
                   paddingBottom: "16px",
@@ -121,7 +121,7 @@ const NewCompetitionMainInfo: React.FC<NewCompetitionMainInfoProps> = ({
               >
                 {option.description}
               </Typography>
-            </div>
+            </Box>
           ))}
         </RadioGroup>
       </div>

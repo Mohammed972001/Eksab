@@ -27,7 +27,7 @@ const PrizeForm = ({
   <div className="flex flex-col gap-4">
     <p className="text-sm text-shadeGray">قم بإنشاء أو تعديل جائزة.</p>
     <div className="flex items-center gap-4 w-full">
-      <div className="min-w-[365px]">
+      <div className="sm:min-w-[365px]">
         <TextInput
           label="اسم الجائزة"
           value={prizeName}

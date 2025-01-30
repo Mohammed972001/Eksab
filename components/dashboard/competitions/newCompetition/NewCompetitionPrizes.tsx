@@ -89,7 +89,7 @@ const NewCompetitionPrizes = () => {
     <div className="mt-4 flex flex-col justify-center items-start gap-8">
       <div className="flex flex-col gap-4 w-full">
         <div className="flex items-center justify-between w-full">
-          <p className="text-[22px] text-shadeBlack font-semibold">
+          <p className="text-lg sm:text-[22px] text-shadeBlack font-semibold">
             قائمة جوائز المسابقة
           </p>
           <SubmitButton
@@ -103,83 +103,85 @@ const NewCompetitionPrizes = () => {
         <hr />
 
         {/* Table Displaying Prizes */}
-        <table className="w-full">
-          <thead>
-            <tr className="bg-[#E9E9EA]">
-              {tableHeaders.map((header) => (
-                <th
-                  key={header.key}
-                  className={`px-6 py-3 text-[12px] text-shadeGray border-b border-[#C6C7CA] text-${header.align}`}
-                >
-                  {header.label}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {prizes.map((prize, index) => (
-              <tr
-                key={prize.id}
-                className={`text-center ${
-                  index % 2 === 0 ? "bg-white" : "bg-[#F9F9FA]"
-                } border-b border-[#C6C7CA]`}
-              >
-                {tableHeaders.map((header) => {
-                  switch (header.key) {
-                    case "id":
-                      return (
-                        <td key={header.key} className="px-6 py-6">
-                          {prize.id}
-                        </td>
-                      );
-                    case "name":
-                      return (
-                        <td key={header.key} className="px-6 text-right">
-                          {prize.name}
-                        </td>
-                      );
-                    case "description":
-                      return (
-                        <td key={header.key} className="px-6 text-right">
-                          {prize.description}
-                        </td>
-                      );
-                    case "quantity":
-                      return <td key={header.key}>{prize.quantity}</td>;
-                    case "edit":
-                      return (
-                        <td key={header.key} className="w-auto">
-                          <button onClick={() => handleOpenModal(prize)}>
-                            <Image
-                              src={"/dashboard/competitions/Edit.svg"}
-                              alt="edit"
-                              width={24}
-                              height={24}
-                            />
-                          </button>
-                        </td>
-                      );
-                    case "delete":
-                      return (
-                        <td key={header.key} className="w-auto">
-                          <button onClick={() => handleDeletePrize(prize.id)}>
-                            <Image
-                              src={"/dashboard/competitions/Delete.svg"}
-                              alt="delete"
-                              width={24}
-                              height={24}
-                            />
-                          </button>
-                        </td>
-                      );
-                    default:
-                      return null;
-                  }
-                })}
+        <div className= "overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="bg-[#E9E9EA]">
+                {tableHeaders.map((header) => (
+                  <th
+                    key={header.key}
+                    className={`px-6 py-3 text-[12px] text-shadeGray border-b border-[#C6C7CA] text-${header.align}`}
+                  >
+                    {header.label}
+                  </th>
+                ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {prizes.map((prize, index) => (
+                <tr
+                  key={prize.id}
+                  className={`text-center ${
+                    index % 2 === 0 ? "bg-white" : "bg-[#F9F9FA]"
+                  } border-b border-[#C6C7CA]`}
+                >
+                  {tableHeaders.map((header) => {
+                    switch (header.key) {
+                      case "id":
+                        return (
+                          <td key={header.key} className="px-6 py-6">
+                            {prize.id}
+                          </td>
+                        );
+                      case "name":
+                        return (
+                          <td key={header.key} className="px-6 text-right">
+                            {prize.name}
+                          </td>
+                        );
+                      case "description":
+                        return (
+                          <td key={header.key} className="px-6 text-right">
+                            {prize.description}
+                          </td>
+                        );
+                      case "quantity":
+                        return <td key={header.key}>{prize.quantity}</td>;
+                      case "edit":
+                        return (
+                          <td key={header.key} className="w-auto">
+                            <button onClick={() => handleOpenModal(prize)}>
+                              <Image
+                                src={"/dashboard/competitions/Edit.svg"}
+                                alt="edit"
+                                width={24}
+                                height={24}
+                              />
+                            </button>
+                          </td>
+                        );
+                      case "delete":
+                        return (
+                          <td key={header.key} className="w-auto">
+                            <button onClick={() => handleDeletePrize(prize.id)}>
+                              <Image
+                                src={"/dashboard/competitions/Delete.svg"}
+                                alt="delete"
+                                width={24}
+                                height={24}
+                              />
+                            </button>
+                          </td>
+                        );
+                      default:
+                        return null;
+                    }
+                  })}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
 
       {/* Modal */}

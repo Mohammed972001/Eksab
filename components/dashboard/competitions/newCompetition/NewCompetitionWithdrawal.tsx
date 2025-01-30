@@ -160,7 +160,7 @@ const NewCompetitionWithdrawal = () => {
     <div className="mt-4 flex flex-col justify-center items-start gap-8">
       <div className="flex flex-col gap-4 w-full">
         <div className="flex items-center justify-between w-full">
-          <p className="text-[22px] text-shadeBlack font-semibold">
+          <p className="text-sm sm:text-[22px] text-shadeBlack font-semibold">
             قائمة السحوبات
           </p>
           <SubmitButton
@@ -174,32 +174,34 @@ const NewCompetitionWithdrawal = () => {
         <hr />
 
         {/* Table Displaying Withdrawals */}
-        <table className="w-full">
-          <thead>
-            <tr className="bg-[#E9E9EA]">
-              {[
-                ".No",
-                "السحب",
-                "الجائزة",
-                "الكمية",
-                "الفرع",
-                "تاريخ السحب",
-                "",
-                "",
-              ].map((header, idx) => (
-                <th
-                  key={idx}
-                  className={`px-6 py-3 text-[12px] text-shadeGray border-b border-[#C6C7CA] ${
-                    idx === 1 ? "text-right" : "text-center"
-                  } ${idx === 2 || idx === 3 ? "w-[15%] px-0" : "w-auto"}`}
-                >
-                  {header}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>{renderTableRows()}</tbody>
-        </table>
+        <div className="overflow-x-auto">
+          <table className="w-full">
+            <thead>
+              <tr className="bg-[#E9E9EA]">
+                {[
+                  ".No",
+                  "السحب",
+                  "الجائزة",
+                  "الكمية",
+                  "الفرع",
+                  "تاريخ السحب",
+                  "",
+                  "",
+                ].map((header, idx) => (
+                  <th
+                    key={idx}
+                    className={`px-6 py-3 text-[12px] text-shadeGray border-b border-[#C6C7CA] ${
+                      idx === 1 ? "text-right" : "text-center"
+                    } ${idx === 2 || idx === 3 ? "w-[15%] px-0" : "w-auto"}`}
+                  >
+                    {header}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>{renderTableRows()}</tbody>
+          </table>
+        </div>
       </div>
 
       {/* Modal */}

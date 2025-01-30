@@ -56,7 +56,7 @@ const NewCompetitionTerms = () => {
     <div>
       {/* Terms Header */}
       <div className="flex flex-col items-start gap-4 mb-6">
-        <h2 className="text-2xl font-semibold text-shadeBlack">
+        <h2 className="text-sm sm:text-2xl font-semibold text-shadeBlack">
           الشروط والأحكام الخاصة بالمسابقة
         </h2>
         <hr className="w-full border-gray-300" />

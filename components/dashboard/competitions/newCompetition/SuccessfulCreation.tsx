@@ -25,7 +25,7 @@ const SuccessfulCreation = () => {
             height={120}
           />
           <div className="flex flex-col justify-center items-center gap-3">
-            <p className="font-bold text-shadeBlack text-[32px]">
+            <p className="font-bold text-shadeBlack text-[32px] text-center">
               لقد تم عمل مسابقة بنجاح!
             </p>
             <p className="text-shadeGray text-center">

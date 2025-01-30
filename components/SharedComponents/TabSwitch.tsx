@@ -17,7 +17,7 @@ const TabSwitch = ({ tabs, activeTab, setActiveTab }: TabSwitchProps) => {
         >
           <div
             onClick={() => setActiveTab(index)} // Toggle tabs on click
-            className={`text-sm font-semibold cursor-pointer ${
+            className={`text-[10px] sm:text-sm text-nowrap font-semibold cursor-pointer ${
               index == activeTab ? "text-primary" : "text-shadeGray"
             }`}
           >

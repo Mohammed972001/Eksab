@@ -62,7 +62,7 @@ const CompetitionDetailsPage = () => {
   return (
     <div className="w-full h-full pb-20">
       <CompetitionDetailsHeader />
-      <div className="mt-8 flex gap-6">
+      <div className="mt-8 flex flex-col xl:flex-row gap-6">
         {/* MAIN RIGHT SECTION WITH CARD AND TABS */}
         <div className="flex flex-col gap-4">
           {/* TOP CARD */}

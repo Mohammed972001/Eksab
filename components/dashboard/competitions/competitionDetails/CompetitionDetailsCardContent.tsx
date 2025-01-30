@@ -14,16 +14,16 @@ const CompetitionDetailsCardContent = ({
     <div className="flex flex-col gap-6 w-full">
       <div className="flex flex-col items-start gap-6 w-full">
         <div className="flex flex-col items-start gap-2">
-          <div className="px-2 py-[2px] bg-[#FFE8D9] text-[#331C0D] rounded-lg">
+          <div className="px-2 py-[2px] bg-[#FFE8D9] text-[#331C0D] rounded-lg text-sm sm:text-base">
             بانتظار عملية الدفع
           </div>
-          <div className="text-shadeBlack text-2xl font-semibold">
+          <div className="text-shadeBlack font-semibold text-sm sm:text-2xl">
             شارك وأربح معنا في مسابقة العام الجديد من شركة قوافل وادخل السحب على
             جوائز قيمة
           </div>
         </div>
         {/* DETAILS GRID CONTAINER */}
-        <div className="grid grid-cols-4 gap-6 w-full">
+        <div className="grid grid-cols-1 sm:grid-cols-4 gap-6 w-full">
           {/* DETAILS ITEM FROM DATE */}
           <div className="flex flex-col">
             <div className="flex gap-2">
@@ -109,7 +109,7 @@ const CompetitionDetailsCardContent = ({
 
           {/* DETAILS GRID CONTAINER 2 */}
           <div
-            className={`col-span-3 grid grid-cols-3 gap-4 ${
+            className={`sm:col-span-3 grid grdi-cols-1 sm:grid-cols-3 gap-4 ${
               showMoreDetails ? "grid" : "hidden"
             }`}
           >

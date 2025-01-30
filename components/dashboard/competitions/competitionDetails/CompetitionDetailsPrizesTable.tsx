@@ -12,8 +12,8 @@ interface DetailsPrizesTableProps {
 
 const CompetitionDetailsPrizesTable = ({ prizes }: DetailsPrizesTableProps) => {
   return (
-    <div className="flex flex-col gap-6">
-      <table className="w-full border-collapse table-fixed">
+    <div className="flex flex-col gap-6 overflow-x-auto">
+      <table className="w-full border-collapse table-fixed min-w-[840px] sm:min-w-full">
         <thead>
           <tr className="bg-[#E9E9EA]">
             {[".No", "اسم الجائزة", "وصف الجائزة", "الكمية"].map(

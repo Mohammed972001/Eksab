@@ -10,32 +10,47 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials) {
-        // Call your login API
-        const response = await fetch("https://mohasel.net/api/Client/Auth/Login", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            email: credentials?.email,
-            password: credentials?.password,
-          }),
-        });
+        try {
+          // Call your login API
+          const response = await fetch(
+            "https://mohasel.net/api/Client/Auth/Login",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: credentials?.email,
+                password: credentials?.password,
+              }),
+            }
+          );
 
-        const data = await response.json();
+          const data = await response.json();
 
-        if (response.ok && data.token) {
-          // Return the user object with the token and refresh token
-          return {
-            id: data.user.id,
-            name: data.user.name,
-            email: data.user.email,
-            token: data.token, // Include the token
-            refreshToken: data.refreshToken, // Include the refresh token
-          };
-        } else {
-          // Return null if authentication fails
-          return null;
+          if (response.ok && data.token) {
+            // Return the user object with the token and refresh token
+            return {
+              id: data.user.id,
+              name: data.user.name,
+              email: data.user.email,
+              token: data.token,
+              refreshToken: data.refreshToken,
+            };
+          } else {
+            // Extract the error message from the backend response
+            const errorMessage =
+              data.errors?.Password?.[0] || // Specific password error
+              data.errors?.email?.[0] || // Specific email error
+              data.title || // General error title
+              "Invalid email or password"; // Fallback message
+
+            // Throw an error with the extracted message
+            throw new Error(errorMessage);
+          }
+        } catch (error: any) {
+          console.error("Authentication error:", error);
+          throw new Error(error.message); // Pass the error message to NextAuth.js
         }
       },
     }),
@@ -54,7 +69,10 @@ const handler = NextAuth({
         secure: process.env.NODE_ENV === "production", // Enable Secure flag in production
         sameSite: "lax",
         path: "/", // Ensure the cookie is accessible across the entire app
-        domain: process.env.NODE_ENV === "production" ? "your-production-domain.com" : "localhost", // Set the domain
+        domain:
+          process.env.NODE_ENV === "production"
+            ? "your-production-domain.com"
+            : "localhost", // Set the domain
       },
     },
   },

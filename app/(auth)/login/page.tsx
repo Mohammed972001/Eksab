@@ -38,34 +38,38 @@ export default function Login() {
   const isButtonDisabled = !email || !password;
 
   const onSubmit = async (data: any) => {
-  setIsLoading(true);
-  setErrorMessage(null);
+    setIsLoading(true);
+    setErrorMessage(null);
 
-  try {
-    // Use NextAuth.js to sign in
-    const result = await signIn("credentials", {
-      redirect: false,
-      email: data.email,
-      password: data.password,
-    });
+    try {
+      // Use NextAuth.js to sign in
+      const result = await signIn("credentials", {
+        redirect: false,
+        email: data.email,
+        password: data.password,
+      });
 
-    console.log("SignIn Result:", result); // Log the result
+      console.log("SignIn Result:", result); // Log the result
 
-    if (result?.error) {
-      // Handle authentication errors
-      setErrorMessage(result.error);
-    } else {
-      // Force a hard refresh
-      router.push("/");
+      if (result?.error) {
+        // Handle authentication errors
+        const errorMessage =
+          result.error === "CredentialsSignin"
+            ? "Invalid email or password" // Default message
+            : result.error; // Custom message from the backend
+
+        setErrorMessage(errorMessage);
+      } else {
+        // Redirect to the dashboard on success
+        router.push("/");
+      }
+    } catch (error) {
+      console.error("Login Failed:", error);
+      setErrorMessage("Something went wrong. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
-  } catch (error) {
-    console.log("Login Failed");
-    console.log("Error:", error);
-    setErrorMessage("Something went wrong. Please try again.");
-  } finally {
-    setIsLoading(false);
-  }
-};
+  };
 
   return (
     <form
@@ -91,10 +95,6 @@ export default function Login() {
           value={email}
           {...register("email", {
             required: "البريد الإلكتروني مطلوب",
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: "أدخل بريدًا إلكترونيًا صحيحًا",
-            },
           })}
           onChange={(e) => {
             setEmail(e.target.value);
@@ -110,16 +110,6 @@ export default function Login() {
           value={password}
           {...register("password", {
             required: "كلمة السر مطلوبة",
-            minLength: {
-              value: 6,
-              message: "يجب أن تكون كلمة السر مكونة من 6 أحرف على الأقل",
-            },
-            pattern: {
-              value:
-                /^(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d])(?=.*[0-9]).{6,}$/,
-              message:
-                "يجب أن تحتوي كلمة السر على حرف كبير وحرف صغير وحرف خاص ورقم",
-            },
           })}
           onChange={(e) => {
             setPassword(e.target.value);

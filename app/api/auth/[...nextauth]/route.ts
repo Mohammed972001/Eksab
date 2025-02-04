@@ -69,10 +69,6 @@ const handler = NextAuth({
         secure: process.env.NODE_ENV === "production", // Enable Secure flag in production
         sameSite: "lax",
         path: "/", // Ensure the cookie is accessible across the entire app
-        domain:
-          process.env.NODE_ENV === "production"
-            ? "your-production-domain.com"
-            : "localhost", // Set the domain
       },
     },
   },

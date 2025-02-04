@@ -23,37 +23,28 @@ export const FileUpload = ({
       const file = files[0];
 
       // Validate file type
-      const allowedTypes = ["image/svg+xml", "image/png", "image/jpeg", "image/gif"];
+      const allowedTypes = ["application/pdf"];
       if (!allowedTypes.includes(file.type)) {
-        const errorMsg = "Only SVG, PNG, JPG, or GIF files are allowed.";
+        const errorMsg = "Only PDF files are allowed.";
         setError(errorMsg);
         setFileName(null);
         if (onFileUpload) onFileUpload(null); // Notify parent of invalid file
         return;
       }
 
-      // Validate file dimensions (max 800x400px)
-      const fileImage = new window.Image();
-      fileImage.onload = () => {
-        if (fileImage.width > 800 || fileImage.height > 400) {
-          const errorMsg = "File dimensions should not exceed 800x400px.";
-          setError(errorMsg);
-          setFileName(null);
-          if (onFileUpload) onFileUpload(null); // Notify parent of invalid file
-        } else {
-          setError(null); // No errors
-          setFileName(file.name);
-          if (onFileUpload) onFileUpload(file); // Notify parent of valid file
-        }
-      };
-      fileImage.onerror = () => {
-        const errorMsg = "Invalid image file.";
+      // Validate file size (less than 10MB)
+      const maxSize = 10 * 1024 * 1024; // 10MB
+      if (file.size > maxSize) {
+        const errorMsg = "File size should not exceed 10MB.";
         setError(errorMsg);
         setFileName(null);
         if (onFileUpload) onFileUpload(null); // Notify parent of invalid file
-      };
+        return;
+      }
 
-      fileImage.src = URL.createObjectURL(file); // Trigger image load
+      setError(null); // No errors
+      setFileName(file.name);
+      if (onFileUpload) onFileUpload(file); // Notify parent of valid file
     }
   };
 
@@ -99,7 +90,7 @@ export const FileUpload = ({
         {error && (
           <p className="text-[10px] text-red-500 mt-2">{error}</p>
         )}
-        <p className="text-[#70737A] text-[12px] text-center">SVG, PNG, JPG, or GIF (max. 800x400px)</p>
+        <p className="text-[#70737A] text-[12px] text-center">PDF (max. 10MB)</p>
       </div>
 
       {/* Hidden File Input */}

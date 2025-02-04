@@ -7,7 +7,7 @@ import Link from "next/link";
 import React, { useState, useEffect } from "react";
 
 const VerifyCode = () => {
-  const [code, setCode] = useState(Array(5).fill("")); // 5 inputs
+  const [code, setCode] = useState(Array(6).fill("")); // 6 inputs
   const [isButtonDisabled, setIsButtonDisabled] = useState(true);
 
   const handleInputChange = (value: string, index: number) => {
@@ -47,7 +47,7 @@ const VerifyCode = () => {
 
       <div className="flex flex-col justify-center items-center mt-8 w-full gap-6">
         {/* Code Input */}
-        <div className="grid grid-cols-5 gap-2">
+        <div className="grid grid-cols-6 gap-16">
           {code.map((digit, index) => (
             <input
               key={index}

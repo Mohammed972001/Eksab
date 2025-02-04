@@ -1,4 +1,5 @@
-"use client";
+'use client'
+
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -7,6 +8,7 @@ import CompetitionsHeader from "@/components/dashboard/competitions/Competitions
 import NoCompetitions from "@/components/dashboard/competitions/NoCompetitions";
 import TabsAndFilter from "@/components/dashboard/competitions/TabsAndFilter";
 import LoadingSpinner from "@/components/SharedComponents/LoadingSpinner";
+import CompetitionPrompt from "@/components/dashboard/competitions/CompetitionPrompt"; // استيراد الموديل هنا
 
 type Competition = {
   id: number;
@@ -30,7 +32,8 @@ const CompetitionsPage = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [cityOptions, setCityOptions] = useState<City[]>([]);
-  const [logoUrls, setLogoUrls] = useState<Record<number, string>>({}); // Store logo URLs
+  const [logoUrls, setLogoUrls] = useState<Record<number, string>>({});
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false); 
 
   const { data: session, status } = useSession();
 
@@ -100,7 +103,7 @@ const CompetitionsPage = () => {
 
   // Fetch logo by ID
   const fetchLogoUrl = async (logoId: number) => {
-    if (logoUrls[logoId]) return; // If logo URL already exists, skip fetching
+    if (logoUrls[logoId]) return;
 
     try {
       const response = await axios.get(
@@ -126,6 +129,22 @@ const CompetitionsPage = () => {
     return city ? city.name : "Unknown City";
   };
 
+  // وظيفة فتح الموديل
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  // وظيفة غلق الموديل
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
+
+  // Continue and perform action when clicking on continue
+  const handleContinue = () => {
+    console.log("استكمال إنشاء المسابقة");
+    // أضف هنا العمليات التي تريد تنفيذها بعد الضغط على "استكمال إنشاء المسابقة"
+  };
+
   if (status === "loading" || loading) {
     return <LoadingSpinner />;
   }
@@ -143,7 +162,7 @@ const CompetitionsPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {competitions.map((competition) => {
               if (competition.logoId) {
-                fetchLogoUrl(competition.logoId); // Fetch logo if logoId exists
+                fetchLogoUrl(competition.logoId);
               }
               return (
                 <CompetitionCard
@@ -166,7 +185,8 @@ const CompetitionsPage = () => {
                   ).toLocaleDateString()} - ${new Date(
                     competition.toDate
                   ).toLocaleDateString()}`}
-                  imageSrc={logoUrls[competition.logoId] || null} // Use fetched logo URL
+                  imageSrc={logoUrls[competition.logoId] || null}
+                  onClick={openModal} // إضافة الحدث هنا
                 />
               );
             })}
@@ -177,6 +197,14 @@ const CompetitionsPage = () => {
           </div>
         )}
       </div>
+
+      {/* فتح الموديل */}
+      {isModalOpen && (
+        <CompetitionPrompt
+          handleCloseModal={closeModal}
+          handleContinue={handleContinue}
+        />
+      )}
     </div>
   );
 };

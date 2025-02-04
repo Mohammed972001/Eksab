@@ -3,24 +3,13 @@ import React, { useState } from "react";
 import SubmitButton from "@/components/SharedComponents/SubmitButton";
 import { ChevronLeftRounded } from "@mui/icons-material";
 import Image from "next/image";
-import CompetitionPrompt from "./CompetitionPrompt";
 import CompetitionServicesModal from "./CompetitionServicesModal";
 
 const CompetitionsHeader = () => {
-  const [isFirstModalOpen, setIsFirstModalOpen] = useState(false);
   const [isSecondModalOpen, setIsSecondModalOpen] = useState(false);
-
-  const handleOpenFirstModal = () => {
-    setIsFirstModalOpen(true);
-  };
-
-  const handleCloseFirstModal = () => {
-    setIsFirstModalOpen(false);
-  };
 
   const handleOpenSecondModal = () => {
     setIsSecondModalOpen(true);
-    handleCloseFirstModal(); // Close the first modal when opening the second
   };
 
   const handleCloseSecondModal = () => {
@@ -50,19 +39,11 @@ const CompetitionsHeader = () => {
           rightIcon="/dashboard/competitions/add.svg"
           buttonText="إضافة مسابقة جديدة"
           fullWidth={false}
-          onClick={handleOpenFirstModal}
+          onClick={handleOpenSecondModal} // Open the second modal directly
           classContainer="mt-0"
         />
       </div>
       <hr />
-
-      {/* First Modal */}
-      {isFirstModalOpen && (
-        <CompetitionPrompt
-          handleCloseModal={handleCloseFirstModal}
-          handleContinue={handleOpenSecondModal} // Pass handler for second modal
-        />
-      )}
 
       {/* Second Modal */}
       {isSecondModalOpen && (

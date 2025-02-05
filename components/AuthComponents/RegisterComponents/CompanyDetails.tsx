@@ -70,7 +70,10 @@ const CompanyDetails = ({
     },
   });
 
-  const onFileUpload = (file: File | null, type: "commercialRegistration" | "vatCertificate") => {
+  const onFileUpload = (
+    file: File | null,
+    type: "commercialRegistration" | "vatCertificate"
+  ) => {
     if (type === "commercialRegistration") {
       setCommercialRegistrationFile(file);
     } else if (type === "vatCertificate") {
@@ -203,9 +206,7 @@ const CompanyDetails = ({
         <p className="text-red-500 text-xs">{errors.vatCertificate.message}</p>
       )}
 
-
       {/* Upload VAT Certificate File */}
-
       <FileUpload
         label="رفع شهادة ضريبة القيمة المضافة (PDF فقط وأقل من 10 ميجا)"
         onFileUpload={(file) => onFileUpload(file, "vatCertificate")}

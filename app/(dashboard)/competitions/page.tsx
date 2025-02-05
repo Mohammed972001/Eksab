@@ -1,5 +1,4 @@
-'use client'
-
+"use client";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
@@ -8,7 +7,7 @@ import CompetitionsHeader from "@/components/dashboard/competitions/Competitions
 import NoCompetitions from "@/components/dashboard/competitions/NoCompetitions";
 import TabsAndFilter from "@/components/dashboard/competitions/TabsAndFilter";
 import LoadingSpinner from "@/components/SharedComponents/LoadingSpinner";
-import CompetitionPrompt from "@/components/dashboard/competitions/CompetitionPrompt"; // استيراد الموديل هنا
+import CompetitionPrompt from "@/components/dashboard/competitions/CompetitionPrompt";
 
 type Competition = {
   id: number;
@@ -33,7 +32,7 @@ const CompetitionsPage = () => {
   const [error, setError] = useState<string | null>(null);
   const [cityOptions, setCityOptions] = useState<City[]>([]);
   const [logoUrls, setLogoUrls] = useState<Record<number, string>>({});
-  const [isModalOpen, setIsModalOpen] = useState<boolean>(false); 
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const { data: session, status } = useSession();
 
@@ -133,12 +132,10 @@ const CompetitionsPage = () => {
   const openModal = () => {
     setIsModalOpen(true);
   };
-
   // وظيفة غلق الموديل
   const closeModal = () => {
     setIsModalOpen(false);
   };
-
   // Continue and perform action when clicking on continue
   const handleContinue = () => {
     console.log("استكمال إنشاء المسابقة");
@@ -162,7 +159,7 @@ const CompetitionsPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {competitions.map((competition) => {
               if (competition.logoId) {
-                fetchLogoUrl(competition.logoId);
+                fetchLogoUrl(competition.logoId); // Fetch logo if logoId exists
               }
               return (
                 <CompetitionCard
@@ -197,7 +194,6 @@ const CompetitionsPage = () => {
           </div>
         )}
       </div>
-
       {/* فتح الموديل */}
       {isModalOpen && (
         <CompetitionPrompt

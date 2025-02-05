@@ -29,18 +29,21 @@ const walletData = [
 
 const billsData = [
   {
+    billNumber: "INV-001",
     date: "16/12/2024",
     description: "شراء باقة مميزة",
     amount: "- 35,000",
     remaining: "استعراض الفاتورة",
   },
   {
+    billNumber: "INV-002",
     date: "17/12/2024",
     description: "شراء باقة عادية",
     amount: "+ 5,000",
     remaining: "استعراض الفاتورة",
   },
   {
+    billNumber: "INV-003",
     date: "18/12/2024",
     description: "رسوم تجديد الاشتراك",
     amount: "+ 80,000",

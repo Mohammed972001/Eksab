@@ -112,7 +112,7 @@ const Register = () => {
         setIsLoading(false);
         const { id, message } = response.data;
         console.log(id, message);
-        router.push("/verifycode"); // Redirect to login
+        router.push("/verifyemail"); // Redirect to verify email page
       }
     } catch (error: any) {
       console.log("Error", error);

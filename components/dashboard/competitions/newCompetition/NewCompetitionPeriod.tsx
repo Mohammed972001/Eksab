@@ -9,7 +9,6 @@ const NewCompetitionPeriod = () => {
   const [endDate, setEndDate] = useState<Date | null>(null);
   const [errorMessage, setErrorMessage] = useState<string>("");
 
-
   const calculateDays = (start: Date | null, end: Date | null) => {
     if (!start || !end) return 0;
 
@@ -21,12 +20,14 @@ const NewCompetitionPeriod = () => {
 
   const handleEndDateChange = (date: Date | null) => {
     if (startDate && date) {
-      const minEndDate = addDays(startDate, 28); 
+      const minEndDate = addDays(startDate, 28);
       if (date < minEndDate) {
-        setErrorMessage("تاريخ النهاية يجب أن يكون بعد 28 يوم من تاريخ البداية.");
+        setErrorMessage(
+          "تاريخ النهاية يجب أن يكون بعد 28 يوم من تاريخ البداية."
+        );
         setEndDate(null);
       } else {
-        setErrorMessage(""); 
+        setErrorMessage("");
         setEndDate(date);
       }
     }
@@ -34,14 +35,17 @@ const NewCompetitionPeriod = () => {
 
   return (
     <div className="pt-2 flex flex-col gap-6 w-full">
-
+      {/* Title Section */}
       <div className="flex flex-col gap-4 w-full">
-        <p className="text-shadeBlack font-semibold text-[22px]">فترة المسابقة</p>
+        <p className="text-shadeBlack font-semibold text-[22px]">
+          فترة المسابقة
+        </p>
         <hr />
       </div>
 
+      {/* Date Selection Section */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-  
+        {/* Start Date Picker */}
         <div className="flex flex-col gap-2">
           <div className="relative">
             <div className="absolute top-1/2 left-3 transform -translate-y-1/2 z-10">
@@ -56,8 +60,8 @@ const NewCompetitionPeriod = () => {
               selected={startDate}
               onChange={(date: Date | null) => {
                 setStartDate(date);
-                setEndDate(null); 
-                setErrorMessage(""); 
+                setEndDate(null);
+                setErrorMessage("");
               }}
               dateFormat="yyyy/MM/dd"
               className="w-full border rounded p-4 pl-10 text-right"
@@ -65,6 +69,8 @@ const NewCompetitionPeriod = () => {
             />
           </div>
         </div>
+
+        {/* End Date Picker */}
         <div className="flex flex-col gap-2">
           <div className="relative">
             <div className="absolute top-1/2 left-3 transform -translate-y-1/2 z-10">
@@ -81,13 +87,13 @@ const NewCompetitionPeriod = () => {
               dateFormat="yyyy/MM/dd"
               className="w-full border rounded p-4 pl-10 text-right"
               placeholderText="إلى تاريخ (ميلادي)"
-              minDate={startDate ? addDays(startDate, 28) : undefined} 
-              disabled={!startDate} 
+              minDate={startDate ? addDays(startDate, 28) : undefined}
+              disabled={!startDate}
             />
           </div>
         </div>
 
-        {/* عرض عدد الأيام */}
+        {/* Days Calculation */}
         <div className="flex flex-col justify-center items-center gap-1">
           <div className="flex gap-2 items-center">
             <Image
@@ -96,7 +102,7 @@ const NewCompetitionPeriod = () => {
               width={24}
               height={24}
             />
-            <p className="font-medium text-shadeGray">عدد الأيام</p>
+            <p className="font-medium text-shadeGray">عدد الايام</p>
           </div>
           <p className="font-semibold text-[22px] text-shadeBlack">
             {numberOfDays} يوماً

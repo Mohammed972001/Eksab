@@ -70,27 +70,30 @@ export const FileUpload = ({
       onClick={handleClick}
     >
       <div className="flex justify-center items-center size-10 border border-[#E4E7EC] rounded-lg shadow-icon-shadow">
-        <Image
-          src="/auth/UploadIcon.svg"
-          alt="Upload"
-          width={20}
-          height={20}
-        />
+        <Image src="/auth/UploadIcon.svg" alt="Upload" width={20} height={20} />
       </div>
 
-      <div className={`flex flex-col justify-center items-start text-start ${textClass}`}>
+      <div
+        className={`flex flex-col justify-center items-start text-start ${textClass}`}
+      >
         <p className="text-[12px] font-bold">{label}</p>
         <div className="flex justify-center items-center gap-1">
-          <p className="text-[#6941C6] font-semibold text-[12px]">انقر للتحميل</p>
-          <p className="font-normal text-[#475467] text-[12px]">أو اسحب وأفلِت</p>
+          <p className="text-[#6941C6] font-semibold text-[12px]">
+            انقر للتحميل
+          </p>
+          <p className="font-normal text-[#475467] text-[12px]">
+            أو اسحب وأفلِت
+          </p>
         </div>
         {fileName && (
-          <p className="text-[10px] text-green-500 mt-2">Uploaded: {fileName}</p>
+          <p className="text-[10px] text-green-500 mt-2">
+            Uploaded: {fileName}
+          </p>
         )}
-        {error && (
-          <p className="text-[10px] text-red-500 mt-2">{error}</p>
-        )}
-        <p className="text-[#70737A] text-[12px] text-center">PDF (max. 10MB)</p>
+        {error && <p className="text-[10px] text-red-500 mt-2">{error}</p>}
+        <p className="text-[#70737A] text-[12px] text-center">
+          PDF (max. 10MB)
+        </p>
       </div>
 
       {/* Hidden File Input */}

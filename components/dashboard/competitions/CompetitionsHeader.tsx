@@ -34,7 +34,9 @@ const CompetitionsHeader = () => {
       </div>
 
       <div className="flex flex-col gap-4 md:flex-row justify-between items-center w-full">
-        <h2 className="font-semibold text-2xl sm:text-[30px] text-shadeBlack">مسابقاتي</h2>
+        <h2 className="font-semibold text-2xl sm:text-[30px] text-shadeBlack">
+          مسابقاتي
+        </h2>
         <SubmitButton
           rightIcon="/dashboard/competitions/add.svg"
           buttonText="إضافة مسابقة جديدة"

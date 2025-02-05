@@ -11,8 +11,8 @@ interface CompetitionCardProps {
   competitors: number;
   timeLeft: number;
   dateRange: string;
-  imageSrc: string | null; // Allow imageSrc to be 
-  onClick: () => void; 
+  imageSrc: string | null; // Allow imageSrc to be null
+  onClick: () => void;
 }
 
 const CompetitionCard = ({
@@ -29,8 +29,9 @@ const CompetitionCard = ({
 }: CompetitionCardProps) => {
   return (
     <div
-    onClick={onClick}
-    className="flex gap-4 items-center p-4 rounded-lg bg-white shadow-card-shadow cursor-pointer">
+      onClick={onClick}
+      className="flex gap-4 items-center p-4 rounded-lg bg-white shadow-card-shadow cursor-pointer"
+    >
       {/* Render the image only if imageSrc is valid */}
       <div className="flex justify-center items-center border-[2px] border-[#EBEDF0] rounded-2xl w-[168px] h-[176px]">
         {imageSrc ? (

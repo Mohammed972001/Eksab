@@ -28,7 +28,7 @@ const CompetitionDetailsPage = () => {
 
   // State for tab management
   const [activeTab, setActiveTab] = useState(0);
-  const tabs = ["Prizes", "Withdrawals", "Participation Method", "Terms & Conditions"];
+  const tabs = ["الجوائز ", "السحوبات", " طريقة المشاركة", " الشروط والاحكام "];
 
   // Mock data for prizes and withdrawals (fallback to empty arrays if no data is available)
   const mockPrizes = competitionDetails?.prizes || [];

@@ -158,14 +158,12 @@ const CompetitionDetailPage = () => {
       const compId = response.data.id;
       console.log("Draft created with ID:", compId);
       setCompetitionId(compId);
-      // ممكن تنقل المستخدم لصفحة التفاصيل أو أي خطوة تانية باستخدام الـ id
       router.push(`/competitions/details/${compId}`);
     } catch (error) {
       console.error("Error creating competition draft:", error);
     }
   };
 
-  // دوال لجلب الغرف والمدن من الـ API
   const getAllChambers = async () => {
     try {
       const response = await axios.get(
@@ -232,7 +230,6 @@ const CompetitionDetailPage = () => {
               className={`${
                 activeStep === 0 && "mt-4"
               } flex flex-col justify-center items-start gap-6`}
-              // ممكن تضيف onSubmit هنا لو عايز تستخدمه بدل onClick في الزر
             >
               {activeStep === 0 && (
                 <>
@@ -275,7 +272,6 @@ const CompetitionDetailPage = () => {
                     label="خطوات او طريقة المشاركة في المسابقة (باللغة العربية)"
                     placeholder="قم بكتابة خطوات المشاركة.."
                     dir="rtl"
-                    // تأكد إنك بتستقبل وتبعت الداتا الخاصة بخطوات المشاركة
                     onChange={(value) => setParticipationStepsAr(value)}
                   />
                   <NewCompetitionParticipationMethods
@@ -288,7 +284,6 @@ const CompetitionDetailPage = () => {
               )}
             </form>
 
-            {/* باقي الخطوات زي الجوائز والسحوبات والشروط والدفع */}
             <div className={`${activeStep === 2 && "mt-4"} flex flex-col gap-8`}>
               {activeStep === 2 && <NewCompetitionPrizes />}
             </div>
@@ -344,7 +339,7 @@ const CompetitionDetailPage = () => {
                     }
                     onClick={
                       activeStep === steps.length - 1
-                        ? handleSubmitDraft // هنا بنبعت الداتا للـ API
+                        ? handleSubmitDraft 
                         : handleNextStep
                     }
                     fullWidth={false}

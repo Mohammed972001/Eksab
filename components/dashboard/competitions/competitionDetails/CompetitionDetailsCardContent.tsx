@@ -1,3 +1,4 @@
+
 // Import necessary modules
 import Image from "next/image";
 import React from "react";
@@ -67,7 +68,7 @@ const CompetitionDetailsCardContent = ({
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <p className="text-shadeGray text-[12px] font-medium">From date</p>
+                <p className="text-shadeGray text-[12px] font-medium"> من تاريخ </p>
                 <p className="text-sm text-[#243757] font-medium">
                   {new Date(details.fromDate).toLocaleDateString()}
                 </p>
@@ -87,7 +88,7 @@ const CompetitionDetailsCardContent = ({
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <p className="text-shadeGray text-[12px] font-medium">To date</p>
+                <p className="text-shadeGray text-[12px] font-medium">إلى تاريخ</p>
                 <p className="text-sm text-[#243757] font-medium">
                   {new Date(details.toDate).toLocaleDateString()}
                 </p>
@@ -107,7 +108,7 @@ const CompetitionDetailsCardContent = ({
                 />
               </div>
               <div className="flex flex-col gap-1">
-                <p className="text-shadeGray text-[12px] font-medium">Duration</p>
+                <p className="text-shadeGray text-[12px] font-medium"> مدة المسابقة</p>
                 <p className="text-sm text-[#243757] font-medium">
                   {details.numberOfDays} days
                 </p>
@@ -122,7 +123,7 @@ const CompetitionDetailsCardContent = ({
                 <Image src={"/gift.svg"} alt="competitiontype" width={20} height={20} />
               </div>
               <div className="flex flex-col gap-1">
-                <p className="text-shadeGray text-[12px] font-medium">Type</p>
+                <p className="text-shadeGray text-[12px] font-medium">نوع المسابقة</p>
                 <p className="text-sm text-[#243757] font-medium">
                   {details.competitionType}
                 </p>
@@ -143,7 +144,7 @@ const CompetitionDetailsCardContent = ({
                   <Image src={"/pin.svg"} alt="commercialroom" width={20} height={20} />
                 </div>
                 <div className="flex flex-col gap-1">
-                  <p className="text-shadeGray text-[12px] font-medium">Chamber</p>
+                  <p className="text-shadeGray text-[12px] font-medium"> الغرفة التجارية</p>
                   <p className="text-sm text-[#243757] font-medium">
                     {details.chamber.name}
                   </p>
@@ -158,7 +159,7 @@ const CompetitionDetailsCardContent = ({
                   <Image src={"/tag.svg"} alt="coupons" width={20} height={20} />
                 </div>
                 <div className="flex flex-col gap-1">
-                  <p className="text-shadeGray text-[12px] font-medium">Coupons</p>
+                  <p className="text-shadeGray text-[12px] font-medium">عدد الكوبونات</p>
                   <p className="text-sm text-[#243757] font-medium">
                     {details.prizes.length}
                   </p>
@@ -173,7 +174,7 @@ const CompetitionDetailsCardContent = ({
                   <Image src={"/pin.svg"} alt="location" width={20} height={20} />
                 </div>
                 <div className="flex flex-col gap-1">
-                  <p className="text-shadeGray text-[12px] font-medium">City</p>
+                  <p className="text-shadeGray text-[12px] font-medium">المدينة</p>
                   <p className="text-sm text-[#243757] font-medium">
                     {details.city.name}
                   </p>
@@ -189,7 +190,7 @@ const CompetitionDetailsCardContent = ({
             className="flex justify-between items-center w-full cursor-pointer"
             onClick={toggleMoreDetails}
           >
-            <p className="text-[#0080CC] font-semibold">More Details</p>
+         <p className="text-[#0080CC] font-semibold">المزيد من التفاصيل</p>
             <Image
               src={"/blue-chevron-down.svg"}
               alt="chevron"

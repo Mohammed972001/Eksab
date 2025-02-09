@@ -10,6 +10,7 @@ import LoadingSpinner from "@/components/SharedComponents/LoadingSpinner";
 import CompetitionPrompt from "@/components/dashboard/competitions/CompetitionPrompt";
 import { useRouter } from "next/navigation";
 
+
 type Competition = {
   id: number;
   name: string;
@@ -45,7 +46,6 @@ const CompetitionsPage = () => {
     if (competition.status === "Active") {
       router.push(`/competitions/competitiondetails/${competition.id}`);
     } else {
-      // في الحالات التانية ممكن تفتح الموديل
       openModal();
     }
   };
@@ -149,7 +149,6 @@ const CompetitionsPage = () => {
   // Continue and perform action when clicking on continue
   const handleContinue = () => {
     console.log("استكمال إنشاء المسابقة");
-    // أضف هنا العمليات التي تريد تنفيذها بعد الضغط على "استكمال إنشاء المسابقة"
   };
 
   if (status === "loading" || loading) {

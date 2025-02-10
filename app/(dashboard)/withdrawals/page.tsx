@@ -1,8 +1,8 @@
 "use client";
 import WithdrawLslist from "@/components/dashboard/withdrawals/withdrawlslist";
 import PageHeader from "@/components/SharedComponents/PageHeader";
-import WithdrawalsFilters from "@/components/SharedComponents/withdrawalsFilters";
-
+import WithdrawalsFilters from "@/components/SharedComponents/WithdrawalsFilters";
+import React from "react";
 const mockData = [
     {
       no: 1,
@@ -24,9 +24,7 @@ const mockData = [
     },
   ];
   
-  <WithdrawLslist WithdrawLslist={mockData} />;
   
-import React from "react";
 
 const HomePage = () => {
     return (

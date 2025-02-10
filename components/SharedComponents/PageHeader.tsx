@@ -1,18 +1,26 @@
 import { ChevronLeftRounded } from "@mui/icons-material";
 import Image from "next/image";
 import React from "react";
+import SubmitButton from "./SubmitButton";
 
 interface PageHeaderProps {
   breadcrumbTitle?: string;
   mainTitle: string;
   badgeText?: string; 
   iconSrc?: string;
+  buttonText? : string;
+  onButtonClick?: () => void;
+  iconPath?: string;
+  
 }
 
 const PageHeader: React.FC<PageHeaderProps> = ({
   breadcrumbTitle,
   mainTitle,
   badgeText,
+  buttonText,
+  iconPath,
+  onButtonClick,
   iconSrc = "/dashboard/competitions/homeIcon.svg", 
 }) => {
   return (
@@ -32,7 +40,20 @@ const PageHeader: React.FC<PageHeaderProps> = ({
           </div>
         )}
       </div>
+
+      <div className="flex flex-col gap-4 md:flex-row justify-between items-center w-full">
       <h2 className="font-semibold text-[30px] text-shadeBlack">{mainTitle}</h2>
+      { buttonText && (
+    <SubmitButton
+    rightIcon={iconPath}
+    buttonText={buttonText}
+    fullWidth={false}
+    onClick={onButtonClick}
+    classContainer="mt-0"
+  />
+      ) 
+      }
+      </div>
       <hr />
     </div>
   );

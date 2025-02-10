@@ -2,7 +2,7 @@ import React from "react";
 import SearchBar from "./SearchBar";
 import FilterButton from "./FilterButton";
 
-const Filters = () => {
+const BillsFilters = () => {
   return (
     <div className="flex flex-col sm:flex-row items-center gap-4 w-full">
       <div className="w-full">
@@ -17,4 +17,4 @@ const Filters = () => {
   );
 };
 
-export default Filters;
+export default BillsFilters;

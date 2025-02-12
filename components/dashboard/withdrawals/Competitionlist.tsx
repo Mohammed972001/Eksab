@@ -1,66 +1,81 @@
 "use client";
+import SubmitButton from "@/components/SharedComponents/SubmitButton";
 import { useRouter } from "next/navigation";
 import React from "react";
-
-interface WithdrawLslistItem {
+interface WinnerslistItem {
   no: number;
   name: string;
   location: string;
-  draws: number;
-  prizes: number;
-  drawDate: string;
+  prize: string;
+  winnerName: string; 
+  Phone: string;      
+  date: string;       
   status: string;
 }
 
-interface WithdrawLslistProps {
-  WithdrawLslist: WithdrawLslistItem[];
+
+interface WinnerslistProps {
+  Winnerslist: WinnerslistItem[];
 }
 
-const WithdrawLslist: React.FC<WithdrawLslistProps> = ({ WithdrawLslist }) => {
-  const router = useRouter();
-  const groupedContests = Object.values(
-    WithdrawLslist.reduce((acc, contest) => {
-      const key = contest.no + "-" + contest.name;
-      if (!acc[key]) {
-        acc[key] = [contest];
-      } else {
-        acc[key].push(contest);
-      }
-      return acc;
-    }, {} as Record<string, WithdrawLslistItem[]>)
-  );
+const Competirionslist: React.FC<WinnerslistProps> = ({ Winnerslist }) => {
+    const router = useRouter();
+    const groupedContests = Object.values(
+      Winnerslist.reduce((acc, contest) => {
+            const key = contest.no + "-" + contest.name;
+            if (!acc[key]) {
+                acc[key] = [contest];
+            } else {
+                acc[key].push(contest);
+            }
+            return acc;
+        }, {} as Record<string, WinnerslistItem[]>)
+    );
 
-  groupedContests.sort((a, b) => {
-    if (a[0].no === b[0].no) {
-      return a[0].name.localeCompare(b[0].name);
-    }
-    return a[0].no - b[0].no;
-  });
-  const handleNavigation = (contestno:number) => {
-    router.push(`/withdrawals/${contestno}`);
-  };
-  return (
-    <div className="mt-6 flex flex-col gap-4 items-start w-full overflow-x-auto">
-      <table className="border-collapse table-fixed w-full min-w-[1024px]">
+    groupedContests.sort((a, b) => {
+        if (a[0].no === b[0].no) {
+            return a[0].name.localeCompare(b[0].name);
+        }
+        return a[0].no - b[0].no;
+    });
+    const handleNavigation = (contestno: number) => {
+        router.push(`/withdrawals/winners/${contestno}`);
+    };
+    return (
+        <div className=" flex flex-col gap-4 items-start w-full overflow-x-auto">
+            <div className=" w-full flex justify-between">
+                <h2 className="font-semibold text-[20px] text-shadeBlack pt-11
+                    ">قائمة الجوائز والفائزين في السحب  </h2>
+                <SubmitButton
+                    rightIcon="/dashboard/competitions/printer.svg"
+                    buttonText="اطبع التقارير"
+                    fullWidth={false}
+                    classContainer=""
+                />
+            </div>
+            <hr className="w-full border-b border-gray-300" />
+            <table className="border-collapse table-fixed w-full min-w-[1024px]">
         <colgroup>
-          <col style={{ width: "5.3%" }} /> {/* عمود No. */}
-          <col style={{ width: "30.3%" }} /> {/* عمود اسم المسابقة */}
-          <col style={{ width: "11.3%" }} /> {/* عمود مكان المسابقة */}
-          <col style={{ width: "7.3%" }} /> {/* عمود عدد السحوبات */}
-          <col style={{ width: "7.3%" }} /> {/* عمود عدد الجوائز */}
-          <col style={{ width: "11.3%" }} /> {/* عمود تاريخ السحب */}
-          <col style={{ width: "11.3%" }} /> {/* عمود حالة المسابقة */}
-          <col style={{ width: "5.7%" }} />  {/* عمود الأيقونة */}
+          <col style={{ width: "5.3%" }} /> 
+          <col style={{ width: "13.3%" }} /> 
+          <col style={{ width: "11.3%" }} /> 
+          <col style={{ width: "11.3%" }} /> 
+          <col style={{ width: "17.3%" }} /> 
+          <col style={{ width: "11.3%" }} /> 
+          <col style={{ width: "11.3%" }} /> 
+          <col style={{ width: "11.3%" }} /> 
+          <col style={{ width: "5.7%" }} /> 
         </colgroup>
         <thead>
           <tr className="bg-[#E9E9EA]">
             {[
               "No.",
-              "اسم المسابقة",
-              "مكان المسابقة",
-              "عدد السحوبات",
-              "عدد الجوائز",
-              "تاريخ السحب",
+              "ترتيب السحب",
+              "  الفرع",
+              " اسم الجائزة",
+              "اسم الفائز ",
+              " رقم الهاتف",
+              "تاريخ  السحب",
               "حالة المسابقة",
               " ",
             ].map((header, idx) => (
@@ -90,7 +105,7 @@ const WithdrawLslist: React.FC<WithdrawLslistProps> = ({ WithdrawLslist }) => {
                 key={`${contest.no}-${contest.location}-${idx}`}
                 className={`${bgClass} border-b border-[#C6C7CA]`}
               >
-                {/* في أول صف للمجموعة بنعرض رقم المسابقة والاسم في خليتين بدمج */
+                {
                 idx === 0 && (
                   <>
                     <td
@@ -107,18 +122,20 @@ const WithdrawLslist: React.FC<WithdrawLslistProps> = ({ WithdrawLslist }) => {
                     </td>
                   </>
                 )}
-                {/* باقي الأعمدة لكل سجل: كل سجل له بيانات المكان وباقي الأعمدة الخاصة بيه */}
                 <td className="px-2 py-6 text-center border-r border-[#C6C7CA]">
                   {contest.location}
                 </td>
                 <td className="px-2 py-6 text-center border-r border-[#C6C7CA]">
-                  {contest.draws}
+                  {contest.prize}
                 </td>
                 <td className="px-2 py-6 text-center border-r border-[#C6C7CA]">
-                  {contest.prizes}
+                  {contest.winnerName}
                 </td>
                 <td className="px-2 py-6 text-center border-r border-[#C6C7CA]">
-                  {contest.drawDate}
+                  {contest.Phone}
+                </td>
+                <td className="px-2 py-6 text-center border-r border-[#C6C7CA]">
+                  {contest.date}
                 </td>
                 <td className="px-2 py-6 text-center border-r border-[#C6C7CA]">
                   <span
@@ -164,8 +181,8 @@ const WithdrawLslist: React.FC<WithdrawLslistProps> = ({ WithdrawLslist }) => {
           })}
         </tbody>
       </table>
-    </div>
-  );
+        </div>
+    );
 };
 
-export default WithdrawLslist;
+export default Competirionslist;

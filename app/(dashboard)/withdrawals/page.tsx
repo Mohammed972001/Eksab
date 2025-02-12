@@ -14,6 +14,15 @@ const mockData = [
       status: "تم التسليم",
     },
     {
+      no: 1,
+      name: "مسابقة 1",
+      location: "فرع جدة",
+      draws: 5,
+      prizes: 10,
+      drawDate: "2025-09-25",
+      status: "تم التسليم",
+    },
+    {
       no: 2,
       name: "مسابقة 2",
       location: "فرع جدة",
@@ -26,7 +35,7 @@ const mockData = [
   
   
 
-const HomePage = () => {
+const withdrawalsPage = () => {
     return (
         <div className="w-full h-full pb-20 space-y-5">
             {/* Page Header */}
@@ -44,4 +53,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default withdrawalsPage;

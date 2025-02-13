@@ -9,7 +9,7 @@ import TabsAndFilter from "@/components/dashboard/competitions/TabsAndFilter";
 import LoadingSpinner from "@/components/SharedComponents/LoadingSpinner";
 import CompetitionPrompt from "@/components/dashboard/competitions/CompetitionPrompt";
 import { useRouter } from "next/navigation";
-
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 type Competition = {
   id: number;
@@ -61,7 +61,7 @@ const CompetitionsPage = () => {
         }
 
         const response = await axios.post(
-          "https://mohasel.net/api/Client/Competitions/GetAllCompetitions",
+          `${apiUrl}/Competitions/GetAllCompetitions`,
           {
             pageIndex: 0,
             pageSize: 10,
@@ -99,7 +99,7 @@ const CompetitionsPage = () => {
     const fetchCities = async () => {
       try {
         const response = await axios.get(
-          "https://mohasel.net/api/Client/Lookups/GetAllCities"
+          `${apiUrl}/Lookups/GetAllCities`
         );
         setCityOptions(response.data);
       } catch (error) {
@@ -116,7 +116,7 @@ const CompetitionsPage = () => {
 
     try {
       const response = await axios.get(
-        `https://mohasel.net/api/Client/Files/DownloadFile/${logoId}`,
+        `${apiUrl}/Files/DownloadFile/${logoId}`,
         {
           responseType: "blob",
           headers: {

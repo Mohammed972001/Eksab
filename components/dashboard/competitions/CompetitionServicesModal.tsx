@@ -13,19 +13,20 @@ const cardData = [
     title: "تطبيق اكسب",
     description: (
       <>
-        إنشئ مسابقتك عبر تطبيق "<span className="text-primary">فائز</span>” تتيح
-        للعملاء المشاركة بسهولة من هواتفهم الذكية.
+        إنشئ مسابقتك عبر تطبيق "<span className="text-primary">فائز</span>" تتيح للعملاء المشاركة بسهولة من هواتفهم الذكية.
       </>
     ),
     competitionId: "1",
+    competitionType: "ConnectToYourOwnPlatform", // النوع هنا من ال enum
   },
   {
-    imageSrc: "/dashboard/competitions/shapes.svg", 
+    imageSrc: "/dashboard/competitions/shapes.svg",
     bgColor: "bg-[#D9E1F9]",
     title: "مسابقتك الخاصة",
     description:
       "أنشئ حملتك الخاصة وشاركها مع جمهورك لتحقيق أهدافك وزيادة فرص الفوز!",
     competitionId: "2",
+    competitionType: "UploadFile", // النوع هنا من ال enum
   },
   {
     imageSrc: "/dashboard/competitions/barcode.svg",
@@ -34,6 +35,7 @@ const cardData = [
     description:
       "يتم توجيه العملاء إلى تطبيق الشركة لمسح الباركود للدخول في المسابقة والحصول على فرص للفوز.",
     competitionId: "3",
+    competitionType: "Barcode", // النوع هنا من ال enum
   },
   {
     imageSrc: "/dashboard/competitions/scanner.svg",
@@ -42,6 +44,7 @@ const cardData = [
     description:
       "بمجرد شراء المنتج ومسح الباركود، يتم تسجيل العميل تلقائيًا في السحب الشهري على جوائز.",
     competitionId: "4",
+    competitionType: "Barcode", // النوع هنا من ال enum
   },
   {
     imageSrc: "/dashboard/competitions/location.svg",
@@ -50,6 +53,7 @@ const cardData = [
     description:
       "تطلب الشركات من الجمهور الحضور إلى حدث أو فعالية محددة للفوز بالجوائز او المشاركة في المسابقات.",
     competitionId: "5",
+    competitionType: "Attendance", // النوع هنا من ال enum
   },
   {
     imageSrc: "/dashboard/competitions/shapes.svg",
@@ -58,12 +62,11 @@ const cardData = [
     description:
       "عبارة عن سؤال او مجموعة أسئلة تجاوب عليها من اجل الدخول على السحب.",
     competitionId: "6",
+    competitionType: "QuestionAndAnswer", // النوع هنا من ال enum
   },
 ];
 
-const CompetitionServicesModal = ({
-  handleCloseModal,
-}: CompetitionServicesModalProps) => {
+const CompetitionServicesModal = ({ handleCloseModal }: CompetitionServicesModalProps) => {
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50 backdrop-blur-sm overflow-y-scroll">
       <div className="bg-white w-[90%] md:min-w-[760px] max-w-[760px] h-full overflow-y-auto scrollbar-hide p-6 rounded-3xl">
@@ -87,12 +90,13 @@ const CompetitionServicesModal = ({
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {cardData.map((card) => (
             <CompetitionServiceCard
-              key={card.competitionId} // Use competition ID as the key
+              key={card.competitionId}
               imageSrc={card.imageSrc}
               bgColor={card.bgColor}
               title={card.title}
               description={card.description}
-              competitionId={card.competitionId} // Pass the competition ID to the card component
+              competitionId={card.competitionId}
+              competitionType={card.competitionType} // بتمرير النوع هنا
             />
           ))}
         </div>

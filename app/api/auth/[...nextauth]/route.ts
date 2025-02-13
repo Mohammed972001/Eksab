@@ -1,6 +1,6 @@
 import NextAuth from "next-auth";
 import CredentialsProvider from "next-auth/providers/credentials";
-
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
@@ -13,7 +13,7 @@ const handler = NextAuth({
         try {
           // Call your login API
           const response = await fetch(
-            "https://mohasel.net/api/Client/Auth/Login",
+              `${apiUrl}/Auth/Login`,
             {
               method: "POST",
               headers: {

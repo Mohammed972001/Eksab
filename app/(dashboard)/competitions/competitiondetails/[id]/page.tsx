@@ -13,6 +13,7 @@ import { useParams } from "next/navigation";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const CompetitionDetailsPage = () => {
   // Get the competition ID from the URL parameters
@@ -59,7 +60,7 @@ const CompetitionDetailsPage = () => {
       try {
         // Fetch competition details from the API
         const response = await axios.post(
-          "https://mohasel.net/api/Client/Competitions/GetCompetition",
+          `${apiUrl}/Competitions/GetCompetition`,
           { id: Number(id) },
           {
             headers: {

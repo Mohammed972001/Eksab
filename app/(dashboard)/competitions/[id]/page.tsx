@@ -20,6 +20,7 @@ import LoadingSpinner from "@/components/SharedComponents/LoadingSpinner";
 import { validCompetitionIds } from "@/utils/validCompetitionIds";
 import { useSession } from "next-auth/react";
 import { v4 as uuidv4 } from "uuid";
+const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const CompetitionDetailPage = () => {
   const { id } = useParams();
@@ -29,6 +30,8 @@ const CompetitionDetailPage = () => {
   const [competitionTitle, setCompetitionTitle] = useState(
     "إنشاء مسابقة جديدة (مسابقتك الخاصة)"
   );
+  // state لاستقبال قيمة competitionType من query string
+  const [competitionType, setCompetitionType] = useState("");
 
   const steps = [
     "البيانات الأساسية",
@@ -47,8 +50,9 @@ const CompetitionDetailPage = () => {
   const [city, setCity] = useState("");
   const [competitionNameEn, setCompetitionNameEn] = useState("");
   const [competitionNameAr, setCompetitionNameAr] = useState("");
-  const [chamberOptions, setChamberOptions] = useState([]);
-  const [cityOptions, setCityOptions] = useState([]);
+  const [chamberOptions, setChamberOptions] = useState<{ id: number; name: string }[]>([]);
+  const [cityOptions, setCityOptions] = useState<{ id: number; name: string }[]>([]);
+  
   const [selectedServices, setSelectedServices] = useState({
     dataUpload: false,
     invoiceVerification: false,
@@ -58,20 +62,79 @@ const CompetitionDetailPage = () => {
   const [participationStepsAr, setParticipationStepsAr] = useState("");
   const [participationStepsEn, setParticipationStepsEn] = useState("");
   const [competitionId, setCompetitionId] = useState(null);
-  const { data: session, status } = useSession();
-  const handleCheckboxChange = (service: keyof typeof selectedServices) => {
-  setSelectedServices((prev) => ({ ...prev, [service]: !prev[service] }));
-};
 
-  
+  const { data: session } = useSession();
 
+  const handleCheckboxChange = (service) => {
+    setSelectedServices((prev) => ({ ...prev, [service]: !prev[service] }));
+  };
 
   const isInputDisabled = Object.values(selectedServices).some(
     (value) => value === true
   );
 
-  const handleNextStep = () => {
-    if (activeStep < steps.length - 1) {
+  // نستخدم الدالة دي عشان ناخد قيمة contentType من ال query string ونحطها في state
+  useEffect(() => {
+    const title = searchParams.get("title");
+    if (title) {
+      setCompetitionTitle(decodeURIComponent(title));
+    }
+    const typeFromQuery = searchParams.get("contentType");
+    if (typeFromQuery) {
+      setCompetitionType(typeFromQuery);
+    }
+  }, [searchParams]);
+
+  // لو الـ id مش من القيم المسموحة، نوجه للصفحة مش موجودة
+  useEffect(() => {
+    if (!validCompetitionIds.includes(id)) {
+      router.push("/notfound");
+    }
+  }, [id, router]);
+
+  // الدالة دي هتستخدم للانتقال للخطوة اللي بعدها
+  // لو في الخطوة الأولى ومفيش draft اتعمل قبل كده، هنبعت الداتا للسيرفر ونعمل إنشاء للـ draft
+  const handleNextStepWithDraft = async (e) => {
+    e.preventDefault();
+    if (activeStep === 0 && !competitionId) {
+      // الداتا من الصفحة الأولى لإنشاء draft
+      const draftData = {
+        id: 0,
+        // هنا بنستخدم competitionType المستلمة من ال query string
+        competitionType: competitionType, 
+        participationType: "OnlyApp",
+        logoId: 8,
+        chamberId:
+          chamberOptions.indexOf(room) !== -1 ? chamberOptions.indexOf(room) : 0,
+        cityId:
+          cityOptions.indexOf(city) !== -1 ? cityOptions.indexOf(city) : 0,
+        name: competitionNameAr,
+        nameEn: competitionNameEn,
+        numberOpportunities: Number(opportunities),
+        fromDate: new Date().toISOString(),
+        toDate: new Date().toISOString(),
+      };
+
+      try {
+        const response = await axios.post(
+          `${apiUrl}/Competitions/CreateCompetitionDraft`,
+          draftData,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${session.accessToken}`,
+            },
+          }
+        );
+        const compId = response.data.id;
+        console.log("Draft created with ID:", compId);
+        setCompetitionId(compId);
+        setActiveStep(activeStep + 1);
+      } catch (error) {
+        console.error("Error creating competition draft:", error);
+      }
+    } else {
+      // في باقي الخطوات أو لو draft موجود، ببساطة بينتقل للخطوة اللي بعدها
       setActiveStep(activeStep + 1);
     }
   };
@@ -86,105 +149,67 @@ const CompetitionDetailPage = () => {
     router.push("/competitions");
   };
 
-  // دالة إرسال الفورم للـ API
-  const handleSubmitDraft = async (e) => {
-
-    if (!session?.accessToken) {
-      console.error("No access token available");
+  // دالة للتحديث النهائي للـ draft
+  const handleUpdateDraft = async (e) => {
+    e.preventDefault();
+    if (!competitionId) {
+      console.error("No competition draft id available");
       return;
     }
-    e.preventDefault();
 
-    // تجميع الداتا بناءً على الـ schema المطلوب
-    const draftData = {
-      id: 0,
-      competitionType: "Normal",
+    const fullData = {
+      id: competitionId,
+      competitionType: competitionType,
       participationType: "OnlyApp",
       logoId: 0,
       chamberId:
         chamberOptions.indexOf(room) !== -1 ? chamberOptions.indexOf(room) : 0,
-      cityId: cityOptions.indexOf(city) !== -1 ? cityOptions.indexOf(city) : 0,
+      cityId:
+        cityOptions.indexOf(city) !== -1 ? cityOptions.indexOf(city) : 0,
       name: competitionNameAr,
       nameEn: competitionNameEn,
-      serviceIds: Object.keys(selectedServices)
-        .filter((key) => selectedServices[key])
-        .map((key) => {
-          if (key === "dataUpload") return 1;
-          if (key === "invoiceVerification") return 2;
-          if (key === "unlimitedChances") return 3;
-          return 0;
-        }),
       numberOpportunities: Number(opportunities),
       fromDate: new Date().toISOString(),
       toDate: new Date().toISOString(),
       howToParticipate: participationStepsAr,
       howToParticipateEn: participationStepsEn,
-      prizes: [
-        {
-          guid: uuidv4(), // توليد GUID جديد
-          name: "اسم الجايزة",
-          description: "تفاصيل الجايزة",
-          quantity: 1,
-        },
-      ],
-      draws: [
-        {
-          id: 0,
-          branchId: 0,
-          date: new Date().toISOString(),
-          prizes: [
-            {
-              guid: uuidv4(),
-              quantity: 1,
-            },
-          ],
-        },
-      ],
+      // وهنا ممكن تضيف باقي الداتا زي prizes, draws, questions...
     };
 
-   try {
-      const response = await axios.post(
-        "https://mohasel.net/api/Client/Competitions/CreateCompetitionDraft",
-        draftData,
+    try {
+      const response = await axios.put(
+        `${apiUrl}/Competitions/UpdateCompetitionDraft/${competitionId}`,
+        fullData,
         {
           headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${session.accessToken}`,
-          }
-          
+          },
         }
       );
-      
-      const compId = response.data.id;
-      console.log("Draft created with ID:", compId);
-      setCompetitionId(compId);
-      router.push(`/competitions/details/${compId}`);
+      console.log("Draft updated:", response.data);
     } catch (error) {
-      console.error("Error creating competition draft:", error);
+      console.error("Error updating competition draft:", error);
     }
   };
 
   const getAllChambers = async () => {
     try {
-      const response = await axios.get(
-        "https://mohasel.net/api/Client/Lookups/GetAllChambers"
-      );
+      const response = await axios.get(`${apiUrl}/Lookups/GetAllChambers`);
       const chamberNames = response.data.map((chamber) => chamber.name);
       setChamberOptions(chamberNames);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
   const getAllCities = async () => {
     try {
-      const response = await axios.get(
-        "https://mohasel.net/api/Client/Lookups/GetAllCities"
-      );
+      const response = await axios.get(`${apiUrl}/Lookups/GetAllCities`);
       const cityNames = response.data.map((city) => city.name);
       setCityOptions(cityNames);
     } catch (error) {
-      console.log(error);
+      console.error(error);
     }
   };
 
@@ -195,19 +220,6 @@ const CompetitionDetailPage = () => {
   useEffect(() => {
     getAllCities();
   }, []);
-
-  useEffect(() => {
-    const title = searchParams.get("title");
-    if (title) {
-      setCompetitionTitle(decodeURIComponent(title));
-    }
-  }, [searchParams]);
-
-  useEffect(() => {
-    if (!validCompetitionIds.includes(id)) {
-      router.push("/notfound");
-    }
-  }, [id, router]);
 
   if (!validCompetitionIds.includes(id)) {
     return null;
@@ -275,8 +287,8 @@ const CompetitionDetailPage = () => {
                     onChange={(value) => setParticipationStepsAr(value)}
                   />
                   <NewCompetitionParticipationMethods
-                    label="خطوات او طريقة المشاركة في المسابقة (باللغة الإنجليزية)"
-                    placeholder="Write the participation steps.."
+                    label="Participation Steps (بالإنجليزية)"
+                    placeholder="Write the participation steps..."
                     dir="ltr"
                     onChange={(value) => setParticipationStepsEn(value)}
                   />
@@ -297,7 +309,7 @@ const CompetitionDetailPage = () => {
               {activeStep === 5 && <NewCompetitionPayment />}
             </div>
 
-            {/* Buttons Section */}
+            {/* قسم الأزرار */}
             <div className="mt-8 flex flex-col gap-6 w-full">
               <hr />
               <div className="flex justify-between items-center w-full">
@@ -313,9 +325,7 @@ const CompetitionDetailPage = () => {
                   {activeStep === 5 && (
                     <SubmitButton
                       buttonText="التعديل علي المسابقة"
-                      onClick={() => {
-                        setActiveStep(0);
-                      }}
+                      onClick={() => setActiveStep(0)}
                       fullWidth={false}
                       classContainer="bg-white text-shadeBlack border"
                     />
@@ -338,9 +348,11 @@ const CompetitionDetailPage = () => {
                         : "الخطوة التالية"
                     }
                     onClick={
-                      activeStep === steps.length - 1
-                        ? handleSubmitDraft 
-                        : handleNextStep
+                      activeStep === 0
+                        ? handleNextStepWithDraft
+                        : activeStep === steps.length - 1
+                        ? handleUpdateDraft
+                        : handleNextStepWithDraft
                     }
                     fullWidth={false}
                   />

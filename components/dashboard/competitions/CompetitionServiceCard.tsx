@@ -8,6 +8,7 @@ interface CompetitionServiceCardProps {
   title: string;
   description: React.ReactNode;
   competitionId: string;
+  competitionType: string; // استقبال النوع
 }
 
 const CompetitionServiceCard = ({
@@ -16,12 +17,17 @@ const CompetitionServiceCard = ({
   title,
   description,
   competitionId,
+  competitionType,
 }: CompetitionServiceCardProps) => {
   const router = useRouter();
 
   const handleCardClick = () => {
-    // Navigate to the competition page and pass the title as a query parameter
-    router.push(`/competitions/${competitionId}?title=${encodeURIComponent(title)}`);
+    // بنوجه للمسابقة وبنبعت العنوان والنوع ك query params
+    router.push(
+      `/competitions/${competitionId}?title=${encodeURIComponent(
+        title
+      )}&contentType=${encodeURIComponent(competitionType)}`
+    );
   };
 
   return (

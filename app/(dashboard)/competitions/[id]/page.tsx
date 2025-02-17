@@ -158,7 +158,6 @@ const CompetitionDetailPage = () => {
     router.push("/competitions");
   };
 
-  // دالة للتحديث النهائي للـ draft
   const handleUpdateDraft = async (e) => {
     e.preventDefault();
     if (!competitionId) {

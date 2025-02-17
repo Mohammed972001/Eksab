@@ -8,43 +8,24 @@ interface CompetitionServicesModalProps {
 
 const cardData = [
   {
-    imageSrc: "/dashboard/competitions/shapes.svg",
-    bgColor: "bg-[#D9E1F9]",
-    title: "تطبيق اكسب",
-    description: (
-      <>
-        إنشئ مسابقتك عبر تطبيق "<span className="text-primary">فائز</span>" تتيح للعملاء المشاركة بسهولة من هواتفهم الذكية.
-      </>
-    ),
-    competitionId: "1",
-    competitionType: "ConnectToYourOwnPlatform", // النوع هنا من ال enum
-  },
-  {
-    imageSrc: "/dashboard/competitions/shapes.svg",
-    bgColor: "bg-[#D9E1F9]",
-    title: "مسابقتك الخاصة",
-    description:
-      "أنشئ حملتك الخاصة وشاركها مع جمهورك لتحقيق أهدافك وزيادة فرص الفوز!",
-    competitionId: "2",
-    competitionType: "UploadFile", // النوع هنا من ال enum
-  },
-  {
     imageSrc: "/dashboard/competitions/barcode.svg",
     bgColor: "bg-[#D9E1F9]",
     title: "الباركود التفاعلي عبر التطبيق",
     description:
-      "يتم توجيه العملاء إلى تطبيق الشركة لمسح الباركود للدخول في المسابقة والحصول على فرص للفوز.",
-    competitionId: "3",
+      "يتم توجيه العملاء إلى تطبيق الشركة لمسح الباركود للدخول في المسابقة والحصول على فرص للفوز",
+    competitionId: "1",
+    isActive: true,
     competitionType: "Barcode", // النوع هنا من ال enum
   },
   {
     imageSrc: "/dashboard/competitions/scanner.svg",
     bgColor: "bg-[#D9E1F9]",
-    title: "امسح الباركود وادخل في السحب",
+    title: "التحقق من الفاتورة",
     description:
-      "بمجرد شراء المنتج ومسح الباركود، يتم تسجيل العميل تلقائيًا في السحب الشهري على جوائز.",
-    competitionId: "4",
-    competitionType: "Barcode", // النوع هنا من ال enum
+      "بمجرد شراء المنتج ومسح الباركود، يتم تسجيل العميل تلقائيًا في السحب الشهري على جوائز",
+    competitionId: "2",
+    isActive: true,
+    competitionType: "VerifyBill", // النوع هنا من ال enum
   },
   {
     imageSrc: "/dashboard/competitions/location.svg",
@@ -52,21 +33,63 @@ const cardData = [
     title: "الحضور أو المشاركة الفعلية",
     description:
       "تطلب الشركات من الجمهور الحضور إلى حدث أو فعالية محددة للفوز بالجوائز او المشاركة في المسابقات.",
-    competitionId: "5",
+    competitionId: "3",
+    isActive: true,
     competitionType: "Attendance", // النوع هنا من ال enum
   },
   {
-    imageSrc: "/dashboard/competitions/shapes.svg",
+    imageSrc: "/dashboard/competitions/help.svg",
     bgColor: "bg-[#D9E1F9]",
     title: "سؤال وجواب",
     description:
       "عبارة عن سؤال او مجموعة أسئلة تجاوب عليها من اجل الدخول على السحب.",
-    competitionId: "6",
+    competitionId: "4",
+    isActive: true,
     competitionType: "QuestionAndAnswer", // النوع هنا من ال enum
+  },
+  {
+    imageSrc: "/dashboard/competitions/upload.svg",
+    bgColor: "bg-[#D9E1F9]",
+    title: "رفع ملف او صورة",
+    description:
+      "تطلب الشركات من الجمهور الحضور إلى حدث أو فعالية محددة للفوز بالجوائز او المشاركة في المسابقات.",
+    competitionId: "5",
+    isActive: true,
+    competitionType: "UploadFile", // النوع هنا من ال enum
+  },
+  {
+    imageSrc: "/dashboard/competitions/shapes.svg",
+    bgColor: "bg-[#D9E1F9]",
+    title: "المشاركة عبر منصات التواصل",
+    description:
+      "تطلب الشركات من الجمهور الحضور إلى حدث أو فعالية محددة للفوز بالجوائز او المشاركة في المسابقات.",
+    competitionId: "6",
+    isActive: false,
+    competitionType: "SocialMedia", // النوع هنا من ال enum
+  },
+  {
+    imageSrc: "/dashboard/competitions/shapes.svg",
+    bgColor: "bg-[#D9E1F9]",
+    title: "ربط بمنصتك الخاصة",
+    description: "ربط عن طريقك الAPI لمنصتك الخاصة و المشركة منها.",
+    competitionId: "7",
+    isActive: false,
+    competitionType: "ConnectToYourOwnPlatform", // النوع هنا من ال enum
+  },
+  {
+    imageSrc: "/dashboard/competitions/shapes.svg",
+    bgColor: "bg-[#D9E1F9]",
+    title: "مسابقة العاب تفاعلية",
+    description: "ربط عن طريقك الAPI لمنصتك الخاصة و المشركة منها.",
+    competitionId: "8",
+    isActive: false,
+    competitionType: "SocialMedia", // النوع هنا من ال enum
   },
 ];
 
-const CompetitionServicesModal = ({ handleCloseModal }: CompetitionServicesModalProps) => {
+const CompetitionServicesModal = ({
+  handleCloseModal,
+}: CompetitionServicesModalProps) => {
   return (
     <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 z-50 backdrop-blur-sm overflow-y-scroll">
       <div className="bg-white w-[90%] md:min-w-[760px] max-w-[760px] h-full overflow-y-auto scrollbar-hide p-6 rounded-3xl">
@@ -96,6 +119,7 @@ const CompetitionServicesModal = ({ handleCloseModal }: CompetitionServicesModal
               title={card.title}
               description={card.description}
               competitionId={card.competitionId}
+              isActive={card.isActive}
               competitionType={card.competitionType} // بتمرير النوع هنا
             />
           ))}

@@ -9,7 +9,7 @@ import React from "react";
 const ChangePassPage = () => {
     return (
         <div className="w-full h-full pb-20">
-            {/* Page Header */}
+           
             <PageHeader
                 mainTitle="تغيير كلمة السر "
                 breadcrumbTitle="بيانات الشركة"

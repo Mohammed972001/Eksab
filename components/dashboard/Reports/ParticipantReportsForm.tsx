@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+'use client'
+import React from "react";
+import { useState } from "react";
 import TextInput from "../../SharedComponents/TextInput";
 import DatePickerInput from "../../SharedComponents/DatePickerInput";
 import SubmitButton from "../../SharedComponents/SubmitButton"; 

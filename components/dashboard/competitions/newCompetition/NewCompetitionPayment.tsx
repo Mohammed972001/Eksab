@@ -30,6 +30,7 @@ const NewCompetitionPayment = () => {
   };
 
   return (
+ 
     <div className="flex flex-col md:flex-row items-start gap-6 w-full">
       {/* Payment Method Section */}
       <div className="flex flex-col items-start gap-4 shadow-card-shadow bg-white border border-[#C6C7CA] p-6 rounded-lg flex-1 w-full md:w-auto">
@@ -371,7 +372,9 @@ const NewCompetitionPayment = () => {
           </div>
         </div>
       </div>
+
     </div>
+
   );
 };
 

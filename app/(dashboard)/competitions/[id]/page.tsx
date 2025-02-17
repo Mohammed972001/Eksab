@@ -324,7 +324,7 @@ const CompetitionDetailPage = () => {
               {activeStep === 5 && <NewCompetitionPayment />}
             </div>
 
-            {/* قسم الأزرار */}
+           
             <div className="mt-8 flex flex-col gap-6 w-full">
               <hr />
               <div className="flex justify-between items-center w-full">

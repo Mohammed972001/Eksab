@@ -1,23 +1,32 @@
 "use client";
+import { useState } from "react";
 import FilterButton from "@/components/SharedComponents/FilterButton";
-import React from "react";
 import {
   ComposableMap,
   Geographies,
   Geography
 } from "react-simple-maps";
 
+interface GeoGeography {
+  properties: {
+    name: string;
+  };
+}
+
 const geoUrl = "/sa.json";
 
-const colorMap = {
- 
-  Makkah: "#33FF57",
-};
+const MapComponent = () => {
+  const [selectedCity, setSelectedCity] = useState<string | null>(null);
+  const [hoveredCity, setHoveredCity] = useState<string | null>(null);
 
-const getColor = (geo) => {
-  const regionName = geo.properties.name;
-  return colorMap[regionName] || "#F4F4F4";
-};
+  
+  const getColor = (geo: GeoGeography) => {
+    const regionName = geo.properties.name;
+    
+    if (regionName === selectedCity) return "#FF5A00"; 
+    if (regionName === hoveredCity) return "#FF8C1A"; 
+    return "#FF5A00"; 
+  };
 
 
 const legendData = [
@@ -28,7 +37,7 @@ const legendData = [
   { color: "#FF5A00", label: "1000,000 - 200,000" },
 ];
 
-const MapComponent = () => {
+
   return (
     <div
       className="border rounded-lg shadow w-full  h-[600px] relative"
@@ -79,31 +88,40 @@ const MapComponent = () => {
         </div>
 
         <div className="w[516px] h-[416px] mt-40 ">
-          <ComposableMap
-            projection="geoMercator"
-            projectionConfig={{
-              center: [45, 24],
-              scale: 1900,
-            }}
-            style={{ width: "100%", height: "100%" }}
-          >
-            <Geographies geography={geoUrl}>
-              {({ geographies }) =>
-                geographies.map((geo) => (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    fill={getColor(geo)}
-                    stroke="#FFF"
-                    strokeWidth={1.5}
-                    onMouseEnter={() => { }}
-                    onMouseLeave={() => { }}
-                    onClick={() => { }}
-                  />
-                ))
-              }
-            </Geographies>
-          </ComposableMap>
+        <ComposableMap
+        projection="geoMercator"
+        projectionConfig={{
+          center: [45, 24],
+          scale: 1900,
+        }}
+        style={{ width: "100%", height: "100%" }}
+      >
+        <Geographies geography={geoUrl}>
+          {({ geographies }) =>
+            geographies.map((geo) => {
+              const cityName = (geo as unknown as GeoGeography).properties.name;
+              return (
+                <Geography
+                  key={geo.rsmKey}
+                  geography={geo}
+                  fill={getColor({ properties: { name: cityName } })}
+                  stroke={cityName === selectedCity ? "#33FF57" : "#FFF"}
+                  strokeWidth={1.5}
+                  onMouseEnter={() => {}}
+                  onMouseLeave={() => {}}
+                  onClick={() => setSelectedCity(cityName)}
+                  style={{
+                    default: { outline: "none" },
+                    hover: { fill: "#EEE", outline: "none" },
+                    pressed: { outline: "none" },
+                  }}
+                />
+              );
+            })
+          }
+        </Geographies>
+      </ComposableMap>
+
 
        
 

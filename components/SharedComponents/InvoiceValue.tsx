@@ -6,7 +6,7 @@ interface DetailsPaymentInfoProps {
   handlePaymentClick: () => void;
 }
 
-const  DetailsPaymentInfo: React.FC<DetailsPaymentInfoProps> = ({
+const  DetailsInvoiceValue: React.FC<DetailsPaymentInfoProps> = ({
   showButton,
   handlePaymentClick,
 }) => {
@@ -25,24 +25,12 @@ const  DetailsPaymentInfo: React.FC<DetailsPaymentInfoProps> = ({
         {/* Main Details */}
         <div className="flex flex-col gap-[10px]">
           <div className="flex justify-between items-center">
-            <p>رسوم المسابقة</p>
-            <p>5,000 ر.س</p>
-          </div>
-          <div className="flex justify-between items-center">
-            <p>خدمة الكوبونات اللامحدودة</p>
-            <p>70,000 ر.س</p>
-          </div>
-        </div>
-        <hr />
-        {/* Taxes Details */}
-        <div className="flex flex-col gap-[10px]">
-          <div className="flex justify-between items-center">
-            <p>الإجمالي قبل الضريبة</p>
-            <p>75,000 ر.س</p>
+            <p>سعر الباقة </p>
+            <p>40,000 ر.س</p>
           </div>
           <div className="flex justify-between items-center">
             <p>ضريبة القيمة المضافة</p>
-            <p>11,250 ر.س</p>
+            <p>4,250 ر.س</p>
           </div>
         </div>
         <hr />
@@ -52,18 +40,17 @@ const  DetailsPaymentInfo: React.FC<DetailsPaymentInfoProps> = ({
           <p>86,250 ر.س</p>
         </div>
 
-        {/* Payment Button */}
         <div>
-          {showButton && (
+         
             <SubmitButton
               buttonText="ادفع 86,250 ر.س"
               onClick={handlePaymentClick} 
+              classContainer="mt-0"
             />
-          )}
         </div>
       </div>
     </div>
   );
 };
 
-export default DetailsPaymentInfo;
+export default DetailsInvoiceValue;

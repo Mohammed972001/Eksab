@@ -50,9 +50,13 @@ const CompetitionDetailPage = () => {
   const [city, setCity] = useState("");
   const [competitionNameEn, setCompetitionNameEn] = useState("");
   const [competitionNameAr, setCompetitionNameAr] = useState("");
-  const [chamberOptions, setChamberOptions] = useState<{ id: number; name: string }[]>([]);
-  const [cityOptions, setCityOptions] = useState<{ id: number; name: string }[]>([]);
-  
+  const [chamberOptions, setChamberOptions] = useState<
+    { id: number; name: string }[]
+  >([]);
+  const [cityOptions, setCityOptions] = useState<
+    { id: number; name: string }[]
+  >([]);
+
   const [selectedServices, setSelectedServices] = useState({
     dataUpload: false,
     invoiceVerification: false,
@@ -101,11 +105,13 @@ const CompetitionDetailPage = () => {
       const draftData = {
         id: 0,
         // هنا بنستخدم competitionType المستلمة من ال query string
-        competitionType: competitionType, 
+        competitionType: competitionType,
         participationType: "OnlyApp",
         logoId: 8,
         chamberId:
-          chamberOptions.indexOf(room) !== -1 ? chamberOptions.indexOf(room) : 0,
+          chamberOptions.indexOf(room) !== -1
+            ? chamberOptions.indexOf(room)
+            : 0,
         cityId:
           cityOptions.indexOf(city) !== -1 ? cityOptions.indexOf(city) : 0,
         name: competitionNameAr,
@@ -138,6 +144,9 @@ const CompetitionDetailPage = () => {
       setActiveStep(activeStep + 1);
     }
   };
+  const handleNextStep = () => {
+    setActiveStep(activeStep + 1);
+  };
 
   const handlePreviousStep = () => {
     if (activeStep > 0) {
@@ -163,8 +172,7 @@ const CompetitionDetailPage = () => {
       logoId: 0,
       chamberId:
         chamberOptions.indexOf(room) !== -1 ? chamberOptions.indexOf(room) : 0,
-      cityId:
-        cityOptions.indexOf(city) !== -1 ? cityOptions.indexOf(city) : 0,
+      cityId: cityOptions.indexOf(city) !== -1 ? cityOptions.indexOf(city) : 0,
       name: competitionNameAr,
       nameEn: competitionNameEn,
       numberOpportunities: Number(opportunities),
@@ -295,16 +303,24 @@ const CompetitionDetailPage = () => {
               )}
             </form>
 
-            <div className={`${activeStep === 2 && "mt-4"} flex flex-col gap-8`}>
+            <div
+              className={`${activeStep === 2 && "mt-4"} flex flex-col gap-8`}
+            >
               {activeStep === 2 && <NewCompetitionPrizes />}
             </div>
-            <div className={`${activeStep === 3 && "mt-4"} flex flex-col gap-8`}>
+            <div
+              className={`${activeStep === 3 && "mt-4"} flex flex-col gap-8`}
+            >
               {activeStep === 3 && <NewCompetitionWithdrawal />}
             </div>
-            <div className={`${activeStep === 4 && "mt-4"} flex flex-col gap-8`}>
+            <div
+              className={`${activeStep === 4 && "mt-4"} flex flex-col gap-8`}
+            >
               {activeStep === 4 && <NewCompetitionTerms />}
             </div>
-            <div className={`${activeStep === 5 && "mt-4"} flex flex-col gap-8`}>
+            <div
+              className={`${activeStep === 5 && "mt-4"} flex flex-col gap-8`}
+            >
               {activeStep === 5 && <NewCompetitionPayment />}
             </div>
 
@@ -335,7 +351,9 @@ const CompetitionDetailPage = () => {
                     <CancelButton
                       buttonText={activeStep === 0 ? "الغاء" : "حفظ كمسودة"}
                       onClick={
-                        activeStep === 0 ? handleCancelClick : handlePreviousStep
+                        activeStep === 0
+                          ? handleCancelClick
+                          : handlePreviousStep
                       }
                       fullWidth={false}
                     />
@@ -348,10 +366,10 @@ const CompetitionDetailPage = () => {
                     }
                     onClick={
                       activeStep === 0
-                        ? handleNextStepWithDraft
+                        ? handleNextStep
                         : activeStep === steps.length - 1
                         ? handleUpdateDraft
-                        : handleNextStepWithDraft
+                        : handleNextStep
                     }
                     fullWidth={false}
                   />

@@ -6,9 +6,10 @@ import DatePicker from "react-datepicker"; // Import react-datepicker
 import "react-datepicker/dist/react-datepicker.css"; // Import datepicker styles
 import DatePickerInput from "@/components/SharedComponents/DatePickerInput";
 import { FileUpload } from "@/components/AuthComponents/RegisterComponents/FileUpload";
+import SubmitButton from "@/components/SharedComponents/SubmitButton";
 
 const NewCompetitionPayment = () => {
-  const tabs = ["دفع بنكي", "P.O"];
+  const tabs = ["دفع بنكي", "دفع ألكتروني", "طلب شراء (P.O)"];
   const [activeTab, setActiveTab] = useState(0);
 
   const [showPassword, setShowPassword] = useState(false);
@@ -45,87 +46,6 @@ const NewCompetitionPayment = () => {
             setActiveTab={setActiveTab}
           />
         </div>
-        {/* Electronic Payment DISABLED FOR NOW */}
-        {activeTab === 1000000 && (
-          <>
-            <div className="flex flex-col items-start justify-start gap-6 w-full">
-              <div className="flex items-center gap-6">
-                <div className="flex justify-center items-center bg-white border border-[#C6C7CA] rounded-lg px-[10px] py-3 w-[168px] h-[68px]">
-                  <Image
-                    src={"/dashboard/competitions/Mastercard.svg"}
-                    alt="mastercard"
-                    width={52}
-                    height={52}
-                  />
-                </div>
-                <div className="flex justify-center items-center bg-primary border border-[#C6C7CA] rounded-lg px-[10px] py-3 w-[168px] h-[68px]">
-                  <Image
-                    src={"/dashboard/competitions/Mada.svg"}
-                    alt="mada"
-                    width={52}
-                    height={52}
-                  />
-                </div>
-                <div className="flex justify-center items-center bg-white border border-[#C6C7CA] rounded-lg px-[10px] py-3 w-[168px] h-[68px]">
-                  <Image
-                    src={"/dashboard/competitions/Visa.svg"}
-                    alt="visa"
-                    width={52}
-                    height={52}
-                  />
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-4 w-full">
-                {/* Payment Details Header */}
-                <div className="flex flex-col gap-2">
-                  <p className="text-shadeBlack font-semibold flex flex-col gap-2">
-                    تفاصيل طريقة الدفع:
-                  </p>
-                  <hr />
-                </div>
-                {/* Payment Details Form */}
-                <div className="flex flex-col gap-4">
-                  {/* Name Input */}
-                  <TextInput
-                    label="الاسم علي البطاقة"
-                    type="text"
-                    value={name}
-                    onChange={(e) => handleInputChange(e, setName)} // Update name on change
-                    required
-                  />
-                  {/* Card Number Input */}
-                  <TextInput
-                    label="رقم البطاقة"
-                    type="text"
-                    value={cardNumber}
-                    onChange={(e) => handleInputChange(e, setCardNumber)} // Update card number on change
-                    required
-                  />
-                  <div className="flex items-center gap-6">
-                    {/* Date Input */}
-                    <DatePickerInput
-                      selected={expirationDate}
-                      onChange={(date) => setExpirationDate(date)}
-                      placeholderText="تاريخ انتهاء البطاقة"
-                    />
-
-                    {/* CVV Input */}
-                    <TextInput
-                      label="CVV"
-                      type={showPassword ? "text" : "password"}
-                      value={cvv}
-                      onChange={(e) => setCvv(e.target.value)} // Update CVV on change
-                      showPassword={showPassword}
-                      onTogglePassword={handleClickShowPassword}
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </>
-        )}
 
         {/* Bank Payment */}
         {activeTab === 0 && (
@@ -151,12 +71,128 @@ const NewCompetitionPayment = () => {
                   classContainer="w-full flex flex-col items-center justify-center text-center !bg-[#F9F9FA]"
                 />
               </div>
+              {/* Bank Details */}
+              <div className="flex flex-col gap-4 w-full">
+                {/* Header with line */}
+                <div className="flex flex-col gap-2 w-full">
+                  <p className="text-shadeBlack font-bold">
+                    بيانات الحساب البنكي:
+                  </p>
+                  <hr />
+                </div>
+                {/* Details */}
+                <div className="w-full flex flex-col gap-2">
+                  <div className="flex items-center gap-4">
+                    <div className="flex justify-center items-center">
+                      <Image
+                        src={"/bank.svg"}
+                        alt="bank"
+                        width={56}
+                        height={56}
+                      />
+                    </div>
+                    <p className="text-shadeBlack font-bold text-[22px]">
+                      بنك الرياض
+                    </p>
+                  </div>
+                  {/* Copy Details Section */}
+                  <div className="pr-[76px]">
+                    <div className="flex flex-col gap-2">
+                      {/* Account Number */}
+                      <div className="flex items-center gap-10">
+                        <div className="flex items-center gap-2">
+                          <p className="font-medium">رقم الحساب :</p>
+                          <p className="font-medium" id="accountNumber">
+                            012345678 1001001234 0123
+                          </p>
+                        </div>
+                        <div
+                          className="flex items-center gap-2 cursor-pointer"
+                          onClick={() => {
+                            const accountNumberElement =
+                              document.getElementById("accountNumber");
+                            if (accountNumberElement) {
+                              const accountNumber =
+                                accountNumberElement.innerText;
+                              navigator.clipboard
+                                .writeText(accountNumber)
+                                .then(() => {
+                                  alert("تم نسخ رقم الحساب بنجاح");
+                                });
+                            } else {
+                              console.error(
+                                'Element with ID "accountNumber" not found.'
+                              );
+                            }
+                          }}
+                        >
+                          <Image
+                            src={"/copy.svg"}
+                            alt="copy"
+                            width={20}
+                            height={20}
+                          />
+                          <button className="text-[#0080CC] text-sm">
+                            نسخ النص
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* IBAN Number */}
+                      <div className="flex items-center gap-10">
+                        <div className="flex items-center gap-2">
+                          <p className="font-medium">رقم الIBAN :</p>
+                          <p className="font-medium" id="ibanNumber">
+                            GB 12 ABCD 102030 12345678
+                          </p>
+                        </div>
+                        <div
+                          className="flex items-center gap-2 cursor-pointer"
+                          onClick={() => {
+                            const ibanNumberElement =
+                              document.getElementById("ibanNumber");
+                            if (ibanNumberElement) {
+                              const ibanNumber = ibanNumberElement.innerText;
+                              navigator.clipboard
+                                .writeText(ibanNumber)
+                                .then(() => {
+                                  alert("تم نسخ رقم الIBAN بنجاح");
+                                });
+                            } else {
+                              console.error(
+                                'Element with ID "ibanNumber" not found.'
+                              );
+                            }
+                          }}
+                        >
+                          <Image
+                            src={"/copy.svg"}
+                            alt="copy"
+                            width={20}
+                            height={20}
+                          />
+                          <button className="text-[#0080CC] text-sm">
+                            نسخ النص
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </>
         )}
 
-        {/* P.O Payment */}
+        {/* Electronic Payment*/}
         {activeTab === 1 && (
+          <>
+            <SubmitButton buttonText="قم بالدفع الأن" classContainer="mt-0" />
+          </>
+        )}
+
+        {/* P.O Payment */}
+        {activeTab === 2 && (
           <>
             <div className="flex flex-col items-start justify-start gap-6 w-full">
               {/* Section Header */}
@@ -178,6 +214,115 @@ const NewCompetitionPayment = () => {
                   textClass="text-center items-center"
                   classContainer="w-full flex flex-col items-center justify-center text-center !bg-[#F9F9FA]"
                 />
+              </div>
+              {/* Bank Details */}
+              <div className="flex flex-col gap-4 w-full">
+                {/* Header with line */}
+                <div className="flex flex-col gap-2 w-full">
+                  <p className="text-shadeBlack font-bold">
+                    بيانات الحساب البنكي:
+                  </p>
+                  <hr />
+                </div>
+                {/* Details */}
+                <div className="w-full flex flex-col gap-2">
+                  <div className="flex items-center gap-4">
+                    <div className="flex justify-center items-center">
+                      <Image
+                        src={"/bank.svg"}
+                        alt="bank"
+                        width={56}
+                        height={56}
+                      />
+                    </div>
+                    <p className="text-shadeBlack font-bold text-[22px]">
+                      بنك الرياض
+                    </p>
+                  </div>
+                  {/* Copy Details Section */}
+                  <div className="pr-[76px]">
+                    <div className="flex flex-col gap-2">
+                      {/* Account Number */}
+                      <div className="flex items-center gap-10">
+                        <div className="flex items-center gap-2">
+                          <p className="font-medium">رقم الحساب :</p>
+                          <p className="font-medium" id="accountNumber">
+                            012345678 1001001234 0123
+                          </p>
+                        </div>
+                        <div
+                          className="flex items-center gap-2 cursor-pointer"
+                          onClick={() => {
+                            const accountNumberElement =
+                              document.getElementById("accountNumber");
+                            if (accountNumberElement) {
+                              const accountNumber =
+                                accountNumberElement.innerText;
+                              navigator.clipboard
+                                .writeText(accountNumber)
+                                .then(() => {
+                                  alert("تم نسخ رقم الحساب بنجاح");
+                                });
+                            } else {
+                              console.error(
+                                'Element with ID "accountNumber" not found.'
+                              );
+                            }
+                          }}
+                        >
+                          <Image
+                            src={"/copy.svg"}
+                            alt="copy"
+                            width={20}
+                            height={20}
+                          />
+                          <button className="text-[#0080CC] text-sm">
+                            نسخ النص
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* IBAN Number */}
+                      <div className="flex items-center gap-10">
+                        <div className="flex items-center gap-2">
+                          <p className="font-medium">رقم الIBAN :</p>
+                          <p className="font-medium" id="ibanNumber">
+                            GB 12 ABCD 102030 12345678
+                          </p>
+                        </div>
+                        <div
+                          className="flex items-center gap-2 cursor-pointer"
+                          onClick={() => {
+                            const ibanNumberElement =
+                              document.getElementById("ibanNumber");
+                            if (ibanNumberElement) {
+                              const ibanNumber = ibanNumberElement.innerText;
+                              navigator.clipboard
+                                .writeText(ibanNumber)
+                                .then(() => {
+                                  alert("تم نسخ رقم الIBAN بنجاح");
+                                });
+                            } else {
+                              console.error(
+                                'Element with ID "ibanNumber" not found.'
+                              );
+                            }
+                          }}
+                        >
+                          <Image
+                            src={"/copy.svg"}
+                            alt="copy"
+                            width={20}
+                            height={20}
+                          />
+                          <button className="text-[#0080CC] text-sm">
+                            نسخ النص
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </>

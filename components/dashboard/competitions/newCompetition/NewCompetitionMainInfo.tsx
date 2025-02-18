@@ -3,6 +3,7 @@ import { FileUpload } from "@/components/AuthComponents/RegisterComponents/FileU
 import TextInput from "@/components/SharedComponents/TextInput";
 
 interface NewCompetitionMainInfoProps {
+  CompetitionType:string;
   chamberOptions: string[];
   cityOptions: string[];
   selectedOption: string;
@@ -18,6 +19,7 @@ interface NewCompetitionMainInfoProps {
 }
 
 const NewCompetitionMainInfo: React.FC<NewCompetitionMainInfoProps> = ({
+  CompetitionType,
   chamberOptions,
   cityOptions,
   selectedOption,
@@ -175,6 +177,21 @@ const NewCompetitionMainInfo: React.FC<NewCompetitionMainInfoProps> = ({
           </div>
         </div>
       </div>
+      {CompetitionType==="QuestionAndAnswer"&&(
+        <div className="pt-2 flex flex-col gap-6 w-full lg:w-[95%] xl:w-full">
+        {/* Title Subsection */}
+        <div className="flex flex-col gap-4 w-full">
+          <p className="text-shadeBlack font-semibold text-[22px]">
+            خدمات المسابقة
+          </p>
+          <hr />
+        </div>
+  
+        
+      </div>
+      )
+
+      }
     </div>
   );
 };

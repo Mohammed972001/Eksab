@@ -15,7 +15,7 @@ const cardData = [
       "يتم توجيه العملاء إلى تطبيق الشركة لمسح الباركود للدخول في المسابقة والحصول على فرص للفوز",
     competitionId: "1",
     isActive: true,
-    competitionType: "Barcode", // النوع هنا من ال enum
+    competitionType: "Barcode", 
   },
   {
     imageSrc: "/dashboard/competitions/scanner.svg",

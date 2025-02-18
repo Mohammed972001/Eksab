@@ -20,6 +20,7 @@ import LoadingSpinner from "@/components/SharedComponents/LoadingSpinner";
 import { validCompetitionIds } from "@/utils/validCompetitionIds";
 import { useSession } from "next-auth/react";
 import { v4 as uuidv4 } from "uuid";
+import NewCompetitionQuestionAndAnswer from "@/components/dashboard/competitions/newCompetition/NewCompetitionQuestionAndAnswer";
 const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const CompetitionDetailPage = () => {
@@ -30,7 +31,6 @@ const CompetitionDetailPage = () => {
   const [competitionTitle, setCompetitionTitle] = useState(
     "إنشاء مسابقة جديدة (مسابقتك الخاصة)"
   );
-  // state لاستقبال قيمة competitionType من query string
   const [competitionType, setCompetitionType] = useState("");
 
   const steps = [
@@ -77,7 +77,6 @@ const CompetitionDetailPage = () => {
     (value) => value === true
   );
 
-  // نستخدم الدالة دي عشان ناخد قيمة contentType من ال query string ونحطها في state
   useEffect(() => {
     const title = searchParams.get("title");
     if (title) {
@@ -89,7 +88,6 @@ const CompetitionDetailPage = () => {
     }
   }, [searchParams]);
 
-  // لو الـ id مش من القيم المسموحة، نوجه للصفحة مش موجودة
   useEffect(() => {
     if (!validCompetitionIds.includes(id)) {
       router.push("/notfound");
@@ -253,6 +251,7 @@ const CompetitionDetailPage = () => {
               {activeStep === 0 && (
                 <>
                   <NewCompetitionMainInfo
+        
                     chamberOptions={chamberOptions}
                     cityOptions={cityOptions}
                     selectedOption={selectedOption}
@@ -266,6 +265,12 @@ const CompetitionDetailPage = () => {
                     onCompetitionNameEnChange={setCompetitionNameEn}
                     onCompetitionNameArChange={setCompetitionNameAr}
                   />
+                  { competitionType ==="QuestionAndAnswer"&&(
+                    <NewCompetitionQuestionAndAnswer/>
+
+                  )
+                  }
+
                   <NewCompetitionSelectedServices
                     selectedServices={selectedServices}
                     onCheckboxChange={handleCheckboxChange}

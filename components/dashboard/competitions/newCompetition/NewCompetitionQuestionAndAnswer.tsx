@@ -130,7 +130,7 @@ const NewCompetitionQuestionAndAnswer: React.FC<NewCompetitionQuestionAndAnswerP
           buttonText="إضافة سؤال جديد"
           classContainer=" !bg-[#F9F9FA] text-[#3454B4] !border-2 !border-[#70737A]"
           onClick={addNewQuestion}
-          rightIcon="/public/dashboard/add.svg"
+          rightIcon="/dashboard/add.svg"
         />
       </div>
     </div>

@@ -49,7 +49,7 @@ const CompetitionsPage = () => {
       openModal();
     }
   };
-  
+
   // Fetch competitions
   useEffect(() => {
     const fetchCompetitions = async () => {
@@ -98,9 +98,7 @@ const CompetitionsPage = () => {
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await axios.get(
-          `${apiUrl}/Lookups/GetAllCities`
-        );
+        const response = await axios.get(`${apiUrl}/Lookups/GetAllCities`);
         setCityOptions(response.data);
       } catch (error) {
         console.error("Failed to fetch cities:", error);
@@ -166,33 +164,36 @@ const CompetitionsPage = () => {
       <div className="mt-10 w-full h-full">
         {competitions.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {competitions.map((competition) => {
-  if (competition.logoId) {
-    fetchLogoUrl(competition.logoId);
-  }
-  return (
-    <CompetitionCard
-      key={competition.id}
-      id={competition.id.toString()}
-      status={competition.status}
-      statusColor={
-        competition.status === "Active"
-          ? "bg-[#D6F5D6]"
-          : competition.status === "Draft"
-          ? "bg-[#E3E3E4]"
-          : "bg-[#FFE8D9]"
-      }
-      title={competition.name}
-      location={`فرع ${getCityNameById(competition.cityId)}`}
-      competitors={competition.numberOfParticipantions}
-      timeLeft={competition.numberOfDays}
-      dateRange={`${new Date(competition.fromDate).toLocaleDateString()} - ${new Date(competition.toDate).toLocaleDateString()}`}
-      imageSrc={logoUrls[competition.logoId] || null}
-      onClick={() => onCompetitionCardClick(competition)}  
-    />
-  );
-})}
-
+            {competitions.map((competition) => {
+              if (competition.logoId) {
+                fetchLogoUrl(competition.logoId);
+              }
+              return (
+                <CompetitionCard
+                  key={competition.id}
+                  id={competition.id.toString()}
+                  status={competition.status}
+                  statusColor={
+                    competition.status === "Active"
+                      ? "bg-[#D6F5D6]"
+                      : competition.status === "Draft"
+                      ? "bg-[#E3E3E4]"
+                      : "bg-[#FFE8D9]"
+                  }
+                  title={competition.name}
+                  location={`فرع ${getCityNameById(competition.cityId)}`}
+                  competitors={competition.numberOfParticipantions}
+                  timeLeft={competition.numberOfDays}
+                  dateRange={`${new Date(
+                    competition.fromDate
+                  ).toLocaleDateString()} - ${new Date(
+                    competition.toDate
+                  ).toLocaleDateString()}`}
+                  imageSrc={logoUrls[competition.logoId] || null}
+                  onClick={() => onCompetitionCardClick(competition)}
+                />
+              );
+            })}
           </div>
         ) : (
           <div className="flex flex-col justify-center items-center h-[50%]">
@@ -200,7 +201,7 @@ const CompetitionsPage = () => {
           </div>
         )}
       </div>
-   
+
       {isModalOpen && (
         <CompetitionPrompt
           handleCloseModal={closeModal}

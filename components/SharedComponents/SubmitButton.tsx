@@ -44,6 +44,7 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({
       alignItems: "center",
       gap: "8px",
       width: fullWidth ? "100%" : "fit-content", // conditional width based on fullWidth prop
+      border: "1px solid #70737A", // Added red border
     }}
   >
     {loading ? (

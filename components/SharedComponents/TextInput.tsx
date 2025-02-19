@@ -53,7 +53,7 @@ const TextInput = React.forwardRef(
           required={required}
           variant="outlined"
           error={Boolean(errorMessage)} // Handle errors for dropdown
-          sx={{ direction: "rtl" }} // Ensures overall RTL direction
+          sx={{ direction: "rtl",  }} // Ensures overall RTL direction
         >
           <InputLabel
             sx={{
@@ -68,28 +68,28 @@ const TextInput = React.forwardRef(
             {label}
           </InputLabel>
           <Select
-  value={typeof value === 'number' ? value.toString() : value}
-  onChange={onChange as (event: SelectChangeEvent) => void}
-  label={label}
-  sx={{
-    textAlign: "right",
-    "& .MuiOutlinedInput-notchedOutline": {
-      textAlign: "right",
-    },
-    "& .MuiSelect-icon": {
-      right: "unset",
-      left: "10px",
-    },
-  }}
-  disabled={disabled}
-  ref={ref}
->
-  {options.map((option, index) => (
-    <MenuItem key={index} value={option}>
-      {option}
-    </MenuItem>
-  ))}
-</Select>
+            value={typeof value === "number" ? value.toString() : value}
+            onChange={onChange as (event: SelectChangeEvent) => void}
+            label={label}
+            sx={{
+              textAlign: "right",
+              "& .MuiOutlinedInput-notchedOutline": {
+                textAlign: "right",
+              },
+              "& .MuiSelect-icon": {
+                right: "unset",
+                left: "10px",
+              },
+            }}
+            disabled={disabled}
+            ref={ref}
+          >
+            {options.map((option, index) => (
+              <MenuItem key={index} value={option}>
+                {option}
+              </MenuItem>
+            ))}
+          </Select>
 
           {errorMessage && <FormHelperText>{errorMessage}</FormHelperText>}
         </FormControl>

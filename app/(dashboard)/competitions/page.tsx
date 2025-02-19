@@ -52,7 +52,7 @@ const CompetitionsPage = () => {
       router.push(`/competitions/competitiondetails/${competition.id}`);
     } 
   };
-  
+
   // Fetch competitions
   useEffect(() => {
     const fetchCompetitions = async () => {
@@ -100,9 +100,7 @@ const CompetitionsPage = () => {
   useEffect(() => {
     const fetchCities = async () => {
       try {
-        const response = await axios.get(
-          `${apiUrl}/Lookups/GetAllCities`
-        );
+        const response = await axios.get(`${apiUrl}/Lookups/GetAllCities`);
         setCityOptions(response.data);
       } catch (error) {
         console.error("Failed to fetch cities:", error);
@@ -202,7 +200,7 @@ const CompetitionsPage = () => {
           </div>
         )}
       </div>
-   
+
       {isModalOpen && (
         <CompetitionPrompt
           handleCloseModal={closeModal}

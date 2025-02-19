@@ -18,7 +18,12 @@ type Competition = {
   logoId: number;
   fromDate: string;
   toDate: string;
-  status: string;
+  status: {
+    id: string;
+    name: string;
+    nameEn: string;
+    isActive: boolean;
+  };
   numberOfDays: number;
   numberOfParticipantions: number;
 };
@@ -43,11 +48,9 @@ const CompetitionsPage = () => {
     setActiveTab(tab);
   };
   const onCompetitionCardClick = (competition: Competition) => {
-    if (competition.status === "Active") {
+    if (competition.status.id === "Active") { // Check status.id
       router.push(`/competitions/competitiondetails/${competition.id}`);
-    } else {
-      openModal();
-    }
+    } 
   };
   
   // Fetch competitions
@@ -94,7 +97,6 @@ const CompetitionsPage = () => {
     fetchCompetitions();
   }, [activeTab, session, status]);
 
-  // Fetch cities
   useEffect(() => {
     const fetchCities = async () => {
       try {
@@ -172,13 +174,13 @@ const CompetitionsPage = () => {
   }
   return (
     <CompetitionCard
-      key={competition.id}
-      id={competition.id.toString()}
-      status={competition.status}
+      key={competition.status.id}
+      id={competition.status.id.toString()}
+      status={competition.status.id}
       statusColor={
-        competition.status === "Active"
+        competition.status.id === "Active"
           ? "bg-[#D6F5D6]"
-          : competition.status === "Draft"
+          : competition.status.id === "Draft"
           ? "bg-[#E3E3E4]"
           : "bg-[#FFE8D9]"
       }

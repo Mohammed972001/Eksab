@@ -1,32 +1,32 @@
 import Image from "next/image";
 import React from "react";
 
-const ServiceSection = ({ 
+const ServiceSection = ({
   title,
   description,
   items,
   imageSrc,
-  imagePosition = 'right' 
+  imagePosition = "right",
 }: {
   title: string;
   description: string;
   items: string[];
   imageSrc: string;
-  imagePosition?: 'left' | 'right';
+  imagePosition?: "left" | "right";
 }) => {
   return (
-    <div className="w-full flex pt-20">
-      {imagePosition === 'left' && (
+    <div className="w-full flex flex-col md:flex-row pt-20">
+      {imagePosition === "left" && (
         <ServiceImage imageSrc={imageSrc} />
       )}
-      
-      <ServiceContent 
+
+      <ServiceContent
         title={title}
         description={description}
         items={items}
       />
 
-      {imagePosition === 'right' && (
+      {imagePosition === "right" && (
         <ServiceImage imageSrc={imageSrc} />
       )}
     </div>
@@ -34,13 +34,13 @@ const ServiceSection = ({
 };
 
 const ServiceImage = ({ imageSrc }: { imageSrc: string }) => (
-  <figure className="w-[50%] h-full">
+  <figure className="w-full md:w-1/2 h-auto flex justify-center items-center px-4 md:px-0">
     <Image
       src={imageSrc}
       alt="service feature"
       width={768}
       height={512}
-      className="object-cover"
+      className="object-cover w-full h-auto"
     />
   </figure>
 );
@@ -54,16 +54,18 @@ const ServiceContent = ({
   description: string;
   items: string[];
 }) => (
-  <article className="w-[50%] h-full py-32 flex flex-col space-y-7 pr-24">
+  <article className="w-full md:w-1/2 h-auto py-10 md:py-32 flex flex-col space-y-7 px-5 md:pr-24 md:pl-0">
     <ServiceIcon />
-    
+
     <h1 className="mt-4 text-2xl md:text-4xl font-bold text-gray-900">
       {title}
     </h1>
-    
-    <p className="text-lg text-[#434549] pl-20">{description}</p>
-    
-    <ul className="flex flex-col space-y-4 text-lg text-[#434549]">
+
+    <p className="text-base md:text-lg text-[#434549] leading-relaxed">
+      {description}
+    </p>
+
+    <ul className="flex flex-col space-y-4 text-base md:text-lg text-[#434549]">
       {items.map((item, index) => (
         <ServiceItem key={index} text={item} />
       ))}
@@ -130,8 +132,8 @@ const CheckIcon = () => (
 
 const ApplicationServices = () => {
   return (
-    <main className="w-full min-h-screen flex flex-col mt-20 space-y-0">
-      <header className="w-full text-center mx-auto space-y-5">
+    <main className="w-full min-h-screen flex flex-col mt-20">
+      <header className="w-full text-center mx-auto space-y-5 px-4 md:px-0">
         <SectionTitle />
         <h1 className="mt-4 text-3xl md:text-5xl font-bold text-gray-900">
           ما الذي نقدمه لأجلك؟
@@ -140,23 +142,23 @@ const ApplicationServices = () => {
       </header>
 
       <ServiceSection
-        title="إنشاء وأدارة المسابقات."
+        title="إنشاء وإدارة المسابقات."
         description="مع منصتنا المتطورة، يمكنك إنشاء مسابقات تفاعلية بجميع الأنواع، سواء كانت تعليمية، ترفيهية، أو تسويقية، في دقائق معدودة. قم بتخصيص الأسئلة، ضبط القواعد، وإضافة وسائط متعددة لجذب المشاركين."
         items={[
-          "تحكم كامل في اعدادت المسابقة،عدد المشاركين،ومدة التحديات.",
-          "متابعة اداء المشاركين وقياس التفاعل بسهولة.",
-          "نشر المسابقات عبر وسائل التواصل الاجتماعي وجذب جمهور أوسع"
+          "تحكم كامل في إعدادت المسابقة، عدد المشاركين، ومدة التحديات.",
+          "متابعة أداء المشاركين وقياس التفاعل بسهولة.",
+          "نشر المسابقات عبر وسائل التواصل الاجتماعي وجذب جمهور أوسع.",
         ]}
         imageSrc="/landingPage/Content.png"
       />
 
       <ServiceSection
-        title="منصة السحب الذكي ."
+        title="منصة السحب الذكي."
         description="تقدم لك منصة السحب الذكي طريقة سهلة وعادلة لإجراء السحوبات الرقمية بكل شفافية. سواء كنت تنظم مسابقة، حملة تسويقية، أو توزيع جوائز، نوفر لك أدوات متقدمة لاختيار الفائزين تلقائيًا وفق معايير دقيقة تضمن العشوائية والنزاهة."
         items={[
           "سحب عشوائي عادل وموثوق.",
-          "دعم لمختلف انواع المسابقات.",
-          "تقارير مفصلة ونتائج فورية."
+          "دعم لمختلف أنواع المسابقات.",
+          "تقارير مفصلة ونتائج فورية.",
         ]}
         imageSrc="/landingPage/Content (1).png"
         imagePosition="left"
@@ -166,9 +168,9 @@ const ApplicationServices = () => {
         title="تقارير وتحليلات متقدمة."
         description="احصل على تقارير دقيقة حول أداء المسابقات والمشاركين عبر لوحات تحكم ذكية. تابع عدد المشاركين، نسب الإجابات الصحيحة، ومستويات التفاعل بسهولة. استخدم البيانات لتحسين تجربة المسابقات واتخاذ قرارات أكثر فعالية."
         items={[
-          "إحصائيات فورية عن المشاركين والادء،وتحليل دقيق للنتائج.",
+          "إحصائيات فورية عن المشاركين والأداء، وتحليل دقيق للنتائج.",
           "تصدير البيانات للتقارير والمتابعة.",
-          "تحسين استرايجياتك بناءً علي تحليلات متقدمة."
+          "تحسين استراتيجياتك بناءً على تحليلات متقدمة.",
         ]}
         imageSrc="/landingPage/Content (2).png"
       />
@@ -184,9 +186,10 @@ const SectionTitle = () => (
 );
 
 const SectionDescription = () => (
-  <p className="pt-8 text-gray-700 leading-relaxed text-xl px-24">
-    نوفر لك منصة متكاملة لإنشاء وإدارة المسابقات بسهولة، مع ميزات متقدمة مثل السحوبات الذكية،
-    التقارير والتحليلات، ونظام الجوائز التفاعلي. كل ما تحتاجه لتعزيز التفاعل وتحقيق أهدافك بفعالية!
+  <p className="pt-8 text-gray-700 leading-relaxed text-xl md:px-24">
+    نوفر لك منصة متكاملة لإنشاء وإدارة المسابقات بسهولة، مع ميزات متقدمة مثل
+    السحوبات الذكية، التقارير والتحليلات، ونظام الجوائز التفاعلي. كل ما تحتاجه
+    لتعزيز التفاعل وتحقيق أهدافك بفعالية!
   </p>
 );
 

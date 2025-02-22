@@ -22,7 +22,7 @@ export default function RootLayout({
         {/* Wrap the ThemeWrapper with Providers */}
         <Providers session={session}>
           <ThemeWrapper>
-            <Navbar />
+            {/* <Navbar /> */}
             <div className="mt-20">{children}</div>
           </ThemeWrapper>
         </Providers>

@@ -1,0 +1,26 @@
+<svg width="380" height="304" viewBox="0 0 380 304" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_8094_5561)">
+<rect width="152" height="152" transform="translate(152 152)" fill="white"/>
+<path d="M304 228H228C228 269.974 262.026 304 304 304V228Z" fill="#B3C3F3"/>
+<path d="M228 152C269.974 152 304 186.026 304 228H228V152Z" fill="#1A2A5A"/>
+<rect width="152" height="152" transform="translate(304)" fill="white"/>
+<path d="M380 0V76H304L380 0Z" fill="#B3C3F3"/>
+<rect width="152" height="152" transform="translate(304 152)" fill="#D9E1F9"/>
+<path d="M380 304C338.026 304 304 269.974 304 228C304 186.026 338.026 152 380 152V304Z" fill="#1A2A5A"/>
+<circle cx="380" cy="228" r="38" fill="white"/>
+<rect width="152" height="152" fill="white"/>
+<rect x="76" y="76" width="76" height="76" fill="#B3C3F3"/>
+<rect width="76" height="76" fill="#B3C3F3"/>
+<rect width="152" height="152" transform="translate(0 152)" fill="#B3C3F3"/>
+<circle cx="76" cy="228" r="38" fill="white"/>
+<path d="M152 304H0L76 228L152 304Z" fill="#1A2A5A"/>
+<rect width="152" height="152" transform="translate(152)" fill="#D9E1F9"/>
+<path d="M304 0V152H152L304 0Z" fill="#1A2A5A"/>
+<circle cx="228" cy="76" r="38" fill="white"/>
+</g>
+<defs>
+<clipPath id="clip0_8094_5561">
+<rect width="380" height="304" fill="white"/>
+</clipPath>
+</defs>
+</svg>

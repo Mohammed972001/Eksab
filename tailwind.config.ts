@@ -23,6 +23,8 @@ const config: Config = {
         linear-gradient(180deg, #FFFFFF 0%, #D0D5DD 100%)
       `,
         gridMdBackground: "url(/auth/gridMdBackground.svg)",
+        HeroBg: "url(/HomePage/HeroBg.svg)",
+        partnersBg: "url(/HomePage/partnersBg.svg)",
       },
       boxShadow: {
         "icon-shadow":

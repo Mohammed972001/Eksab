@@ -31,7 +31,7 @@ const Navbar = () => {
 
   return (
     <header className="w-full overflow-x-hidden z-50">
-      <nav className="fixed top-0 left-0 w-full h-20 max-w-screen-2xl flex justify-between items-center px-8 bg-white shadow-navbar-shadow z-50">
+      <nav className="fixed top-0 left-0 w-full h-20 flex justify-between items-center px-8 bg-white shadow-navbar-shadow z-50">
         <div className="flex items-center gap-4">
           {/* Small Screen Navbar Menu Toggler */}
           <div className="lg:hidden flex items-center justify-end pr-4 relative">

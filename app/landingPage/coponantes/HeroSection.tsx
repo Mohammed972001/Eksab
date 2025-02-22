@@ -4,7 +4,7 @@ import SubmitButton from "@/components/SharedComponents/SubmitButton";
 import Image from "next/image";
 const HeroSection = () => {
   return (
-    <main className=" w-full min-h-screen flex pt-20 ">
+    <main className=" w-full min-h-screen flex pt-20 bg-landingBg bg-cover bg-no-repeat">
         <article className=" w-[50%] h-full py-40 flex flex-col  space-y-4 pr-28    ">
 
             <h1 className="text-6xl text-cente">أنشئ مسابقاتك الآن بسهولة وابدأ التحدي!</h1>

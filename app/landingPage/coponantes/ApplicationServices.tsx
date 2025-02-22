@@ -132,7 +132,7 @@ const CheckIcon = () => (
 
 const ApplicationServices = () => {
   return (
-    <main className="w-full min-h-screen flex flex-col mt-20">
+    <main className="w-full min-h-screen flex flex-col mt-20 bg-[#EEEEEF] pt-20">
       <header className="w-full text-center mx-auto space-y-5 px-4 md:px-0">
         <SectionTitle />
         <h1 className="mt-4 text-3xl md:text-5xl font-bold text-gray-900">

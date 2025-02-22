@@ -1,4 +1,3 @@
-
 import React from "react";
 import HeroSection from "./coponantes/HeroSection";
 import ApplicationServices from "./coponantes/ApplicationServices";
@@ -9,23 +8,23 @@ import Startnaw from "./Startnaw";
 import Ourpartners from "./coponantes/Ourpartners";
 import Footeer from "./coponantes/Footer";
 import AboutUs from "./coponantes/AboutUs";
-
+import LandingNav from "../../components/LandingPageComponents/LandingNav";
 
 const landingPage = () => {
-    return (
-        <div className="">
-            <HeroSection />
-            <AboutUs/>
-            <ApplicationServices/>
-            <TypesofCompetitions/>
-            <TopQuestions/>
-            <SendEmail/>
-            <Startnaw/>
-            <Ourpartners/>
-            <Footeer/>
-
-        </div>
-    );
+  return (
+    <div className="">
+      <LandingNav />
+      <HeroSection />
+      <AboutUs />
+      <ApplicationServices />
+      <TypesofCompetitions />
+      <TopQuestions />
+      <SendEmail />
+      <Startnaw />
+      <Ourpartners />
+      <Footeer />
+    </div>
+  );
 };
 
 export default landingPage;

@@ -1,21 +1,25 @@
 import React from "react";
 import { Button } from "@mui/material";
+import clsx from "clsx";
 
 interface CancelButtonProps {
   onClick: () => void;
   buttonText: string;
   disabled?: boolean;
   fullWidth?: boolean;
+  classContainer?: string;
 }
 
 const CancelButton: React.FC<CancelButtonProps> = ({
   onClick,
   buttonText,
+  classContainer,
   disabled = false,
   fullWidth = false,
 }) => {
   return (
     <Button
+      className={clsx(classContainer)}
       variant="contained"
       disabled={disabled}
       onClick={onClick}

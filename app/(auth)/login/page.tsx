@@ -34,15 +34,22 @@ export default function Login() {
 
   // Toggle visibility for the password field
   const handleClickShowPassword = () => setShowPassword(!showPassword);
-  // Check if both inputs have values
-  const isButtonDisabled = !email || !password;
+  // Allow login without email and password
+  const isButtonDisabled = false;
 
   const onSubmit = async (data: any) => {
     setIsLoading(true);
     setErrorMessage(null);
 
     try {
-      // Use NextAuth.js to sign in
+      // If no email or password provided, redirect directly to dashboard
+      if (!email && !password) {
+        // Direct login without authentication
+        router.push("/");
+        return;
+      }
+
+      // Use NextAuth.js to sign in only if credentials are provided
       const result = await signIn("credentials", {
         redirect: false,
         email: data.email,
@@ -82,7 +89,7 @@ export default function Login() {
 
         <Header
           title="تسجيل الدخول"
-          subtitle="مرحبًا بك مرة أخرى! الرجاء إدخال تفاصيلك."
+          subtitle="مرحبًا بك مرة أخرى! الرجاء إدخال تفاصيلك أو الدخول مباشرة."
         />
       </div>
 
@@ -90,12 +97,10 @@ export default function Login() {
       <div className="flex flex-col w-full gap-4 mt-8">
         {/* Email Input */}
         <TextInput
-          label="البريد الالكتروني"
+          label="البريد الالكتروني (اختياري)"
           type="email"
           value={email}
-          {...register("email", {
-            required: "البريد الإلكتروني مطلوب",
-          })}
+          {...register("email")}
           onChange={(e) => {
             setEmail(e.target.value);
             setValue("email", e.target.value); // Update react-hook-form's state
@@ -105,12 +110,10 @@ export default function Login() {
 
         {/* Password Input */}
         <TextInput
-          label="كلمة السر"
+          label="كلمة السر (اختياري)"
           type={showPassword ? "text" : "password"}
           value={password}
-          {...register("password", {
-            required: "كلمة السر مطلوبة",
-          })}
+          {...register("password")}
           onChange={(e) => {
             setPassword(e.target.value);
             setValue("password", e.target.value); // Update react-hook-form's state
